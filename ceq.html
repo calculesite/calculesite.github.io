@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html  >
 <head>
@@ -613,27 +614,27 @@ text-align: right;
             <!-- Form -->
             <label for   >a= </label>
             <input id="a" onclick="selectText('a','b','d')" required  autofocus
-                   type="text" value="0"  class="form-control" placeholder="a"></input>
+                   type="tel" value="0"  class="form-control" placeholder="a"></input>
             <span id="vala" class="worning" ></span>
             </br>
             
             
             <label for>b= </label>
             <input id="b" onclick="selectText('b','c','a')" required  
-                   type="text" value="0"  class="form-control" placeholder="b">
+                   type="tel" value="0"  class="form-control" placeholder="b">
             <span id="valb" class="worning" ></span>
 
 
             </br>
              <label for>c=</label>
             <input id="c" onclick="selectText('c','d','b')" required 
-                   type="text" value="0"  class="form-control" placeholder="c">
+                   type="tel" value="0"  class="form-control" placeholder="c">
             <span id="valc" class="worning" ></span>
 
             </br>
              <label for>d=</label>
             <input id="d" onclick="selectText('d','Cal','c')" required 
-                   type="text" value="0"  class="form-control" placeholder="d">
+                   type="tel" value="0"  class="form-control" placeholder="d">
             <span id="vald" class="worning"  ></span>
             </br>
 
@@ -656,19 +657,24 @@ text-align: right;
       <script type="text/javascript" >
  
 var result = document.getElementById('result') ,  add='x'; 
-
+try {
+  
+  
+} catch (error) {
+  result.innerHTML= error.message;
+}
 //////// Selection \\\\\\\\\
 function selectText(alfa,alfb,alfc) {
 
-  'use strict';
-  const input = document.getElementById(alfa);
-  input.focus();
-  input.select();
-  
-  if (add.indexOf(alfa,0) < 0) {enter(alfa,alfb,alfc);add +=alfa; }
+'use strict';
+const input = document.getElementById(alfa);
+input.focus();
+input.select();
 
-  result.innerHTML = '';
-  
+if (add.indexOf(alfa,0) < 0) {enter(alfa,alfb,alfc);add +=alfa; }
+
+result.innerHTML = '';
+
 }
 
 /////// enter buton \\\\\\\\
@@ -710,7 +716,7 @@ var val = 'val'+alfa,
       
  }
 }
-console
+
 
 
 /////// function total \\\\\\\\\\\\
@@ -722,13 +728,11 @@ function fin() {
       b= document.getElementById('b').value,
       c= document.getElementById('c').value,
       d= document.getElementById('d').value;
-    a=a.replace(',' , '.'); b=b.replace(',' , '.'); 
-    c=c.replace(',' , '.');d=d.replace(',' , '.');
- a=a.replace('،' , '.'); b=b.replace('،' , '.'); 
-    c=c.replace('،' , '.');d=d.replace('،' , '.');
-    a= parseFloat(a);b= parseFloat(b);
-    c= parseFloat(c);d= parseFloat(d);
-   result.innerHTML = '';
+      a=a.replace(',','.');  b=b.replace(',','.');  c=c.replace(',','.');  d=d.replace(',','.');
+      a=a.replace('،','.');  b=b.replace('،','.');  c=c.replace('،','.');  d=d.replace('،','.');
+      a= parseFloat(a);      b= parseFloat(b);      c= parseFloat(c);      d= parseFloat(d);
+
+      result.innerHTML = '';
       if ((a==0)&&(b==0)&&(c==0)) {
         result.innerHTML = 'no exist solution';
       }else if ((a==0)&&(b==0)&&(d==0)) {
@@ -779,11 +783,14 @@ function squarFin(a,b,c,n) {
     } else if(dilta==0){
      var x1= -b/(2*a) ;
        result.innerHTML += 'X'+i+' = '+x1 ;
-    }else{
-      if (n==0) {  result.innerHTML = 'no exist solution'; }
-    }
-    
-  
+    }else if (n==0) {  result.innerHTML = 'no exist solution'; 
+  }else{
+    dilta = -dilta;
+      var tx =-b/(2*a),ty= Math.pow(dilta,1/2)/(2*a);
+      result.innerHTML += 'X' +i +' = ' +tx + ' +i'+ty+ '</br>'
+       + 'X' + i2 +' = ' +tx + ' -i'+ty ;
+  }
+   
 }
 
 ////////Solving cubic equation\\\\\\\\\\
@@ -817,15 +824,20 @@ function cubiqFin(a,b,c,d){
         t2y   =ras3*(alfaa-bita)/2,
         t3y   =-t2y,
         x1    =t1-b/(3*a),
-        x2    =t2x-b/(3*a);   ///x2=x3
+        x2    =t2x-b/(3*a),   ///x2=x3
+      //// delta of squar equation
+        bS    =b+x1*a,
+        cS    =-d/x1,
+        diltaS= Math.pow(bS ,2)-4*a*cS;
+      
 
         result.innerHTML += 'X1 = '+ x1 + '</br>';
-        if (dilta2> 0.000001) {
+        if (diltaS< 0) {
           if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br>' + ' X3 = ' +x2 + ' -i' + t2y ;} 
           else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br>' + ' X3 = ' +x2 + ' -i' + t3y   ; }
 
         } else {
-          result.innerHTML += ' X2 = ' +x2  ;
+          result.innerHTML += ' X2 = ' +x2 + '</br> dilta = '+diltaS  ;
         }
 
   } else {
