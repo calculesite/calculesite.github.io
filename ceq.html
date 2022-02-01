@@ -660,9 +660,6 @@ var result = document.getElementById('result') ,  add='x';
 try {
   
   
-} catch (error) {
-  result.innerHTML= error.message;
-}
 //////// Selection \\\\\\\\\
 function selectText(alfa,alfb,alfc) {
 
@@ -858,6 +855,10 @@ function cubiqFin(a,b,c,d){
       result.innerHTML = ' X1 = ' + x1 + ' </br> X2 = ' + x2 + '</br>  X3 = ' +x3  ;
      
   }
+}
+
+} catch (error) {
+  result.innerHTML= error.message;
 }
     
     </script>
