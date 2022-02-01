@@ -722,8 +722,10 @@ function fin() {
       b= document.getElementById('b').value,
       c= document.getElementById('c').value,
       d= document.getElementById('d').value;
-    a=a.replice(',' , '.'); b=b.replice(',' , '.'); 
-    c=c.replice(',' , '.');d=d.replice(',' , '.');
+    a=a.replace(',' , '.'); b=b.replace(',' , '.'); 
+    c=c.replace(',' , '.');d=d.replace(',' , '.');
+ a=a.replace('،' , '.'); b=b.replace('،' , '.'); 
+    c=c.replace('،' , '.');d=d.replace('،' , '.');
     a= parseFloat(a);b= parseFloat(b);
     c= parseFloat(c);d= parseFloat(d);
    result.innerHTML = '';
