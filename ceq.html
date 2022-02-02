@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html  >
 <head>
@@ -613,27 +612,27 @@ text-align: right;
             <!-- Form -->
             <label for   >a= </label>
             <input id="a" onclick="selectText('a','b','d')" required  autofocus
-                   type="tel" value="0"  class="form-control" placeholder="a">
+                   type="text" value="0"  class="form-control" placeholder="a">
             <span id="vala" class="worning" ></span>
             </br>
             
             
             <label for>b= </label>
             <input id="b" onclick="selectText('b','c','a')" required  
-                   type="tel" value="0"  class="form-control" placeholder="b">
+                   type="text" value="0"  class="form-control" placeholder="b">
             <span id="valb" class="worning" ></span>
 
 
             </br>
              <label for>c=</label>
             <input id="c" onclick="selectText('c','d','b')" required 
-                   type="tel" value="0"  class="form-control" placeholder="c">
+                   type="text" value="0"  class="form-control" placeholder="c">
             <span id="valc" class="worning" ></span>
 
             </br>
              <label for>d=</label>
             <input id="d" onclick="selectText('d','Cal','c')" required 
-                   type="tel" value="0"  class="form-control" placeholder="d">
+                   type="text" value="0"  class="form-control" placeholder="d">
             <span id="vald" class="worning"  ></span>
             </br>
 
@@ -655,10 +654,8 @@ text-align: right;
   </main>
       <script type="text/javascript" >
  
-var result = document.getElementById('result'), add='x' ; 
+var result = document.getElementById('result'), add='x'; 
 
-  
-  
 //////// Selection \\\\\\\\\
 function selectText(alfa,alfb,alfc) {
 
@@ -725,7 +722,7 @@ function fin() {
       c= document.getElementById('c').value,
       d= document.getElementById('d').value;
       a=a.replace(',','.');  b=b.replace(',','.');  c=c.replace(',','.');  d=d.replace(',','.');
-      a=a.replace('،','.');  b=b.replace('،','.');   c=c.replace('،','.');   d=d.replace('،','.');
+      a=a.replace('،','.');  b=b.replace('،','.');  c=c.replace('،','.');  d=d.replace('،','.');
       a= parseFloat(a);      b= parseFloat(b);      c= parseFloat(c);      d= parseFloat(d);
 
       result.innerHTML = '';
@@ -783,8 +780,8 @@ function squarFin(a,b,c,n) {
   }else{
     dilta = -dilta;
       var tx =-b/(2*a),ty= Math.pow(dilta,1/2)/(2*a);
-      result.innerHTML += ' X' +i +' = ' +tx + ' +i'+ty+ '</br>
-        X' + i2 +' = ' +tx + ' -i'+ty ;
+      result.innerHTML += ' X' +i +' = ' +tx + ' +i'+ty+ 
+      '</br>  X' + i2 +' = ' +tx + ' -i'+ty ;
   }
    
 }
