@@ -656,7 +656,7 @@ text-align: right;
   </main>
       <script type="text/javascript" >
  
-var result = document.getElementById('result') ; 
+var result = document.getElementById('result'), add='x' ; 
 try {
   
   
@@ -677,7 +677,7 @@ result.innerHTML = '';
 /////// enter buton \\\\\\\\
 function enter(alfa,alfb,alfc) {
   'use strict';
-  ;
+  
   var  input = document.getElementById(alfa);
   input.addEventListener('keyup', 
     function (event) {
@@ -697,7 +697,7 @@ function enter(alfa,alfb,alfc) {
 
 /////// validation of number \\\\\\\
 function valNum(alfa,alfb,alfc,evKC) {
-
+'use strict';
 var val = 'val'+alfa,
     pvaled= document.getElementById(val),
     number= parseFloat(document.getElementById(alfa).value);
@@ -828,7 +828,7 @@ function cubiqFin(a,b,c,d){
         diltaS= Math.pow(bS ,2)-4*a*cS;
       
 
-        result.innerHTML += 'X1 = '+ x1 + '</br>';
+        result.innerHTML += ' X1 = '+ x1 + '</br>';
         if (diltaS< 0) {
           if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br> X3 = ' +x2 + ' -i' + t2y ;} 
           else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br> X3 = ' +x2 + ' -i' + t3y   ; }
