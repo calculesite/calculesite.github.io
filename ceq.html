@@ -656,7 +656,7 @@ text-align: right;
   </main>
       <script type="text/javascript" >
  
-var result = document.getElementById('result') ,  add='x'; 
+var result = document.getElementById('result') ; 
 try {
   
   
@@ -726,7 +726,7 @@ function fin() {
       c= document.getElementById('c').value,
       d= document.getElementById('d').value;
       a=a.replace(',','.');  b=b.replace(',','.');  c=c.replace(',','.');  d=d.replace(',','.');
-      a=a.replace('،','.');  b=b.replace('،','.');  c=c.replace('،','.');  d=d.replace('،','.');
+      a=a.replace('،','.');  b=b.replace('،','.');   c=c.replace('،','.');   d=d.replace('،','.');
       a= parseFloat(a);      b= parseFloat(b);      c= parseFloat(c);      d= parseFloat(d);
 
       result.innerHTML = '';
@@ -774,18 +774,18 @@ function squarFin(a,b,c,n) {
     if (dilta > 0) {
       var x1= (-b+Math.pow(dilta,1/2))/(2*a),
           x2= -(b+Math.pow(dilta,1/2))/(2*a);
-           result.innerHTML += 'X' +i +' = ' +x1 + '</br>' + 'X' + i2 +' = ' +x2 ;
+           result.innerHTML += ' X' +i +' = ' +x1 + '</br> X' + i2 +' = ' +x2 ;
           
 
     } else if(dilta==0){
      var x1= -b/(2*a) ;
        result.innerHTML += 'X'+i+' = '+x1 ;
-    }else if (n==0) {  result.innerHTML = 'no exist solution'; 
+    }else if (n==0) {  result.innerHTML = ' no exist solution'; 
   }else{
     dilta = -dilta;
       var tx =-b/(2*a),ty= Math.pow(dilta,1/2)/(2*a);
-      result.innerHTML += 'X' +i +' = ' +tx + ' +i'+ty+ '</br>
-       X' + i2 +' = ' +tx + ' -i'+ty ;
+      result.innerHTML += ' X' +i +' = ' +tx + ' +i'+ty+ '</br>
+        X' + i2 +' = ' +tx + ' -i'+ty ;
   }
    
 }
@@ -830,11 +830,11 @@ function cubiqFin(a,b,c,d){
 
         result.innerHTML += 'X1 = '+ x1 + '</br>';
         if (diltaS< 0) {
-          if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br>' + ' X3 = ' +x2 + ' -i' + t2y ;} 
-          else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br>' + ' X3 = ' +x2 + ' -i' + t3y   ; }
+          if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br> X3 = ' +x2 + ' -i' + t2y ;} 
+          else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br> X3 = ' +x2 + ' -i' + t3y   ; }
 
         } else {
-          result.innerHTML += ' X2 = ' +x2 + '</br> dilta = '+diltaS  ;
+          result.innerHTML += ' X2 = ' +x2  ;
         }
 
   } else {
