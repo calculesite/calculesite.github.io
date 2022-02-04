@@ -409,9 +409,28 @@ button:not(:disabled),
     outline-width: inherit;
     
 }
+.resulte{
+    display: inline-block;
+    font-size: 150%;
+    margin: 0px 0px 39px 4px;
+    width: 70%;
+    padding: 1%;
+    border-radius: 7px;
+    background-color: floralwhite;
+}
+.toFchr{   
+      margin: -32% 0% 0% 0%;
+      text-align: center;
+      margin-left: 3px;
+      padding: 0px 1.5%;
+      font-weight: 900;
+      display: none;
+    }
+     
 @media (max-width: 900px){
     .input{font-size: 25px;margin-top: 25px;}
-    .resulte{margin: -9px 0px 39px 4px;}
+    .resulte{ margin: 0px 0px 38px 4px;}
+    .toFchr{    margin: -35% 0% 0% 1%;}
 }
 
 /* ///// btn\\\\\\ */
@@ -436,15 +455,7 @@ button:not(:disabled),
     margin-left: 3px;
     position: absolute;
 }
-.resulte{
-    display: block;
-    font-size: 150%;
-    margin: -8px 0px 39px 4px;
-    width: 70%;
-    padding: 1%;
-    border-radius: 7px;
-    background-color: floralwhite;
-}
+
 
 
 
@@ -524,7 +535,7 @@ button:not(:disabled),
 
       text-align: left;
     }
-     
+   
 </style>
     
 </head>
@@ -545,11 +556,13 @@ button:not(:disabled),
       
     <p id="mimoir" class="mimoir">M</p>
     
-    <input id="reClickBtn" type="button"   value="" style="background-color: #ddd; border-color: #ddd;"
-      class="HidBtn"  >
+    <input id="reClickBtn" type="button"   value="" style="background-color: #ddd; border-color: #ddd;
+    display: block;"class="HidBtn"  >
     
     <textarea id="result"  onclick="notVid()" rows="2" 
       class="resulte" spellcheck="false" ></textarea>
+    <a  id="upResult" type='button'  onclick="upRes()" class="btn btn-primary toFchr" 
+     role="button">↑</a>
     
     
     
@@ -587,7 +600,7 @@ button:not(:disabled),
     </div>
 
     
-    <div class="continent">
+    <div id="divNum" class="continent">
       
         <!-- number -->
           <a  id="b15" type='button'  onclick="add('7')" class="btn btn-success btn-ver" role="button">7</a>
@@ -627,8 +640,9 @@ button:not(:disabled),
   </main>
       <script type="text/javascript" >
       /*  variables */
-var ongl = 0.017453292519943 , notVider = 0 , mim='' ;
-
+var ongl = 0.017453292519943 , notVider = 0 , mim='' ,fichour =document.getElementById('fichour'),
+    result = document.getElementById('result'), upResult = document.getElementById('upResult');
+    
 
 /* /////  sev mimoir on href \\\\\\\\\\ */
 if (location.href.indexOf('#mim') > -1) {
@@ -640,15 +654,12 @@ if (location.href.indexOf('#mim') > -1) {
     document.getElementById('mimoir').style.color = 'black';
 }
 
-
-
 /*  jump functin */
 
 function jump(){
-    var ta = document.getElementById('fichour'),
-        lineHeight = ta.clientHeight / ta.rows,
+    var lineHeight = fichour.clientHeight / fichour.rows,
         jump = 1000 * lineHeight;
-    ta.scrollTop = jump;
+    fichour.scrollTop = jump;
     
 }
 /*   functin of click keybord */
@@ -656,8 +667,8 @@ addEventListener('keyup',   (event) => {
     event.preventDefault();
    
     var kcod = event.keyCode-96;
-  // document.getElementById('fichour').value = event.keyCode;
-    if ((kcod > -1) && (kcod < 10)) { document.getElementById('fichour').value += kcod; }
+  // fichour.value = event.keyCode;
+    if ((kcod > -1) && (kcod < 10)) { fichour.value += kcod; }
     if (kcod == 14) { addSymbF(','); }
     if (event.keyCode == 107) { addSymbP('+'); }
     if (event.keyCode == 109) { addSymbP('-'); }
@@ -680,15 +691,10 @@ function notVid() { notVider = 1; reClick();}
 /* ///// functin of click moss \\\\\\ */
  
 addEventListener('click',  ()=> {
-    
-
-
     if (notVider == 0) {
-        document.getElementById('result').value = '';
-    } else{notVider = 0 ;}
-
-   
-    
+        result.value = '';
+        upResult.style.display = 'none';
+    } else{notVider = 0 ;} 
    jump()
 })
 
@@ -698,24 +704,27 @@ addEventListener('click',  ()=> {
 
 function reClick() {document.getElementById('reClickBtn').focus();}
 
+/* //// Up result to fichour */
+function upRes() {fichour.value = result.value;}
+
 /*  /////// add \\\\\\\\\ */
 
 function add(caracter) {
-    var input = document.getElementById('fichour');
+    var input = fichour;
         input.value += caracter ;
 }
 
 /*  /////add function\\\\\\ */
 
 function addFunc(param) {
-    var inpute = document.getElementById('fichour').value,
+    var inpute = fichour.value,
         lenInbut = inpute.length,
         carInput = inpute.charAt(lenInbut - 1),
         symbols = '/*×-+^(';
     if ((symbols.indexOf(carInput,0) > -1)||(lenInbut ==0)) {
         inpute += param;
-    } else { addSymbF('×');inpute =document.getElementById('fichour').value  + param;}
-    document.getElementById('fichour').value = inpute;
+    } else { addSymbF('×');inpute =fichour.value  + param;}
+    fichour.value = inpute;
     
 }
 
@@ -723,19 +732,19 @@ function addFunc(param) {
 
 function adCar(param) {
    notVider = 1;
-    var inpute = document.getElementById('fichour').value,
+    var inpute = fichour.value,
         lenInbut = inpute.length,
         carInput = inpute.charAt(lenInbut - 1),
         symbols = '/*×-+(';
     if ((symbols.indexOf(carInput, 0) > -1) || (lenInbut == 0)) {
-      document.getElementById('result').style.color = '#ff5300';
-        document.getElementById('result').value = 'Error';
+      result.style.color = '#ff5300';
+        result.value = 'Error';
       setTimeout(() => { 
-        document.getElementById('result').value = '';
+        result.value = '';
       }, 500);  
         
     }else{inpute +=  param;}
-    document.getElementById('fichour').value = inpute;
+    fichour.value = inpute;
        
 }
 
@@ -743,7 +752,7 @@ function adCar(param) {
 /* //////// add symbole × / */
 
 function addSymbF(param) {
-    var inpute = document.getElementById('fichour').value,
+    var inpute = fichour.value,
         lenInbut = inpute.length - 1,
         carInput = inpute.charAt(lenInbut),
         carInput2 = inpute.charAt(lenInbut-1),
@@ -757,13 +766,13 @@ function addSymbF(param) {
             } 
         }else{inpute += param; }
     } 
-    document.getElementById('fichour').value = inpute;
+    fichour.value = inpute;
 }
 
 /* /////// add Symbole + -  \\\\\\\ */
 
 function addSymbP(param) {
-    var inpute   = document.getElementById('fichour').value,
+    var inpute   = fichour.value,
         lenInbut = inpute.length - 1,
         carInput = inpute.charAt(lenInbut),
         symbols  = '/*×-+.,';
@@ -773,7 +782,7 @@ function addSymbP(param) {
             inpute += param; 
         }else{inpute += param; }
     
-    document.getElementById('fichour').value = inpute;
+    fichour.value = inpute;
 }
 
 
@@ -781,7 +790,7 @@ function addSymbP(param) {
 /* ///// retour \\\\\\\\\\\ */
     
 function retour() {
-    var inpute = document.getElementById('fichour').value,
+    var inpute = fichour.value,
         lenInbut = inpute.length,
         carInput = inpute.charAt(lenInbut - 1),
         carInput2 = inpute.charAt(lenInbut - 2),
@@ -810,16 +819,16 @@ function retour() {
          
         } else { inpute = inpute.slice(0, inpute.length - 1); }
     }
-    document.getElementById('fichour').value = inpute;
+    fichour.value = inpute;
     
 }
 
 /* //////clearing \\\\\\\\\\   */
 
 function clearing() {
-    var input = document.getElementById('fichour').value;
+    var input = fichour.value;
     input = '';
-    document.getElementById('fichour').value = input
+    fichour.value = input
 }
 
 /* //////// replice drg ongle */
@@ -850,21 +859,21 @@ function save() {
 
     if(nHref.charAt(nHref.length-1) =='#'){nHref = nHref.slice(0, nHref.length-1);}
 
-    if (document.getElementById('result').value.length > 0) {
-        mim =  document.getElementById('result').value;
+    if (result.value.length > 0) {
+        mim =  result.value;
         nHref+= '#mim='+ mim;
         location.href = nHref;
         document.getElementById('mimoir').style.color = 'black';
-    }else if (document.getElementById('fichour').value.length >0) {
-        mim =  document.getElementById('fichour').value ;
-        document.getElementById('fichour').value = '';
+    }else if (fichour.value.length >0) {
+        mim =  fichour.value ;
+        fichour.value = '';
         setTimeout(() => { 
-        document.getElementById('fichour').value = mim
+        fichour.value = mim
         }, 90);
         nHref += '#mim='+ mim ;
         location.href = nHref;
         document.getElementById('mimoir').style.color = 'black';
-    }else if (document.getElementById('fichour').value.length ==0) {
+    }else if (fichour.value.length ==0) {
         document.getElementById('mimoir').style.color = 'floralwhite';
         if(hach ==1){location.href = nHref+'#';}
     }
@@ -874,7 +883,7 @@ function save() {
 /* /////// reteur de sive \\\\\\\\\ */
 function retSive() {
     if (mim.length > 0) {
-        document.getElementById('fichour').value += mim;
+        fichour.value += mim;
     }
 }
 
@@ -889,15 +898,15 @@ function addSave() {
         var nHref = location.href,
             inNHref = nHref.indexOf('#mim=')+1;
         nHref = nHref.slice(0, inNHref);
-        if (document.getElementById('result').value.length > 0) {
-            mim =  mim + '+' + document.getElementById('result').value;
+        if (result.value.length > 0) {
+            mim =  mim + '+' + result.value;
             nHref +='mim='+ mim;
-        } else if (document.getElementById('fichour').value.length > 0) {
-          var nMim =document.getElementById('fichour').value;
+        } else if (fichour.value.length > 0) {
+          var nMim =fichour.value;
             mim =mim + '+'+ nMim; 
-            document.getElementById('fichour').value = '';
+            fichour.value = '';
         setTimeout(() => { //==== setTimeout(function(){code},time)
-        document.getElementById('fichour').value = nMim
+        fichour.value = nMim
         }, 90);
             nHref +='mim='+ mim;
         }
@@ -917,17 +926,17 @@ function validat() {
 
    notVider = 1;  
 
-    var input = document.getElementById('fichour').value,
+    var input = fichour.value,
         inputLeft = input.replace(/\(/g, ''),
         inputRight = input.replace(/\)/g, '');
     if (inputLeft.length === inputRight.length) {
-        document.getElementById('result').value = '';
+        result.value = '';
         calcule();
     } else {
-      document.getElementById('result').style.color = '#ff5300';
-        document.getElementById('result').value = 'The brackets are not equal';
+      result.style.color = '#ff5300';
+        result.value = 'The brackets are not equal';
         setTimeout(() => { 
-        document.getElementById('result').value = '';
+        result.value = '';
       }, 1500);  
     }
    
@@ -937,8 +946,7 @@ function validat() {
 
 function calcule() {
     
-    var inpute = document.getElementById('fichour').value,
-        result = document.getElementById('result');
+    var inpute = fichour.value;
     inpute = inpute.replace(/,/gi, '.');      inpute = inpute.replace(/×/gi, '*');
     inpute = inpute.replace(/cosh/gi, 'f');   inpute = inpute.replace(/acos/gi, 'j');
     inpute = inpute.replace(/cos\(/gi, 'k');  inpute = inpute.replace(/asin/gi, 'u');   
@@ -959,7 +967,7 @@ function calcule() {
 
 /* /////// resulte */
     var poin = inpute.indexOf('.');
-    result.value = '';
+        result.value = '';
       if (inpute.length >0) {
     
       try {
@@ -974,6 +982,7 @@ function calcule() {
           inpute = inpute.toFixed(12) ;inpute = 1*inpute;
           result.style.color = 'rgb(14, 66, 20)'; 
           setTimeout(() => { result.value = inpute; }, 80);
+          upResult.style.display = 'inline-block';
         }
         
       } catch (e) {
