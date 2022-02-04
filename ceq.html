@@ -197,8 +197,12 @@ button:not(:disabled),
 }
 .btn-check:focus + .btn, .btn:focus {
   outline: 0;
+  /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); */
 }
-
+/*  .btn:disabled, .btn.disabled, fieldset:disabled .btn {
+  pointer-events: none;
+  opacity: 0.65;
+}  */
 
 .btn-success {
   color: #fff;
@@ -210,13 +214,20 @@ button:not(:disabled),
   background-color: #157347;
   border-color: #146c43;
 }
-
-.btn-check:checked + .btn-success, .btn-check:active + .btn-success, .btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
+/* .btn-check:focus + .btn-success, .btn-success:focus {
+  color: #fff;
+  background-color: #157347;
+  border-color: #146c43;
+  box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
+} */
+ .btn-check:checked + .btn-success, .btn-check:active + .btn-success,
+ .btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
   color: #fff;
   background-color: #146c43;
   border-color: #13653f;
-}
-.btn-check:checked + .btn-success:focus, .btn-check:active + .btn-success:focus, .btn-success:active:focus, .btn-success.active:focus, .show > .btn-success.dropdown-toggle:focus {
+} 
+.btn-check:checked + .btn-success:focus, .btn-check:active + .btn-success:focus, 
+.btn-success:active:focus, .btn-success.active:focus, .show > .btn-success.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 }
 .btn-success:disabled, .btn-success.disabled {
@@ -327,8 +338,10 @@ button:not(:disabled),
   border-width: 0;
   border-inline-end-width: 1px;
   border-radius: 0;
-  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, 
+  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, 
+  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .form-control::file-selector-button {
   padding: 0.375rem 0.75rem;
@@ -343,7 +356,8 @@ button:not(:disabled),
   border-width: 0;
   border-inline-end-width: 1px;
   border-radius: 0;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, 
+  box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-control::-webkit-file-upload-button {
@@ -373,8 +387,10 @@ button:not(:disabled),
   border-width: 0;
   border-inline-end-width: 1px;
   border-radius: 0;
-  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+   border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+   border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-control::-webkit-file-upload-button {
@@ -534,7 +550,6 @@ text-align: right;
             margin-top: 15px;
           }
           .worning{
-            
             color: red;
             margin: 5px;
             
@@ -629,10 +644,10 @@ text-align: right;
 
 
 
-           <p id="result" ></p>
+           <p id="result"  ></p>
            
            <div class="boton">
-              <button  id="Cal" type='button' name='submit' onclick="fin()" class="btn  disabled btn-success" 
+              <button  id="Cal" type='button' name='submit' onclick="fin()" class="btn disabled btn-success" 
               role="button" value="Calculate">Calculate</button>
           
           </div>
@@ -697,7 +712,11 @@ var val = 'val'+alfa,
       number=eval(number) ;
       if (pvaled.innerHTML = ' is not number') { pvaled.innerHTML = ''; }
       if ((evKC ==13)||(evKC ==40)){
-        if ((evKC ===40)&&(alfa=='d')){alfb='a'; } document.getElementById(alfb).click() ; }
+        if ((evKC ===13)&&(alfa=='d')){fin();}
+         if ((evKC ===40)&&(alfa=='d')){alfb='a'; }
+         document.getElementById(alfb).click() ;
+        
+       }
       if (evKC ==38) {  document.getElementById(alfc).click() ;}
       return number ;
     } catch {
@@ -822,7 +841,10 @@ function cubiqFin(a,b,c,d){
         x1    =t1-b/(3*a),
         x2    =t2x-b/(3*a);   ///x2=x3
       
-
+        x1 = x1.toFixed(12) ;x1 = 1*x1;
+        x2 = x2.toFixed(12) ;x2 = 1*x2;
+        t2y = t2y.toFixed(12) ;t2y = 1*t2y;
+        t3y = t3y.toFixed(12) ;t3y = 1*t3y;
         result.innerHTML += ' X1 = '+ x1 + '</br>';
         if (dilta2.toFixed(12)> 0) {
           if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br> X3 = ' +x2 + ' -i' + t2y ;} 
@@ -846,6 +868,9 @@ function cubiqFin(a,b,c,d){
       x1     =t1-b/(3*a),
       x2     =t2-b/(3*a),
       x3     =t3-b/(3*a);
+      x1 = x1.toFixed(12) ;x1 = 1*x1;
+      x2 = x2.toFixed(12) ;x2 = 1*x2;
+      x3 = x3.toFixed(12) ;x3 = 1*x3;
       
       result.innerHTML = ' X1 = ' + x1 + ' </br> X2 = ' + x2 + '</br>  X3 = ' +x3  ;
      
