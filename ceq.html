@@ -654,7 +654,8 @@ text-align: right;
   </main>
       <script type="text/javascript" >
  
-var result = document.getElementById('result'), add='x'; 
+var result = document.getElementById('result'),input=document.getElementById('a'),add='x'; 
+input.select(); selectText('a','b','d')
 
 //////// Selection \\\\\\\\\
 function selectText(alfa,alfb,alfc) {
@@ -693,37 +694,48 @@ function enter(alfa,alfb,alfc) {
 
 /////// validation of number \\\\\\\
 function valNum(alfa,alfb,alfc,evKC) {
-'use strict';
+  'use strict';
 var val = 'val'+alfa,
     pvaled= document.getElementById(val),
-    number= parseFloat(document.getElementById(alfa).value);
-    
-    if (isNaN(number)) {
-      pvaled.innerHTML = ' is not number';
-      document.getElementById(alfa).click();
-    }else{
+    number= document.getElementById(alfa).value;
+
+    number=number.replace(',','.');
+    number=number.replace('،','.');
+
+    try {
+      number=eval(number) ;
       if (pvaled.innerHTML = ' is not number') { pvaled.innerHTML = ''; }
       if ((evKC ==13)||(evKC ==40)){
         if ((evKC ===40)&&(alfa=='d')){alfb='a'; } document.getElementById(alfb).click() ; }
-      if (evKC ==38) {  document.getElementById(alfc).click() ; } 
+      if (evKC ==38) {  document.getElementById(alfc).click() ;}
+      return number ;
+    } catch {
+      pvaled.innerHTML = ' is not number';
+      document.getElementById(alfa).click();
+    }
+    
+    
+    
       
- }
+ 
 }
 
-
+/* // value to nember
+ function vaToNu(p) {
+  p= document.getElementById(p).value;
+  p=p.replace(',','.');
+  p=p.replace('،','.');
+  p=eval(p) ;
+  return p ;
+}
+ */
 
 /////// function total \\\\\\\\\\\\
 
 function fin() {
   'use strict';
 
-  var a= document.getElementById('a').value,
-      b= document.getElementById('b').value,
-      c= document.getElementById('c').value,
-      d= document.getElementById('d').value;
-      a=a.replace(',','.');  b=b.replace(',','.');  c=c.replace(',','.');  d=d.replace(',','.');
-      a=a.replace('،','.');  b=b.replace('،','.');  c=c.replace('،','.');  d=d.replace('،','.');
-      a= parseFloat(a);      b= parseFloat(b);      c= parseFloat(c);      d= parseFloat(d);
+  var a= valNum('a') ,b= valNum('b') ,c= valNum('c') , d= valNum('d') ;
 
       result.innerHTML = '';
       if ((a==0)&&(b==0)&&(c==0)) {
@@ -780,7 +792,7 @@ function squarFin(a,b,c,n) {
   }else{
     dilta = -dilta;
       var tx =-b/(2*a),ty= Math.pow(dilta,1/2)/(2*a);
-      result.innerHTML += ' X' +i +' = ' +tx + ' +i'+ty+ 
+      result.innerHTML += ' X' +i +' = ' +tx + ' +i'+ty+
       '</br>  X' + i2 +' = ' +tx + ' -i'+ty ;
   }
    
@@ -800,8 +812,8 @@ function cubiqFin(a,b,c,d){
       q2=Math.pow(q,2),
       ras3=Math.pow(3,1/2),
       dilta2 =p3/27 +q2/4 ;
-
-  if (dilta2>=0) {
+      
+  if (dilta2.toFixed(10)>=0) {
 
     ////// dilta>0  \\\\\\\\
 
@@ -817,15 +829,11 @@ function cubiqFin(a,b,c,d){
         t2y   =ras3*(alfaa-bita)/2,
         t3y   =-t2y,
         x1    =t1-b/(3*a),
-        x2    =t2x-b/(3*a),   ///x2=x3
-      //// delta of squar equation
-        bS    =b+x1*a,
-        cS    =-d/x1,
-        diltaS= Math.pow(bS ,2)-4*a*cS;
+        x2    =t2x-b/(3*a);   ///x2=x3
       
 
         result.innerHTML += ' X1 = '+ x1 + '</br>';
-        if (diltaS< 0) {
+        if (dilta2.toFixed(12)> 0) {
           if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br> X3 = ' +x2 + ' -i' + t2y ;} 
           else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br> X3 = ' +x2 + ' -i' + t3y   ; }
 
