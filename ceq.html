@@ -841,12 +841,12 @@ function cubiqFin(a,b,c,d){
         x1    =t1-b/(3*a),
         x2    =t2x-b/(3*a);   ///x2=x3
       
-        x1 = x1.toFixed(12) ;x1 = 1*x1;
-        x2 = x2.toFixed(12) ;x2 = 1*x2;
-        t2y = t2y.toFixed(12) ;t2y = 1*t2y;
-        t3y = t3y.toFixed(12) ;t3y = 1*t3y;
+        x1 = x1.toFixed(10) ;x1 = 1*x1;
+        x2 = x2.toFixed(10) ;x2 = 1*x2;
+        t2y = t2y.toFixed(10) ;t2y = 1*t2y;
+        t3y = t3y.toFixed(10) ;t3y = 1*t3y;
         result.innerHTML += ' X1 = '+ x1 + '</br>';
-        if (dilta2.toFixed(12)> 0) {
+        if (dilta2.toFixed(10)> 0) {
           if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br> X3 = ' +x2 + ' -i' + t2y ;} 
           else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br> X3 = ' +x2 + ' -i' + t3y   ; }
 
@@ -868,9 +868,9 @@ function cubiqFin(a,b,c,d){
       x1     =t1-b/(3*a),
       x2     =t2-b/(3*a),
       x3     =t3-b/(3*a);
-      x1 = x1.toFixed(12) ;x1 = 1*x1;
-      x2 = x2.toFixed(12) ;x2 = 1*x2;
-      x3 = x3.toFixed(12) ;x3 = 1*x3;
+      x1 = x1.toFixed(10) ;x1 = 1*x1;
+      x2 = x2.toFixed(10) ;x2 = 1*x2;
+      x3 = x3.toFixed(10) ;x3 = 1*x3;
       
       result.innerHTML = ' X1 = ' + x1 + ' </br> X2 = ' + x2 + '</br>  X3 = ' +x3  ;
      
