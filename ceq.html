@@ -214,12 +214,7 @@ button:not(:disabled),
   background-color: #157347;
   border-color: #146c43;
 }
-.btn-check:focus + .btn-success, .btn-success:focus {
-  color: #fff;
-  background-color: #157347;
-  border-color: #146c43;
-  box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
-}
+
 .btn-check:checked + .btn-success, .btn-check:active + .btn-success, .btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
   color: #fff;
   background-color: #146c43;
@@ -641,8 +636,8 @@ text-align: right;
            <p id="result" ></p>
            
            <div class="boton">
-              <a  id="Cal" type='button' name='submit' onclick="fin()" class="btn btn-success" 
-              role="button" value="Calculate">Calculate</a>
+              <button  id="Cal" type='button' name='submit' onclick="fin()" class="btn  disabled btn-success" 
+              role="button" value="Calculate">Calculate</button>
           
           </div>
         </div>
