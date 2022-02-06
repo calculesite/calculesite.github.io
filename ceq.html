@@ -712,13 +712,12 @@ var val = 'val'+alfa,
       number=eval(number) ;
       if (pvaled.innerHTML = ' is not number') { pvaled.innerHTML = ''; }
       if ((evKC ==13)||(evKC ==40)){
-        if ((evKC ===13)&&(alfa=='d')){fin();}
          if ((evKC ===40)&&(alfa=='d')){alfb='a'; }
          document.getElementById(alfb).click() ;
-        
        }
       if (evKC ==38) {  document.getElementById(alfc).click() ;}
-      return number ;
+      if(alfb=='calcule'){return number;}
+      
     } catch {
       pvaled.innerHTML = ' is not number';
       document.getElementById(alfa).click();
@@ -745,7 +744,7 @@ var val = 'val'+alfa,
 function fin() {
   'use strict';
 
-  var a= valNum('a') ,b= valNum('b') ,c= valNum('c') , d= valNum('d') ;
+  var a= valNum('a','calcule') ,b= valNum('b','calcule') ,c= valNum('c','calcule') , d= valNum('d','calcule') ;
 
       result.innerHTML = '';
       if ((a==0)&&(b==0)&&(c==0)) {
@@ -822,8 +821,9 @@ function cubiqFin(a,b,c,d){
       q2=Math.pow(q,2),
       ras3=Math.pow(3,1/2),
       dilta2 =p3/27 +q2/4 ;
+if (dilta2.toFixed(10)==0) { dilta2=0;}
       
-  if (dilta2.toFixed(10)>=0) {
+  if (dilta2>=0) {
 
     ////// dilta>0  \\\\\\\\
 
@@ -846,7 +846,7 @@ function cubiqFin(a,b,c,d){
         t2y = t2y.toFixed(10) ;t2y = 1*t2y;
         t3y = t3y.toFixed(10) ;t3y = 1*t3y;
         result.innerHTML += ' X1 = '+ x1 + '</br>';
-        if (dilta2.toFixed(10)> 0) {
+        if (dilta2 > 0) {
           if (t2y>0) { result.innerHTML += ' X2 = ' +x2 + ' +i' + t2y + '</br> X3 = ' +x2 + ' -i' + t2y ;} 
           else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br> X3 = ' +x2 + ' -i' + t3y   ; }
 
