@@ -1,5 +1,5 @@
-{ "short_name": "cubic equation", 
-"name": "Solving cubic equation", 
+{ "short_name": "cubicequation", 
+"name": "Solving_cubic_equation", 
 "icons": [ { "src": "/cueq192×192.png", 
 "type": "image/png", 
 "sizes": "192x192"
