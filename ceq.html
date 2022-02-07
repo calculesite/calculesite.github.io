@@ -796,8 +796,8 @@ function squarFin(a,b,c,n) {
 
     } else if(dilta==0){
      var x1= -b/(2*a) ;
-       result.innerHTML += 'X'+i+' = '+x1 ;
-    }else if (n==0) {  result.innerHTML = ' no exist solution'; 
+       result.innerHTML += 'X'+i+' =X'+i2 + ' = '+x1 ;
+    
   }else{
     dilta = -dilta;
       var tx =-b/(2*a),ty= Math.pow(dilta,1/2)/(2*a);
@@ -851,7 +851,7 @@ if (dilta2.toFixed(10)==0) { dilta2=0;}
           else { result.innerHTML += ' X2 = ' +x2 + ' +i' + t3y + '</br> X3 = ' +x2 + ' -i' + t3y   ; }
 
         } else {
-          result.innerHTML += ' X2 = ' +x2  ;
+          result.innerHTML += ' X2 =X3 = ' +x2  ;
         }
 
   } else {
