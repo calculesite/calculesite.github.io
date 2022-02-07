@@ -1,5 +1,5 @@
 { "short_name": "calculator", 
-"name": "calculator", 
+"name": "calculator scientifique", 
 "icons": [ { "src": "/calc192×192.png", 
 "type": "image/png", 
 "sizes": "192x192"
