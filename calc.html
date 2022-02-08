@@ -744,7 +744,7 @@ function addVrgl(){
         fich.replace(/+/g , 'simbol');fich.replace(/-/g , 'simbol');
         fich.replace(/×/g , 'simbol');fich.replace(/\//g , 'simbol');
         fich.replace(/\(/g , 'simbol');
-        if(fich.lastIndexOf('simbol',fich.length)>=fich.lastIndexOf(',',fich.length)){
+        if(fich.lastIndexOf('simbol',fich.length-1)>=fich.lastIndexOf(',',fich.length-1)){
            addSymbF(',');
         }
 }
