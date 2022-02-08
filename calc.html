@@ -645,13 +645,12 @@ function gebi(param) { param = document.getElementById(param); return param;}
 /* //// Up result to fichour */
 function upRes() {if((result.innerHTML.length >0)&&result.innerHTML != 'The result copied'){
   result.className +=' ogmentation';
-  var replace = result.innerHTML;
   
     fichour.innerHTML = '';
    
    setTimeout(() => {
-    result.innerHTML ='';
-   fichour.innerHTML = replace;
+   fichour.innerHTML = result.innerHTML;
+   result.innerHTML ='';
    result.className ='result';
    }, 300);
   }
@@ -888,7 +887,7 @@ function calcule() { //f12
     input = input.replace(/x/g, 1/ongl+'*Math.atan');        input = input.replace(/y/g, 'Math.tanh');
     input = input.replace(/\^/g, '**');                      input = input.replace(/²/g, '**2');
 
-
+    var reInp = input; // after  inpute replace
 /* /////// result */
         result.innerHTML = '';
       if (input.length >0) {
@@ -897,7 +896,7 @@ function calcule() { //f12
         input = eval(input);
         input = input.toFixed(10) ;input = 1*input;
         result.style.color = 'rgb(14, 66, 20)'; 
-        if ((input != fichour.innerHTML)&&(!isNaN(input))) {result.innerHTML = input; } 
+        if ((input != reInp)&&(!isNaN(input))) {result.innerHTML = input; } 
         
       } catch{}
     }
