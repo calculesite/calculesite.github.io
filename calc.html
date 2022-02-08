@@ -658,8 +658,12 @@ function upRes() {if((result.innerHTML.length >0)&&result.innerHTML != 'The resu
 
 /*  /////// add \\\\\\\\\ */
 function add(caracter) {//f1
-     fichour.innerHTML += caracter ;
      
+    let input = fichour.innerHTML,
+        lenInbut = input.length - 1,
+        carInput = input.charAt(lenInbut);
+     if(carInput==')'){fichour.innerHTML += '×' ;}
+     fichour.innerHTML += caracter ;
 }
 
 /*  /////add function\\\\\\ */
