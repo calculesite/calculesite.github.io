@@ -517,7 +517,7 @@ button:not(:disabled),
   </main>
       <script type="text/javascript" >
       /*////  variables */
-var ongl = 0.017453292519943 , mim='' ,fichour =gebi('fichour'),
+let ongl = 0.017453292519943 , mim='' ,fichour =gebi('fichour'),
     result = gebi('result'), 
     div1= gebi('fdiv'),div2 = gebi('divNum'),
 
@@ -578,7 +578,7 @@ function divBtn(i,fi,div) {
 
 /* /////  sev mimoir on href \\\\\\\\\\ */
 if (location.href.indexOf('#mim') > -1) {
-    var nHref = location.href ,
+    let nHref = location.href ,
     inMim = nHref.indexOf('#mim=')+5;
     mim = nHref.slice(inMim , nHref.length);
     mim = mim.replace(/%C3%97/g, '×');
@@ -597,7 +597,7 @@ function jump(){
 addEventListener('keyup',   (event) => {
     event.preventDefault();
    
-    var kcod = event.keyCode-96;
+    let kcod = event.keyCode-96;
   // fichour.innerHTML = event.keyCode;
     if ((kcod > -1) && (kcod < 10)) { fichour.innerHTML += kcod; }
     if (kcod == 14) { addSymbF(','); }
@@ -664,7 +664,7 @@ function add(caracter) {//f1
 
 /*  /////add function\\\\\\ */
 function addFunc(param) { //f2
-    var input = fichour.innerHTML,
+    let input = fichour.innerHTML,
         lenInbut = input.length,
         carInput = input.charAt(lenInbut - 1),
         symbols = '/*×-+^(';
@@ -678,7 +678,7 @@ function addFunc(param) { //f2
 /*  /////add caracter\\\\\\ */
 function adCar(param) { //f3
   
-    var input = fichour.innerHTML,
+    let input = fichour.innerHTML,
         lenInbut = input.length,
         carInput = input.charAt(lenInbut - 1),
         symbols = '/*×-+(',
@@ -699,7 +699,7 @@ function adCar(param) { //f3
 
 /* //////// add symbole × / */
 function addSymbF(param) {//f4
-    var input = fichour.innerHTML,
+    let input = fichour.innerHTML,
         lenInbut = input.length - 1,
         carInput = input.charAt(lenInbut),
         carInput2 = input.charAt(lenInbut-1),
@@ -718,7 +718,7 @@ function addSymbF(param) {//f4
 
 /* /////// add Symbole + -  \\\\\\\ */
 function addSymbP(param) { //f5
-    var input   = fichour.innerHTML,
+    let input   = fichour.innerHTML,
         lenInbut = input.length - 1,
         carInput = input.charAt(lenInbut),
         plus     = '+' ,
@@ -738,7 +738,7 @@ function addSymbP(param) { //f5
 
 /* ///// retour \\\\\\\\\\\ */
 function retour() { //f6
-    var input = fichour.innerHTML,
+    let input = fichour.innerHTML,
         lenInbut = input.length,
         carInput = input.charAt(lenInbut - 1),
         carInput2 = input.charAt(lenInbut - 2),
@@ -776,7 +776,7 @@ function clearing() { /* //f7  */ fichour.innerHTML = ''; }
 
 /* //////// replice drg ongle */
 function drgFun() { //f8
-    var drg = gebi('drg').innerHTML;
+    let drg = gebi('drg').innerHTML;
     if (drg == 'deg') {gebi('drg').innerHTML = 'rad'; ongl = 1; 
     } else if (drg == 'rad') { gebi('drg').innerHTML = 'grad'; ongl = 0.015707963267948967;
     } else {gebi('drg').innerHTML = 'deg'; ongl = 0.017453292519943295;  
@@ -785,11 +785,11 @@ function drgFun() { //f8
 
 /* ////mimoiring number \\\\\\*/
 function save() {//f9
-    var nHref = location.href,
+    let nHref = location.href,
         hach = 0 ;
     
     if (mim.length >0 ) {
-        var inNHref = nHref.indexOf('#mim=');
+        let inNHref = nHref.indexOf('#mim=');
         nHref = nHref.slice(0, inNHref);
         mim = '';
         hach = 1;
@@ -832,14 +832,14 @@ function addSave() { //f11
         save();
     } else {
         
-        var nHref = location.href,
+        let nHref = location.href,
             inNHref = nHref.indexOf('#mim=')+1;
         nHref = nHref.slice(0, inNHref);
         if (result.innerHTML.length > 0) {
             mim +=  addSymbP('+') + result.innerHTML;
             nHref +='mim='+ mim;
         } else {
-          var nMim =fichour.innerHTML;
+          let nMim =fichour.innerHTML;
             mim += addSymbP('+')+ nMim; 
             fichour.innerHTML = '';fichour.placeholder= "";
         setTimeout(() => { //==== setTimeout(function(){code},time)
@@ -863,7 +863,7 @@ function calcule() { //f12
 
     
 
-    var input = fichour.innerHTML,
+    let input = fichour.innerHTML,
         intLef = input.replace(/\(/g, ''),
         intRi = input.replace(/\)/g, ''),
         difRL = intRi.length - intLef.length;
@@ -887,7 +887,7 @@ function calcule() { //f12
     input = input.replace(/x/g, 1/ongl+'*Math.atan');        input = input.replace(/y/g, 'Math.tanh');
     input = input.replace(/\^/g, '**');                      input = input.replace(/²/g, '**2');
 
-    var reInp = input; // after  inpute replace
+    let reInp = input; // after  inpute replace
 /* /////// result */
         result.innerHTML = '';
       if (input.length >0) {
