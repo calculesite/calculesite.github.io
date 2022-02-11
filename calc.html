@@ -271,6 +271,7 @@ button:not(:disabled),
 .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
+  
 }
 .fs-5 {
   font-size: 1.25rem !important;
@@ -291,16 +292,16 @@ button:not(:disabled),
    height: 100%;
  }
 /* divs */
-.globalContiner{
+/* .globalContiner{
     width: auto;
     background: #ddd;
     margin: 20px;
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
-}
+} */
 .func{
-    display: grid;
+    display: none;
     grid-template-columns: repeat(6,1fr);
     grid-template-rows: repeat(4,45px);
     column-gap: 2%;
@@ -308,7 +309,7 @@ button:not(:disabled),
     margin-top: 15px;
 }
 .continent{
-    display: grid;
+    display: none;
     grid-template-columns: 2.1fr 2.1fr 2.1fr 1.85fr 1.85fr;
     column-gap: 3%;
     row-gap: 4%;
@@ -322,6 +323,7 @@ button:not(:disabled),
 
 /* ///// btn\\\\\\ */
 .drg{
+    display:none;
     margin-left: 5px;
     margin-top: -25px;
     position: absolute;
@@ -330,6 +332,7 @@ button:not(:disabled),
     padding: 3px;
     border-width: medium;
     border-radius: 6%;
+    cursor: pointer;
 }
 
 .mimoir{
@@ -422,8 +425,8 @@ button:not(:disabled),
     }
 
 
-/* /// input */
-.input {
+/* /// inp */
+.inp {
     box-sizing: border-box;
     font: 400 13.3333px Arial;
     font-size: 30px;
@@ -434,9 +437,9 @@ button:not(:disabled),
     border-radius: 10px;
     height: 150px;
     overflow-y: auto;
-    
+    cursor: pointer;
 }
-.input ,.result ,button :focus{
+.inp ,.result ,button :focus{
     outline-width: inherit;
     outline: none;
     
@@ -450,15 +453,15 @@ button:not(:disabled),
     background-color: floralwhite;
     padding: 0px 0px;
     position: relative;
+    cursor: pointer;
 }
 .ogmentation{
   animation-name: ogment;
-  animation-play-state: running;
   animation-duration: 0.301s;
 }
 
 @media (max-width: 900px){
-    .input{font-size: 25px;margin-top: 25px;height: 125px;}
+    .inp{font-size: 25px;margin-top: 25px;height: 125px;}
     .result{font-size: 18px; }
     .ogmentation{animation-name: ogmentTlph;}
 }
@@ -469,19 +472,48 @@ button:not(:disabled),
     color: black;
   }
 }
+/* 31256568897*3554665464-31312332+15566588789897-5454546+6589965788555 */
 @keyframes ogmentTlph{
   to{
     transform:translateY(-88px) ;
     font-size: 25px;
     color: black;
+    
   }
 }
+.nrml{
+  
+  
+  display: grid;
+    grid-template-columns: repeat(4,1fr) ;
+    margin-top: 15px;
+    column-gap: 3%;
+    row-gap: 4%;
+    margin-bottom: 55px; 
+ /*  transition: transform 0.5s;
+  transform-style: preserve-3d; */
+  
+}
 
+ .upPad{
+  width: 100%;
+  background:floralwhite;
+  position:relative;
+  animation-name: zooming;
+  animation-duration: 0.3s;
+}
+@keyframes zooming{
+  to{
+    padding-bottom: 130px;
+  }
+} 
+ 
    
 </style>
     
 </head>
 <body style="background-color:white">
+  
   <main role="main" id="background" >
   <div id="inner-wrapper">
   <div class="page" data-page-nbr="1">
@@ -490,34 +522,31 @@ button:not(:disabled),
     
     <div class="card-body " style=" background-color: rgb(230, 225, 225);">
       
-        
+      
   <div id="cart">
-    <p id="drg" class="drg">deg</p>
+    <p id="drg" onclick="drgFun()" class="drg">deg</p>
     <p id="mimoir" class="mimoir">M</p>
 
     <div id="fichour"  aria-atomic="false"  onclick="paste()" 
-      class="input"   placeholder="0"></div>
+      class="inp"   placeholder="0"></div>
 
     <div id="result"    onclick="copier()"
     class="result "  ></div>
     
     
     
-   
-    
-    <div id="fdiv" class="func">
-    </div>
+        <div id="fdiv" class="func"></div>
+        <div id="divNum" class="continent"></div>
 
-    
-    <div id="divNum" class="continent">
-  </div>
+        <div id="nrmldv" class="nrml"></div>
+     
 
   </div>
   </div>
   </main>
       <script type="text/javascript" >
-      /*////  variables */
-let ongl = 0.017453292519943 , mim='' ,fichour =gebi('fichour'),
+      /*////  variables    5310.0000000001 */
+let ongl = 0.017453292519943 , mim='' ,fichour =gebi('fichour'),Scien=1,
     result = gebi('result'), 
     div1= gebi('fdiv'),div2 = gebi('divNum'),
 
@@ -526,34 +555,57 @@ let ongl = 0.017453292519943 , mim='' ,fichour =gebi('fichour'),
 
     // functions  
     f1 ='add('   , f2='addFunc(', f3='adCar(',   f4='addSymbF(' , f5='addSymbP(', f6='retour()', f7='clearing()',
-    f8='drgFun()', f9='save()'  , f10='retSive()',f11='addSave()', f12='upRes()', f13='addVrgl()',
+    f8='scNrml()', f9='save()'  , f10='retSive()',f11='addSave()', f12='upRes()', f13= 'addVrgl()'
 
     //arrays
     //array function
-     arF =[ f2+"'sin(')",f2+"'cos(')"   ,f2+"'tan(')"  ,f8          ,f3+"'/100')"  ,f2+"'abs(')",
+     arF =[ f2+"'sin(')",f2+"'cos(')"   ,f2+"'tan(')"  ,f3+"'%')" ,f2+"'abs(')",f8 ,
             f2+"'asin(')",f2+"'acos(')" ,f2+"'atan(')" ,f2+"'e^(')" ,f2+"'Ln(')"   ,f2+"'log(')",
             f2+"'sinh(')",f2+"'cosh(')" ,f2+"'tanh(')" ,f2+"'(')"   ,f3+"')')"     , f6,
-            f2+"'3.141592653589793')"   ,f3+"'^')"     ,f2+"'√(')"  ,f2+"'1/')"   ,f3+"'²')"     ,f7,
+            f2+"'3.141592653589793')"   ,f3+"'^')"     ,f2+"'√(')"  ,f3+"'^(-1)')"   ,f3+"'²')"     ,f7,
             f1+"'7')",f1+"'8')" ,f1+"'9')" ,f4+"'/')", f9,
             f1+"'4')",f1+"'5')" ,f1+"'6')" ,f4+"'×')", f10,
             f1+"'1')",f1+"'2')" ,f1+"'3')" ,f5+"'-')", f11,
-            f1+"'0')",f2+"'(-')",f13       ,f5+"'+')" ,f12  ],
+            f1+"'0')",f2+"'(-')",f13 ,f5+"'+')" ,f12  ,
+            ///normal
+            f2+"'(')"  , f3+"')')"  ,f8        ,f7    ,
+            f4+"'/')"  ,f4+"'×')"  ,f3+"'%')"  ,f6,
+             f1+"'7')" ,f1+"'8')"  ,f1+"'9')"  ,f3+"'^(-1)')",
+             f1+"'4')" ,f1+"'5')"  ,f1+"'6')"  ,f5+"'-')",
+             f1+"'1')" ,f1+"'2')"  ,f1+"'3')"  ,f5+"'+')",
+             f1+"'0')" ,f2+"'(-')" ,f13        ,f12    ],
+
+           //class normal
+    arClN =[c1        ,c1    ,c1              ,c1+' btn-primary2',
+            c3        ,c3    ,c3              ,c3,
+            c2        ,c2    ,c2              ,c3,
+            c2        ,c2    ,c2              ,c3,
+            c2        ,c2    ,c2              ,c3,
+            c2        ,c2    ,c2              ,c3,],
             
     //arry classes        
-    arCl =[...Array(23).keys()],//fichour.innerHTML = arCl
+    arCl =[...Array(23).keys()],//fichour.innerText = arCl
 
 
     //arry innerHtml
-     arIH = ['sin' ,'cos' ,'tan'   ,'DRG'  ,'%'    ,'|x|',
+     arIH = ['sin' ,'cos' ,'tan'    ,'%'    ,'|x|'  ,'S/N',
               'asin','acos','atan'  ,'e<sup>x</sup>','Ln' ,'log',
               'sih' ,'cosh','tanh'  ,'(',')','←'    ,
               'π'   ,'y<sup>x</sup>','√x'   ,'1/x'  ,'x²' ,'C',
-              '7'   ,'8'            , '9'   ,'/'    ,'X<sup class="fsup">→</sup>M',
+              '7'   ,'8'            , '9'   ,'÷'    ,'X<sup class="fsup">→</sup>M',
               '4'   ,'5'            , '6'   ,'×'    ,'RM',
               '1'   ,'2'            , '3'   ,'-'    ,'M+',
-              '0'   ,'-/+'          , ','   ,'+'    ,'='   ];
+              '0'   ,'-/+'          , ','   ,'+'    ,'='   ,
+            // normal
+              '('   ,')'            ,'N/S'   ,'C'    ,
+              '÷'   ,'×'            ,'%'    ,'←'    ,
+              '7'   ,'8'            , '9'   ,'1/x'  ,
+              '4'   ,'5'            , '6'   ,'-'    ,
+              '1'   ,'2'            , '3'   ,'+'    ,
+              '0'   ,'-/+'          , ','   ,'='     ];
     
    arCl.fill(c1);arCl.push(c1+' btn-primary2',c2,c2,c2,c3,c3,c2,c2,c2,c3,c3,c2,c2,c2,c3,c3,c2,c2,c2,c3,c3);
+   arCl = arCl.concat(arClN);
    
 /* #################################################
 ################################################# */
@@ -561,9 +613,10 @@ let ongl = 0.017453292519943 , mim='' ,fichour =gebi('fichour'),
 
 
    /* aficher les divs*/
-   divBtn(0,24,'fdiv');
+    divBtn(0,24,'fdiv');
    divBtn(24,44,'divNum');
    
+    divBtn(44,68,'nrmldv')
 
    /* //// function creat btn */
 function divBtn(i,fi,div) {
@@ -575,14 +628,13 @@ function divBtn(i,fi,div) {
 }
 
 
-
 /* /////  sev mimoir on href \\\\\\\\\\ */
 if (location.href.indexOf('#mim') > -1) {
     let nHref = location.href ,
     inMim = nHref.indexOf('#mim=')+5;
     mim = nHref.slice(inMim , nHref.length);
-    mim = mim.replace(/%C3%97/g, '×');
-    mim = mim.replace(/%E2%88%9A/g, '√'); 
+    mim = rep(mim,'%C3%97', '×');
+    mim = rep(mim,'%E2%88%9A', '√'); 
     gebi('mimoir').style.color = 'black';
 }
 
@@ -590,7 +642,7 @@ if (location.href.indexOf('#mim') > -1) {
 
 function jump(){
    
-    fichour.scrollTop = 100000;
+  fichour.scrollTop = fichour.scrollHeight;
     
 }
 /*   functin of click keybord */
@@ -598,18 +650,18 @@ addEventListener('keyup',   (event) => {
     event.preventDefault();
    
     let kcod = event.keyCode-96;
-  // fichour.innerHTML = event.keyCode;
-    if ((kcod > -1) && (kcod < 10)) { fichour.innerHTML += kcod; }
-    if (kcod == 14) { addSymbF(','); }
-    if (event.keyCode == 107) { addSymbP('+'); }
-    if (event.keyCode == 109) { addSymbP('-'); }
-    if (event.keyCode == 106) { addSymbF('×'); }
-    if (event.keyCode == 111) { addSymbF('/'); }
-    if (event.keyCode == 219) { adCar(')'); }
-    if (event.keyCode == 53) { addFunc('('); }
-    if (event.keyCode == 8) { retour();}
-    if (event.keyCode == 13) { validat();}
+  // fichour.innerText = event.keyCode;
+    if ((kcod > -1) && (kcod < 10)) { fichour.innerText += kcod; }
+    if (kcod == 14) { addVrgl(','); }
+    if (event.keyCode === 107) { addSymbP('+'); }
+    if (event.keyCode === 109) { addSymbP('-'); }
+    if (event.keyCode === 106) { addSymbF('×'); }
+    if (event.keyCode === 111) { addSymbF('/'); }
+    if (event.keyCode === 219) { adCar(')'); }
+    if (event.keyCode === 53) { addFunc('('); }
+    if (event.keyCode === 8) { retour();}
     calcule();
+    if (event.keyCode === 13) { upRes();}
     jump();     
 }
 )
@@ -618,176 +670,220 @@ addEventListener('keyup',   (event) => {
 /* ///// functin of click moss \\\\\\ */
  
 addEventListener('click',  (e)=> {
-    if ((e.target.id !== 'result')&&(e.target.id !== 'b43')) {
+    if ((e.target.id !== 'result')&&(e.target.id !== 'b43')&&(e.target.id !== 'b67')) {
       setTimeout(() => {calcule();}, 10); 
     }  
     
-   jump();
+   jump(); 
 })
+function scNrml() {
+  let arStl = [ [  'fdiv' ,'divNum', 'drg' ,'nrmldv'                                    ],//style
+                [ ['grid' , 'grid' ,'block', 'none' ],['none','none','none','grid' ] ] ];//display
+  if (Scien==1) { 
+    for (let i = 0; i < arStl[0].length; i++) {
+       gebi(arStl[0][i]).style.display   = arStl[1][0][i];
+    }
+    Scien=0;
+  } else {
+    for (let i = 0; i < arStl[0].length; i++) {
+       gebi(arStl[0][i]).style.display   = arStl[1][1][i];
+    }
+    Scien=1;
+  }
+
+}
 
 /* /// Copier */
 function copier() {
-  if (result.innerHTML == 'The result copied') {result.innerHTML='';}
+  if (result.innerText == 'The result copied') {result.innerText='';}
 
-  if (result.innerHTML.length>0) {
-    navigator.clipboard.writeText(result.innerHTML);
-      result.innerHTML = 'The result copied';
+  if (result.innerText.length>0) {
+    navigator.clipboard.writeText(result.innerText);
+      result.innerText = 'The result copied';
   } 
   
 }
 
 /* /// paste */
-function paste() { navigator.clipboard.readText().then((text)=>{ fichour.innerHTML +=text; })}
-
+ function paste() { 
+   navigator.clipboard.readText().then((text)=>{ fichour.innerText +=text; })
+   jump();
+   calcule();
+  }
+ 
 /* ///racorce get elment */
 function gebi(param) { param = document.getElementById(param); return param;}
- 
+
+
 /* //// Up result to fichour */
-function upRes() {if((result.innerHTML.length >0)&&result.innerHTML != 'The result copied'){
-  result.className +=' ogmentation';
-  
-    fichour.innerHTML = '';
-   
+function upRes() {
+  calcule();
+  if((result.innerText.length >0)&&result.innerText != 'The result copied'){
+ 
+   result.className +=' ogmentation';
+   fichour.innerText ='';
    setTimeout(() => {
-   fichour.innerHTML = result.innerHTML;
-   result.innerHTML ='';
+    fichour.className = 'inp';
+   fichour.innerText = result.innerText;;
+   result.innerText = '';
    result.className ='result';
    }, 300);
   }
 }
 
+/* 31256568897*3554665464-31312332+15566588789897-5454546+6589965788555 */
+
+/* function upRes() {
+  calcule();
+  if((result.innerText.length >0)&&result.innerText != 'The result copied'){
+    fichour.className +=' upPad';
+   result.className +=' ogmentation';
+   let trf=true;
+   setTimeout(() => {trf=false;},300);
+  
+
+   setTimeout(() => {
+    fichour.className = 'inp';
+   fichour.innerText = result.innerText;;
+   result.innerText = '';
+   result.className ='result';
+   }, 300);
+   do {
+      jump();
+   }while(trf) 
+  }
+} */
+
 /*  /////// add \\\\\\\\\ */
 function add(caracter) {//f1
      
-    let input = fichour.innerHTML,
-        lenInbut = input.length - 1,
-        carInput = input.charAt(lenInbut);
-     if((carInput==')')||(carInput =='²')){fichour.innerHTML += '×' ;}
-     fichour.innerHTML += caracter ;
+     let inp = fichour.innerText,
+        lenInp = inp.length,
+        carInp = inp.charAt(lenInp - 1);
+        if ((carInp==')')||(carInp=='²')||(carInp==='%')) {
+          inp +='×' 
+        }
+        fichour.innerText = inp+ caracter ;
 }
 
 /*  /////add function\\\\\\ */
 function addFunc(param) { //f2
-    let input = fichour.innerHTML,
-        lenInbut = input.length,
-        carInput = input.charAt(lenInbut - 1),
+    let inp = fichour.innerText,
+        lenInp = inp.length,
+        carInp = inp.charAt(lenInp - 1),
         symbols = '/*×-+^(';
-    if ((symbols.indexOf(carInput,0) > -1)||(lenInbut ==0)) {
-        input += param;
-    } else { addSymbF('×');input =fichour.innerHTML  + param;}
-    fichour.innerHTML = input;
+    if ((symbols.indexOf(carInp,0) > -1)||(lenInp ==0)) {
+        inp += param;
+    } else { addSymbF('×');inp =fichour.innerText  + param;}
+    fichour.innerText = inp;
     
 }
 
 /*  /////add caracter\\\\\\ */
 function adCar(param) { //f3
   
-    let input = fichour.innerHTML,
-        lenInbut = input.length,
-        carInput = input.charAt(lenInbut - 1),
+    let inp = fichour.innerText,
+        lenInp = inp.length,
+        carInp = inp.charAt(lenInp - 1),
         symbols = '/*×-+(',
-        inputLef= input.replace(/\(/g, ''),
-        inpRi   = input.replace(/\)/g, '');
-    if ((symbols.indexOf(carInput, 0) == -1) && (lenInbut != 0)) {
+        inpLef= rep(inp,'(', ''),
+        inpRi   = rep(inp,')','');
+    if ((symbols.indexOf(carInp, 0) == -1) && (lenInp != 0)&&
+        (((carInp !='%')||(param !='^'))&&( (carInp !='%')||(param !='²'))   )) {
       if (param !=')') {
-        input +=  param;
-      }else if ((param==')')&&(inputLef.length < inpRi.length)) {
-        input +=  param;
+        inp +=  param;
+      }else if ((param==')')&&(inpLef.length < inpRi.length)) {
+        inp +=  param;
       }
       
     }
-    fichour.innerHTML = input;
+    fichour.innerHTML = inp;
        
 }
 
 
 /* //////// add symbole × / */
 function addSymbF(param) {//f4
-    let input = fichour.innerHTML,
-        lenInbut = input.length - 1,
-        carInput = input.charAt(lenInbut),
-        carInput2 = input.charAt(lenInbut-1),
+    let inp = fichour.innerText,
+        lenInp = inp.length - 1,
+        carInp = inp.charAt(lenInp),
+        carInp2 = inp.charAt(lenInp-1),
         symbols = '/*×-+.,',
         symbol2 = '(';
-    if ((lenInbut > -1) && (symbol2.indexOf(carInput, 0) == -1)) {
-        if (symbols.indexOf(carInput, 0) > -1) {
-            if ((symbol2.indexOf(carInput2, 0) == -1)) {
-                input = input.slice(0, lenInbut);
-                input += param;
+    if ((lenInp > -1) && (symbol2.indexOf(carInp, 0) == -1)) {
+        if (symbols.indexOf(carInp, 0) > -1) {
+            if ((symbol2.indexOf(carInp2, 0) == -1)) {
+                inp = inp.slice(0, lenInp);
+                inp += param;
             } 
-        }else{input += param; }
+        }else{inp += param; }
     } 
-    fichour.innerHTML = input;
+    fichour.innerText = inp;
 }
 
 /* /////// add Symbole + -  \\\\\\\ */
 function addSymbP(param) { //f5
-    let input   = fichour.innerHTML,
-        lenInbut = input.length - 1,
-        carInput = input.charAt(lenInbut),
+    let inp   = fichour.innerText,
+        lenInp = inp.length - 1,
+        carInp = inp.charAt(lenInp),
         plus     = '+' ,
         symbols  = '/*×-+.,';
     
-        if (symbols.indexOf(carInput,0) > -1) {
-            input = input.slice(0,lenInbut );
+        if (symbols.indexOf(carInp,0) > -1) {
+            inp = inp.slice(0,lenInp );
             plus = '';
         }
-        input += param; 
+        inp += param; 
     
-    fichour.innerHTML = input;
+    fichour.innerText = inp;
     return plus
 }
 
-/*/////// add virgule \\\\\\*/
-function addVrgl(){
-      let fich = fichour.innerHTML;
-        fich.replace(/+/g , 'simbol');//fich.replace(/-/g , 'simbol');
-       // fich.replace(/×/g , 'simbol');fich.replace(/\//g , 'simbol');
-        //fich.replace(/\(/g , 'simbol'); fich.replace(/\^/g , 'simbol');
-      let lng = fich.length-1;
-        if(fich.lastIndexOf('simbol',lng) >= fich.lastIndexOf(',', lng)){
-           addSymbF(',');
+/* ////// add virguele \\\\\ */
+function addVrgl() {
+  let inp = fichour.innerText,
+    arRe =['+','-','/','×','*','^','('] ;
+    for(let i = 0; i < arRe.length; i++){ inp = rep(inp,arRe[i], 'symbol'); }
+        inp = rep(inp,',','.');
+
+  let lenInp = inp.length ;
+        if (inp.lastIndexOf('symbol',lenInp)>=inp.lastIndexOf('.',lenInp)) {
+          addSymbF(',')
         }
 }
 
 
 /* ///// retour \\\\\\\\\\\ */
 function retour() { //f6
-    let input = fichour.innerHTML,
-        lenInbut = input.length,
-        carInput = input.charAt(lenInbut - 1),
-        carInput2 = input.charAt(lenInbut - 2),
+    let inp = fichour.innerText,
+        lenInp = inp.length,
+        carInp = inp.charAt(lenInp - 1),
+        carInp2 = inp.charAt(lenInp - 2),
         symbols = '/*×-+(1234567890.,';
     
-    if (lenInbut > 0) {
-        if (((carInput == '(') || (carInput == '^')) && ((symbols.indexOf(carInput2, 0) < 0))) {
+    if (lenInp > 0) {
+        if (((carInp == '(') || (carInp == '^')) && (symbols.indexOf(carInp2, 0) < 0)&&(Scien==0)) {
             ////replace background-color: floralwhite;
-            input = input.replace(/abs\(/gi, 'd'); input = input.replace(/cosh\(/gi, 'f');
-            input = input.replace(/acos\(/gi, 'j'); input = input.replace(/cos\(/gi, 'k');
-            input = input.replace(/e\^\(/gi, 'm'); input = input.replace(/Ln\(/gi, 'p');
-            input = input.replace(/log\(/gi, 'q'); input = input.replace(/√\(/gi, 'r');
-            input = input.replace(/asin\(/gi, 'u'); input = input.replace(/sinh\(/gi, 'v');
-            input = input.replace(/sin\(/gi, 'w'); input = input.replace(/atan\(/gi, 'x');
-            input = input.replace(/tanh\(/gi, 'y'); input = input.replace(/tan\(/gi, 'z');
-            /////slice 
-            input = input.slice(0, (input.length - 1));
-            /////replace
-            input = input.replace(/d/g, 'abs('); input = input.replace(/k/g, 'cos(');
-            input = input.replace(/j/g, 'acos('); input = input.replace(/f/g, 'cosh(');
-            input = input.replace(/m/g, 'e^('); input = input.replace(/p/g, 'Ln(');
-            input = input.replace(/q/g, 'log('); input = input.replace(/r/g, '√(');
-            input = input.replace(/w/g, 'sin('); input = input.replace(/u/g, 'asin(');
-            input = input.replace(/v/g, 'sinh('); input = input.replace(/z/g, 'tan(');
-            input = input.replace(/x/g, 'atan('); input = input.replace(/y/g, 'tanh(');
+    let arRep=[['abs(','cosh(','acos(','cos(','e^(','Ln(','log(','√(','asin(','sinh(','sin(','atan(','tanh(','tan('],
+               ['d'   , 'f'   , 'j'   , 'k'  , 'm' , 'p' , 'q'  , 'r', 'u'   , 'v'   , 'w'  , 'x'   , 'y'   , 'z'  ]];
+
+          for (let i = 0; i < arRep[0].length; i++) { inp = rep(inp,arRep[0][i], arRep[1][i]); }
+           
+          
+            inp = inp.slice(0,inp.length - 1);
+
+            /////reteur
+            for (let i = 0; i < arRep[0].length; i++) { inp = rep(inp,arRep[1][i], arRep[0][i]);}
+            
          
-        } else { input = input.slice(0, input.length - 1); }
+        } else { inp = inp.slice(0, inp.length - 1); }
     }
-    fichour.innerHTML = input;
+    fichour.innerText = inp;
     
 }
 
 /* //////clearing \\\\\\\\\\   */
-function clearing() { /* //f7  */ fichour.innerHTML = ''; }
+function clearing() { /* //f7  */ fichour.innerText = ''; }
 
 /* //////// replice drg ongle */
 function drgFun() { //f8
@@ -813,19 +909,19 @@ function save() {//f9
 
     if(nHref.charAt(nHref.length-1) =='#'){nHref = nHref.slice(0, nHref.length-1);}
 
-    if (result.innerHTML.length > 0) {
-        mim =  result.innerHTML;
+    if (result.innerText.length > 0) {
+        mim =  result.innerText;
         nHref+= '#mim='+ mim;
         location.href = nHref; gebi('mimoir').style.color = 'black';
-    }else if (fichour.innerHTML.length >0) {
-        mim =  fichour.innerHTML ;
-        fichour.innerHTML = '';fichour.placeholder= "";
+    }else if (fichour.innerText.length >0) {
+        mim =  fichour.innerText ;
+        fichour.innerText = '';fichour.placeholder= "";
         setTimeout(() => { 
-        fichour.innerHTML = mim;fichour.placeholder= "0";
+        fichour.innerText = mim;fichour.placeholder= "0";
         }, 90);
         nHref += '#mim='+ mim ;
         location.href = nHref; gebi('mimoir').style.color = 'black';
-    }else if (fichour.innerHTML.length ==0) {
+    }else if (fichour.innerText.length ==0) {
         gebi('mimoir').style.color = 'floralwhite';
         if(hach ==1){location.href = nHref+'#';}
     }
@@ -835,7 +931,7 @@ function save() {//f9
 /* /////// reteur de sive \\\\\\\\\ */
 function retSive() { //f10
     if (mim.length > 0) {
-        fichour.innerHTML += mim;
+        fichour.innerText += mim;
     }
 }
 
@@ -850,15 +946,15 @@ function addSave() { //f11
         let nHref = location.href,
             inNHref = nHref.indexOf('#mim=')+1;
         nHref = nHref.slice(0, inNHref);
-        if (result.innerHTML.length > 0) {
-            mim +=  addSymbP('+') + result.innerHTML;
+        if (result.innerText.length > 0) {
+            mim +=  addSymbP('+') + result.innerText;
             nHref +='mim='+ mim;
         } else {
-          let nMim =fichour.innerHTML;
+          let nMim =fichour.innerText;
             mim += addSymbP('+')+ nMim; 
-            fichour.innerHTML = '';fichour.placeholder= "";
+            fichour.innerText = '';fichour.placeholder= "";
         setTimeout(() => { //==== setTimeout(function(){code},time)
-        fichour.innerHTML = nMim;fichour.placeholder= "0";
+        fichour.innerText = nMim;fichour.placeholder= "0";
         }, 90);
             nHref +='mim='+ mim;
         }
@@ -866,6 +962,15 @@ function addSave() { //f11
     }
 }
 
+/* //////// replace \\\\\\ */
+function rep(inp,param1,param2) {
+  
+  while (inp.indexOf(param1,0)>-1) {
+    inp = inp.replace(param1 ,param2);
+  } 
+
+  return inp ;
+}
 
 
 
@@ -878,40 +983,56 @@ function calcule() { //f12
 
     
 
-    let input = fichour.innerHTML,
-        intLef = input.replace(/\(/g, ''),
-        intRi = input.replace(/\)/g, ''),
+    let inp    = fichour.innerText;
+        lenInp = inp.length,
+        carInp = inp.charAt(lenInp - 1),
+        intLef = rep(inp,'(', ''), arRe=[],
+        intRi = rep(inp,')', ''),
         difRL = intRi.length - intLef.length;
-        for (let i = 0; i < difRL ; i++) {input += ')';}
-    
-    input = input.replace(/,/gi, '.');      input = input.replace(/×/gi, '*');
-    input = input.replace(/cosh/gi, 'f');   input = input.replace(/acos/gi, 'j');
-    input = input.replace(/cos\(/gi, 'k');  input = input.replace(/asin/gi, 'u');   
-    input = input.replace(/sinh/gi, 'v');   input = input.replace(/sin\(/gi, 'w');  
-    input = input.replace(/atan/gi, 'x');   input = input.replace(/tanh/gi, 'y');
-    input = input.replace(/tan\(/gi, 'z');
-    /////slice 
-    
+        symbols = '/*×-+(^'; 
+       if((symbols.indexOf(carInp,0)>-1)||(lenInp<2)){  
+         result.innerText='';
+        return false; }
 
-    input = input.replace(/abs/g, 'Math.abs');               input = input.replace(/k/g, 'Math.cos('+ongl+'*');
-    input = input.replace(/j/g, 1/ongl+'*Math.acos');        input = input.replace(/f/g, 'Math.cosh');
-    input = input.replace(/e\^\(/g, '2.718281828459045**('); input = input.replace(/log/g, 'Math.log10');
-    input = input.replace(/Ln/g, 'Math.log');                input = input.replace(/√/g, 'Math.sqrt');
-    input = input.replace(/w/g, 'Math.sin('+ongl+'*');       input = input.replace(/u/g, 1/ongl+'*Math.asin');
-    input = input.replace(/v/g, 'Math.sinh');                input = input.replace(/z/g, 'Math.tan('+ongl+'*');
-    input = input.replace(/x/g, 1/ongl+'*Math.atan');        input = input.replace(/y/g, 'Math.tanh');
-    input = input.replace(/\^/g, '**');                      input = input.replace(/²/g, '**2');
+        
+            for (let i = 0; i < difRL ; i++) {inp += ')';}
+    /* ////replasment\\\\ */
+    inp = rep(inp,',', '.');      inp = rep(inp,'×', '*');   inp = rep(inp,'%', '*1/100');
 
-    let reInp = input; // after  inpute replace
+      
+        
+        
+    if (inp.indexOf('(',0)>0) {
+    
+       
+     
+       arRe=[
+        ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','e^(',
+             'q','Ln','√','w','u','v','z','x','y'],
+        ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'q', 'Math.abs', 'Math.cos('+ongl+'*', 1/ongl+'*Math.acos',
+         'Math.cosh', '2.718281828459045**(', 'Math.log10', 'Math.log', 'Math.sqrt', 'Math.sin('+ongl+'*',
+         1/ongl+'*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*', 1/ongl+'*Math.atan', 'Math.tanh']
+          ];
+
+          for (let i = 0; i < arRe[0].length; i++) { inp = rep(inp,arRe[0][i], arRe[1][i]); }
+      
+    }
+      inp = rep(inp,'^', '**');                       inp = rep(inp,'²', '**2');
+
+     let fich = inp;
+     
 /* /////// result */
-        result.innerHTML = '';
-      if (input.length >0) {
-    
+        result.innerText = '';
+      if (inp.length >0) {
+       
       try {
-        input = eval(input);
-        input = input.toFixed(10) ;input = 1*input;
+        inp = eval(inp);
+        /* inp = inp/10**50;
+        inp = inp*10**50; */
+        inp = inp.toFixed(10) ;inp = 1*inp;
+        if(Math.abs(inp.toFixed(10)- inp.toFixed(1))<1e-8){inp =inp.toFixed(1);inp = 1*inp;}
         result.style.color = 'rgb(14, 66, 20)'; 
-        if ((input != reInp)&&(!isNaN(input))) {result.innerHTML = input; } 
+        if ((inp != fich)&&(!isNaN(inp))) {result.innerText = inp; } 
         
       } catch{}
     }
