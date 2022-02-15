@@ -676,7 +676,8 @@ addEventListener('click',  (e)=> {
   if ((e.target.id !== 'result')&&(e.target.innerText !== '=')&&(e.target.id !== 'fichour')) {
       calcule();
     }  
-    gebi('musique').onplay();
+    let mu = gebi('musique');
+      mu.onplay;
     jump();  
     
 })
