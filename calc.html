@@ -721,11 +721,11 @@ function gebi(param) { param = document.getElementById(param); return param;}
 
 /* //// Up result to fichour */
 function upRes() {
- if((result.innerText.length >0)&&result.innerText != 'The result copied'){
+ if(result.innerText.length ==0 || result.innerText != 'The result copied' ){
 calcule();
 }
   
-  if((result.innerText.length ==0){
+  if(result.innerText ==''){
       return false}
 
    result.className +=' ogmentation';
@@ -1053,7 +1053,7 @@ function acstAMat(inp,pr) { //acos asin atan and Math.cos,sin,tan
 
 /* ////// find 0 after nember and slice \\\\\\ */
 function sliZir() {
-    if(fichour.innerText.indexOf('0',0) ==-1 || fichour.innerText==='0' ){
+    if(fichour.innerText.indexOf('0',0) ==-1 || fichour.innerText =='0' ){
       return false}
     let inp  = fichour.innerText,
      symbols = ['+','-','/','×','*','^','('],
