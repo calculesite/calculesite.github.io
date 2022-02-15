@@ -710,9 +710,10 @@ function copier() {
 
 /* /// paste */
  function paste() { 
-   navigator.clipboard.readText().then((text)=>{ fichour.innerText +=text; })
+   navigator.clipboard.readText().then((text)=>{ fichour.innerText +=text; 
    jump();
    calcule();
+  })
   }
  
 /* ///racorce get elment */
