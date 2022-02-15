@@ -1104,7 +1104,7 @@ function calcule() { //f12
         difRL = intRi.length - intLef.length,
         symbols = '/*×-+(^'; 
         
-        if((symbols.indexOf(carInp,0)>-1)||(lenInp<3)){  
+        if((symbols.indexOf(carInp,0)>-1)||(lenInp<2)){  
            result.innerText='';
            return false; } 
 
@@ -1163,7 +1163,7 @@ function calcule() { //f12
         result.style.color = 'rgb(14, 66, 20)';
         if ((inp != fich)&&(!isNaN(inp))) {result.innerText = inp;} 
         
-      } catch{}
+      } catch(e){result.innerText}
     }
      
  }
