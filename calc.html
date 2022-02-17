@@ -424,7 +424,7 @@ button:not(:disabled),
     box-sizing: border-box;
     font: 400 13.3333px Arial;
     font-size: 30px;
-    background-color:floralwhite;
+    background-color: floralwhite !important;
     width: 99.8%;
     margin: 20px 0px -32px 0%;
     padding: 5px 15px 30px 18px;
@@ -441,15 +441,14 @@ button:not(:disabled),
 .result{
     margin: -6px 0px 5px 18px;
     font: 400 13.3333px Arial;
-    color:rgb(14, 66, 20);
     font-size: 25px;
     height: 32px;
     width: 90%;
-    background-color: transparent ;
+    background-color: floralwhite;
     padding: 0px 0px;
     position: relative;
     cursor: pointer;
-    
+    color: rgb(14, 66, 20);
 }
 .ogmentation{
   animation-name: ogment;
@@ -490,9 +489,9 @@ button:not(:disabled),
     padding: 0;
  }
  .divHist{
-    margin: 5%  30% 5px 30%;
+    margin: 3% 30% auto 30%;
     width: 40%;
-    height: 600px;
+    height: 94%;
     position: fixed;
     z-index: 2;
     background-color: white;
@@ -500,35 +499,36 @@ button:not(:disabled),
     overflow-y: hidden;
     transition: .2s;
     transform:scaleY(0);
+    
  }
  .dHtrnf{transform:scaleY(1);}
 
-@media (max-width: 500px) {
+ @media (max-width: 500px) {
     .divHist{
-background-color:white;
     width: 94%;
-height:94%;
-    margin: 3% 3% auto 3%;
+    margin: 3% 3% 3% 3%;
     }
  }    
  
     
  .inpHist{
-   background-color:white ;
+   background-color: white;
     font-size: 30px; 
     width: 100%;
     padding: 10px;
     padding-bottom: 45px;
-    margin: 13px 3% 5px 3%;
+    margin: 13px 0% 5px 0%;
     height: 100px;
  }
  .resultHist{
-  margin: -37px 0px 5px 18px;
-background-color:white;
+    margin: -37px 0px 5px 0px;
+    padding-left: 10px;
+    width: 95%;
  }
  @media (max-width: 900px){
     .inp,.inpHist{font-size: 25px;margin-top: 25px;height: 125px;}
-    .inpHist{width: 94%;margin: 15px 3% auto 3%; background-color: white;}
+    .inpHist{width: 100%;margin: 0%;}
+    .divHist{width: 80%;margin: 3% 10%;}
     .result{font-size: 20px; }
     .ogmentation{animation-name: ogmentTlph;}
 }
@@ -572,7 +572,7 @@ background-color:white;
     <div id="divHist" class="divHist">
       <span id="hidHist" onclick="hidHist()" >×</span>
       <hr style="margin-top: 60px;">
-        <div style="overflow-y: auto;    height: 90%; width:100%"">
+        <div style="overflow-y: auto;    height: 90%;;">
           <div id=""  aria-atomic="false"  onclick="paste()" 
           class="inpHist"   placeholder="0">322658*632586+32589</div>
           <div id=""     class="result resultHist"  >132555648998</div>
@@ -761,20 +761,20 @@ addEventListener('keyup',   (e) => {//e event
     if (e.keyCode !== 13) { calcule();}
     
     jump(); 
-})
+}
+)
 
 
 /* ///// functin of click moss \\\\\\ */
  
-  gebi('musique').addEventListener('click',  (e)=> {
-  if ((e.target.id !== 'result')&&(
-e.target.innerText !== '=')&&(e.target.id !== 'fichour')) {
+gebi('cart').addEventListener('click',  (e)=> {
+  if ((e.target.id !== 'result')&&(e.target.innerText !== '=')&&(e.target.id !== 'fichour')) {
+      calcule();
+    }  
       
-    } 
-calcule();
-   
     jump();  
     gebi('musique').play();
+    
 })
 
 /* ////// histori and hiding histori   \\\\\\\\\\\\\ */
