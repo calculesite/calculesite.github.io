@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html  >
 <head>
@@ -291,15 +292,7 @@ button:not(:disabled),
  html{
    height: 100%;
  }
-/* divs */
-/* .globalContiner{
-    width: auto;
-    background: #ddd;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-} */
+/* ///divs */
 .func{
     display: none;
     grid-template-columns: repeat(6,1fr);
@@ -325,7 +318,6 @@ button:not(:disabled),
 .drg{
     display:none;
     margin-left: 5px;
-    margin-top: -25px;
     position: absolute;
     font-size: small;
     background: floralwhite;
@@ -378,10 +370,15 @@ button:not(:disabled),
 .btn-primary2.disabled{
     background-color:#ff5a61 ;
     border-color: #ee3c3e;
+    padding: 10%;/* 
+    height: 100%; */
+    
 }
+
 .btn-primary2:hover{
     background-color: rgb(248, 61, 61) ;
     border-color: rgb(254, 34, 34);
+    
 }
 
 </style>
@@ -389,9 +386,8 @@ button:not(:disabled),
   <style>
 
     #background {
-      min-height:100vh;
-      text-align: center;
       
+      text-align: center;
       background-size:cover;
       background-position:center center;
       background-repeat: no-repeat;
@@ -399,9 +395,7 @@ button:not(:disabled),
     }
     
     #inner-wrapper{
-        
       width:100%;
-      min-height: 100vh;
       background-color: white;
       text-align:center;
       
@@ -426,11 +420,11 @@ button:not(:disabled),
 
 
 /* /// inp */
-.inp {
+.inp ,.inpHist {
     box-sizing: border-box;
     font: 400 13.3333px Arial;
     font-size: 30px;
-    background-color: floralwhite !important;
+    background-color:floralwhite;
     width: 99.8%;
     margin: 20px 0px -32px 0%;
     padding: 5px 15px 30px 18px;
@@ -445,24 +439,97 @@ button:not(:disabled),
     
 }
 .result{
-    margin: -6px 0px 0px 18px;
+    margin: -6px 0px 5px 18px;
     font: 400 13.3333px Arial;
+    color:rgb(14, 66, 20);
     font-size: 25px;
     height: 32px;
     width: 90%;
-    background-color: floralwhite;
+    background-color: transparent ;
     padding: 0px 0px;
     position: relative;
     cursor: pointer;
+    
 }
 .ogmentation{
   animation-name: ogment;
   animation-duration: 0.301s;
 }
 
-@media (max-width: 900px){
-    .inp{font-size: 25px;margin-top: 25px;height: 125px;}
-    .result{font-size: 18px; }
+
+.nrml{
+  
+  display: none;
+    grid-template-columns: repeat(4,1fr) ;
+    margin-top: 15px;
+    column-gap: 3%;
+    row-gap: 4%;
+    margin-bottom: 55px; 
+  
+}
+
+ .upPad{
+  width: 100%;
+  background:floralwhite;
+  position:relative;
+  animation-name: zooming;
+  animation-duration: 0.3s;
+}
+@keyframes zooming{
+  to{
+    padding-bottom: 130px;
+  }
+} 
+ .hist{
+    float: right;
+    margin: -4px 13px 3px;
+    border: hidden;
+    color: green;
+    background-color: transparent;
+    font-size: 20px;
+    padding: 0;
+ }
+ .divHist{
+    margin: 5%  30% 5px 30%;
+    width: 40%;
+    height: 600px;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    border-radius: 7px;
+    overflow-y: hidden;
+    transition: .2s;
+    transform:scaleY(0);
+ }
+ .dHtrnf{transform:scaleY(1);}
+
+@media (max-width: 500px) {
+    .divHist{
+background-color:white;
+    width: 94%;
+height:94%;
+    margin: 3% 3% auto 3%;
+    }
+ }    
+ 
+    
+ .inpHist{
+   background-color:white ;
+    font-size: 30px; 
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 45px;
+    margin: 13px 3% 5px 3%;
+    height: 100px;
+ }
+ .resultHist{
+  margin: -37px 0px 5px 18px;
+background-color:white;
+ }
+ @media (max-width: 900px){
+    .inp,.inpHist{font-size: 25px;margin-top: 25px;height: 125px;}
+    .inpHist{width: 94%;margin: 15px 3% auto 3%; background-color: white;}
+    .result{font-size: 20px; }
     .ogmentation{animation-name: ogmentTlph;}
 }
 @keyframes ogment{
@@ -481,38 +548,58 @@ button:not(:disabled),
     
   }
 }
-.nrml{
-  
-  
-  display: grid;
-    grid-template-columns: repeat(4,1fr) ;
-    margin-top: 15px;
-    column-gap: 3%;
-    row-gap: 4%;
-    margin-bottom: 55px; 
- /*  transition: transform 0.5s;
-  transform-style: preserve-3d; */
-  
-}
-
- .upPad{
+#hidHist{/* hident historik */
+  font-size: 30px;
+      color: #302e2ed9;
+      float: right;cursor: pointer;
+      margin: 8px 15px 10px;
+}   
+#contHist{ /* continer historie */
+  background-color: #7473739e;
   width: 100%;
-  background:floralwhite;
-  position:relative;
-  animation-name: zooming;
-  animation-duration: 0.3s;
-}
-@keyframes zooming{
-  to{
-    padding-bottom: 130px;
-  }
-} 
- 
-   
+  height: 100%;
+  margin-top: -30px;
+  display: none;
+  position: fixed;
+  z-index: 2;}
+
 </style>
     
 </head>
-<body style="background-color:white">
+<body >
+  <div id="contHist"   > 
+
+    <div id="divHist" class="divHist">
+      <span id="hidHist" onclick="hidHist()" >×</span>
+      <hr style="margin-top: 60px;">
+        <div style="overflow-y: auto;    height: 90%; width:100%"">
+          <div id=""  aria-atomic="false"  onclick="paste()" 
+          class="inpHist"   placeholder="0">322658*632586+32589</div>
+          <div id=""     class="result resultHist"  >132555648998</div>
+          <hr>
+          <div id=""  aria-atomic="false"  onclick="paste()" 
+          class="inpHist"   placeholder="0">326559/62336-6256+3665</div>
+          <div id=""     class="result resultHist"  >hghgffg</div>
+          <hr>
+          <div id=""  aria-atomic="false"  onclick="paste()" 
+          class="inpHist"   placeholder="0">0</div>
+          <div id=""     class="result resultHist"  >hhkhgh</div>
+          <hr>
+          <div id=""  aria-atomic="false"  onclick="paste()" 
+          class="inpHist"   placeholder="0">0</div>
+          <div id=""     class="result resultHist"  >hghghjk</div>
+          <hr>
+          <div id=""  aria-atomic="false"  onclick="paste()" 
+          class="inpHist"   placeholder="0">326559/62336-6256+3665</div>
+          <div id=""     class="result resultHist"  >ghgjgjh</div>
+          <hr>
+          <div id=""  aria-atomic="false"  onclick="paste()" 
+          class="inpHist"   placeholder="0">326559/62336-6256+3665+1355546654+12555465-21213546546546489</div>
+          <div id=""     class="result resultHist"  >213325</div>
+          <hr>
+        </div>
+    </div>
+   </div> 
   
   <main role="main" id="background" >
   <div id="inner-wrapper">
@@ -520,18 +607,21 @@ button:not(:disabled),
   
   <div class="card register_form">
     
+    
     <div class="card-body " style=" background-color: rgb(230, 225, 225);">
       
       
   <div id="cart">
     <p id="drg" onclick="drgFun()" class="drg">deg</p>
+     <button id="histori" class="btn hist" onclick="hist()">Histori</button>
+
+    
     <p id="mimoir" class="mimoir">M</p>
 
     <div id="fichour"  aria-atomic="false"  onclick="paste()" 
       class="inp"   placeholder="0">0</div>
 
-    <div id="result"    onclick="copier()"
-    class="result "  ></div>
+    <div id="result"    onclick="copier()" class="result "  ></div>
     
     
     
@@ -544,11 +634,14 @@ button:not(:disabled),
   </div>
   </div>
   </main>
-  <audio id='musique' src='sound.mp3'></audio>
+
+ 
+  <audio id='musique' src='sound.mp3' preload="auto"></audio>
       <script type="text/javascript" >
+
       /*////  variables    5310.0000000001 */
-let ongl = 0.017453292519943 ,reOngl=57.29577951308329, mim='' ,fichour =gebi('fichour'),Scien=1,
-    result = gebi('result'), 
+let ongl = 0.017453292519943 ,reOngl=57.29577951308329, mim='' ,fichour =gebi('fichour'),SCN='normal',
+    result = gebi('result'),
     div1= gebi('fdiv'),div2 = gebi('divNum'),
 
     //classes
@@ -611,7 +704,7 @@ let ongl = 0.017453292519943 ,reOngl=57.29577951308329, mim='' ,fichour =gebi('f
 /* #################################################
 ################################################# */
 
-
+    
 
    /* aficher les divs*/
     divBtn(0,24,'fdiv');
@@ -627,17 +720,19 @@ function divBtn(i,fi,div) {
           '"class="btn disabled '+arCl[i]+' "role="button" >'+arIH[i]+'</button>';
       }
 }
+gebi('b51').style.height = '100%';
+
+/* //// chek clc is normal or scientific \\\\\\ */
+if (localStorage.ScNo ==='sc') {SCN='sc'; } 
+scNrml();
 
 
 /* /////  sev mimoir on href \\\\\\\\\\ */
-if (location.href.indexOf('#mim') > -1) {
-    let nHref = location.href ,
-    inMim = nHref.indexOf('#mim=')+5;
-    mim = nHref.slice(inMim , nHref.length);
-    mim = rep(mim,'%C3%97', '×');
-    mim = rep(mim,'%E2%88%9A', '√'); 
+if(localStorage.mim.length > 0){
+  let mim = localStorage.mim; 
     gebi('mimoir').style.color = 'black';
 }
+
 
 /*  jump functin */
 
@@ -666,38 +761,60 @@ addEventListener('keyup',   (e) => {//e event
     if (e.keyCode !== 13) { calcule();}
     
     jump(); 
-}
-)
+})
 
 
 /* ///// functin of click moss \\\\\\ */
  
-addEventListener('click',  (e)=> {
-  if ((e.target.id !== 'result')&&(e.target.innerText !== '=')&&(e.target.id !== 'fichour')) {
-      calcule();
-    }  
-    let mu = gebi('musique');
+  gebi('musique').addEventListener('click',  (e)=> {
+  if ((e.target.id !== 'result')&&(
+e.target.innerText !== '=')&&(e.target.id !== 'fichour')) {
       
+    } 
+calcule();
+   
     jump();  
-    mu.onplay();
-    
+    gebi('musique').play();
 })
-/* ////trensfer scientific and normal */
+
+/* ////// histori and hiding histori   \\\\\\\\\\\\\ */
+function hist() {
+  gebi('contHist').style.display = 'block';
+  setTimeout(() => {
+    gebi('divHist').className +=' dHtrnf';
+  }, 100);
+  /* transform:scaleY(1); */
+  /* gebi('divHist').style.transform.scaleY()=1; */
+}
+
+function hidHist( ) {
+    gebi('divHist').className ='divHist';
+  
+  setTimeout(() => {
+    gebi('contHist').style.display ='none';
+  }, 310);
+  
+  
+}
+
+/* ////trensfer scientific and normal \\\\\\\\\ */
 function scNrml() {
   let arStl = [ [  'fdiv' ,'divNum', 'drg' ,'nrmldv'                                    ],//style
-                [ ['grid' , 'grid' ,'block', 'none' ],['none','none','none','grid' ] ] ];//display
-  if (Scien==1) { 
+                [ ['none','none','none','grid' ],['grid' , 'grid' ,'block', 'none' ] ] ];//display
+  if (SCN=='normal') { 
     for (let i = 0; i < arStl[0].length; i++) {
        gebi(arStl[0][i]).style.display   = arStl[1][0][i];
     }
-    Scien=0;
+    localStorage.ScNo='normal';
+    SCN='sc';
   } else {
     for (let i = 0; i < arStl[0].length; i++) {
        gebi(arStl[0][i]).style.display   = arStl[1][1][i];
     }
-    Scien=1;
+    localStorage.ScNo='sc';
+    SCN='normal';
   }
-
+  
 }
 
 /* /// Copier */
@@ -768,11 +885,10 @@ calcule();
 
 /*  /////// add \\\\\\\\\ */
 function add(caracter) {//f1
-     
+  if (fichour.innerText =='0') {fichour.innerText='';}
      let inp = fichour.innerText,
         lenInp = inp.length,
         carInp = inp.charAt(lenInp - 1);
-        if (inp=='0') {fichour.innerText='';}
         if ((carInp==')')||(carInp=='²')||(carInp==='%')) {
           inp +='×' 
         }
@@ -780,12 +896,12 @@ function add(caracter) {//f1
 }
 
 /*  /////add function\\\\\\ */
-function addFunc(param) { //f2
+function addFunc(param) { //
+  if (fichour.innerText =='0') {fichour.innerText='';}
     let inp = fichour.innerText,
         lenInp = inp.length,
         carInp = inp.charAt(lenInp - 1),
         symbols = '/*×-+^(';
-        if (inp=='0') {fichour.innerText='';}
     if ((symbols.indexOf(carInp,0) > -1)||(lenInp ==0)) {
         inp += param;
     } else { addSymbF('×');inp =fichour.innerText  + param;}
@@ -879,7 +995,7 @@ function retour() { //f6
         symbols = '/*×-+(1234567890.,';
     
     if (lenInp > 0) {
-        if (((carInp == '(') || (carInp == '^')) && (symbols.indexOf(carInp2, 0) < 0)&&(Scien==0)) {
+        if (((carInp == '(') || (carInp == '^')) && (symbols.indexOf(carInp2, 0) < 0)&&(SCN=='normal')) {
             ////replace background-color: floralwhite;
     let arRep=[['abs(','cosh(','acos(','cos(','e^(','Ln(','log(','√(','asin(','sinh(','sin(','atan(','tanh(','tan('],
                ['d'   , 'f'   , 'j'   , 'k'  , 'm' , 'p' , 'q'  , 'r', 'u'   , 'v'   , 'w'  , 'x'   , 'y'   , 'z'  ]];
@@ -915,44 +1031,31 @@ function drgFun() { //f8
 
 /* ////mimoiring number \\\\\\*/
 function save() {//f9
-    let nHref = location.href,
-        hach = 0 ;
-    
-    if (mim.length >0 ) {
-        let inNHref = nHref.indexOf('#mim=');
-        nHref = nHref.slice(0, inNHref);
-        mim = '';
-        hach = 1;
-        
-    }else if(location.href.charAt(nHref.length-1) =='#'){hach = 2;}
-
-    if(nHref.charAt(nHref.length-1) =='#'){nHref = nHref.slice(0, nHref.length-1);}
+   
 
     if (result.innerText.length > 0) {
         mim =  result.innerText;
-        nHref+= '#mim='+ mim;
-        location.href = nHref; gebi('mimoir').style.color = 'black';
+        localStorage.mim= mim;
+       gebi('mimoir').style.color = 'black';
     }else if (fichour.innerText!=='0' && fichour.innerText!=='') {
         mim =  fichour.innerText ;
         fichour.innerText = '';
         setTimeout(() => { 
         fichour.innerText = mim;
         }, 90);
-        nHref += '#mim='+ mim ;
-        location.href = nHref; gebi('mimoir').style.color = 'black';
+        localStorage.mim= mim;
+        gebi('mimoir').style.color = 'black';
     }else if (fichour.innerText =='' || fichour.innerText =='0') {
         gebi('mimoir').style.color = 'floralwhite';
-        if(hach ==1){location.href = nHref+'#';}
+        mim='';
+        localStorage.mim= '';
     }
 
 }
 
 /* /////// reteur de sive \\\\\\\\\ */
 function retSive() { //f10
-    if (mim.length > 0) {
-        fichour.innerText += mim;
-    }
-}
+    if (mim.length > 0) { fichour.innerText += mim;}}
 
 
 /* ////// add save \\\\\\\\ */
@@ -961,38 +1064,40 @@ function addSave() { //f11
     if (mim.length == 0) {
         save();
     } else {
-        
-        let nHref = location.href,
-            inNHref = nHref.indexOf('#mim=')+1;
-        nHref = nHref.slice(0, inNHref);
         if (result.innerText.length > 0) {
             mim +=  addSymbP('+') + result.innerText;
-            nHref +='mim='+ mim;
+            localStorage.mim = mim;
         } else {
           let nMim =fichour.innerText;
-            mim += addSymbP('+')+ nMim; 
-            fichour.innerText = '';fichour.placeholder= "";
+            mim += addSymbP('+') + nMim; 
+            fichour.innerText = '';
         setTimeout(() => { //==== setTimeout(function(){code},time)
-        fichour.innerText = nMim;fichour.placeholder= "0";
+        fichour.innerText = nMim;
         }, 90);
-            nHref +='mim='+ mim;
+            localStorage.mim= mim;
         }
-        location.href = nHref;
     }
 }
 
 /* //////// replace \\\\\\ */
 function rep(inp,param1,param2) {
-  
-  while (inp.indexOf(param1,0)>-1) {
-    inp = inp.replace(param1 ,param2);
-  } 
+  let inInp =inp.indexOf(param1,0),i=0,
+      upInp , dwInp;
+  while (inInp >-1) {
 
+    upInp  = inp.slice(0,inInp);
+    dwInp  = inp.slice(inInp,inp.length);
+    dwInp  = dwInp.replace(param1,param2);
+    inp    = upInp+dwInp;
+    inInp += param2.length;
+    inInp  = inp.indexOf(param1,inInp);
+    
+  i++;
+    if (i>10) {console.log('rak katart'); break; }
+  }
   return inp ;
 }
 
-
-/* 25×(65+7+(6+3))+69×(85 */
 /* ///////// Calcule valure enter btackets \\\\\\\ */
 function brackets(inp) {
   let   inRB ,//index of Right brackets
@@ -1032,9 +1137,9 @@ function brackets(inp) {
 /* //// calc Math.cos,sin... and calc Math.acos,asin... \\\\\ */
 function acstAMat(inp,pr) { //acos asin atan and Math.cos,sin,tan
 
-  let inUpInp,upInp,dwInp,intLef,intRi,difRL,i=0;
+  let inUpInp,upInp,dwInp,intLef,intRi,difRL;
   while (inp.indexOf(pr,0)>-1) {
-    i++;
+    
       inUpInp=inp.lastIndexOf(pr,inp.length);
       upInp=inp.slice(0,inUpInp);
       dwInp=inp.slice(inUpInp,inp.length);
@@ -1049,7 +1154,7 @@ function acstAMat(inp,pr) { //acos asin atan and Math.cos,sin,tan
         if(Math.abs(dwInp- dwInp.toFixed(5))<1e-10){dwInp =dwInp.toFixed(5);dwInp = 1*dwInp;}
         inp=upInp+dwInp;
         for (let j = 0; j < difRL ; j++) {inp += ')';}
-        if (i>10000) { break; }
+        
   }
   return inp;
   
@@ -1097,18 +1202,24 @@ function calcule() { //f12
 
 
     let inp    = fichour.innerText;
-        lenInp = inp.length,
+        lenInp = inp.length,arRe=[],
         carInp = inp.charAt(lenInp - 1),
-        intLef = rep(inp,'(', ''), arRe=[],
-        intRi = rep(inp,')', ''),
-        difRL = intRi.length - intLef.length,
+        num    = '0123456789',
         symbols = '/*×-+(^'; 
         
         if((symbols.indexOf(carInp,0)>-1)||(lenInp<2)){  
            result.innerText='';
            return false; } 
 
-        for (let i = 0; i < difRL ; i++) {inp += ')';}
+       if (inp.indexOf('(',0)>-1) {
+          let intLef = rep(inp,'(', ''), 
+              intRi = rep(inp,')', ''),
+            difRL = intRi.length - intLef.length;
+            for (let i = 0; i < difRL ; i++) {inp += ')';}
+        }
+       
+
+        
     /* ////replasment\\\\ */
     inp = rep(inp,',', '.');      inp = rep(inp,'×', '*');   inp = rep(inp,'%', '*1/100');
     inp = rep(inp,'^', '**');     inp = rep(inp,'²', '**2');
@@ -1119,11 +1230,11 @@ function calcule() { //f12
     
        arRe=[
         ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','e**',
-             'q','Ln','√','w','u','v','z','x','y'],
-        ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'q', 'Math.abs', 'Math.cos('+ongl+'*', reOngl+'*Math.acos',
-         'Math.cosh', '2.718281828459045**', 'Math.log10', 'Math.log', 'Math.sqrt', 'Math.sin('+ongl+'*',
-         reOngl+'*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*', reOngl+'*Math.atan', 'Math.tanh']
-          ];
+            'Ln','√','w','u','v','z','x','y'],
+        ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.log10','Math.abs', 'Math.cos('+ongl+'*',
+         reOngl+'*Math.acos','Math.cosh', '2.718281828459045**', 'Math.log', 'Math.sqrt','Math.sin('+ongl+'*',
+         reOngl+'*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*', reOngl+'*Math.atan','Math.tanh']   
+                                                    ];
          
           for (let i = 0; i < arRe[0].length; i++) { 
             if (inp.indexOf(arRe[0][i],0)>-1) {
@@ -1142,7 +1253,7 @@ function calcule() { //f12
 /* /////// result */
         result.innerText = '';
       if (inp.length >0) {
-        if ((inp.charAt(0)==='0')&&(inp.charAt(1)!=='.')) { inp=inp.slice(1,inp.length);}
+        if ((inp.charAt(0)==='0')&&(num.indexOf(inp.charAt(1),0) >-1)) { inp=inp.slice(1,inp.length);}
       try {
         inp = eval(inp);
 
