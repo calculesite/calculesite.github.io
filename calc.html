@@ -859,8 +859,9 @@ function copier() {
    navigator.clipboard.readText().then((text)=>{ 
     if(fichour.innerText=='0'){fichour.innerText='';}
      fichour.innerText +=text;
- gebi('pst').style.display= 'none'
-     
+setTimeout(() => {
+ gebi('pst').style.display= 'none';
+     },11}
    jump();
   })
   }
@@ -871,11 +872,9 @@ function gebi(param) { param = document.getElementById(param); return param;}
 
 /* //// Up result to fichour */
 function upRes() {
- if(result.innerText.length ==0 || result.innerText != 'The result copied' ){
-jump();
-}
+ 
   
-  if(result.innerText ==''){
+  if(result.innerText =='' || result.innerText == 'The result copied' ){
       return false}
 let fich =fichour.innerText,re=result.innerText;
    result.className +=' ogmentation';
