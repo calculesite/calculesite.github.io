@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html  >
+<html >
 <head>
   <title>calculitor </title>
     <meta charset="utf-8">
@@ -424,7 +424,7 @@ button:not(:disabled),
     box-sizing: border-box;
     font: 400 13.3333px Arial;
     font-size: 30px;
-    background-color: floralwhite !important;
+    background-color: floralwhite ;
     width: 99.8%;
     margin: 20px 0px -32px 0%;
     padding: 5px 15px 30px 18px;
@@ -472,7 +472,7 @@ button:not(:disabled),
   background:floralwhite;
   position:relative;
   animation-name: zooming;
-  animation-duration: 0.3s;
+  animation-duration: 0.31s;
 }
 @keyframes zooming{
   to{
@@ -491,7 +491,7 @@ button:not(:disabled),
  .divHist{
     margin: 3% 30% auto 30%;
     width: 40%;
-    height: 94%;
+    height: 90%;
     position: fixed;
     z-index: 2;
     background-color: white;
@@ -512,25 +512,35 @@ button:not(:disabled),
  
     
  .inpHist{
-   background-color: white;
-    font-size: 30px; 
+    background-color: white;
+    font-size: 30px;
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     padding-bottom: 45px;
     margin: 13px 0% 5px 0%;
     height: 100px;
+    overflow: auto;
  }
  .resultHist{
+    width: 100%;
+    height: 6%;
     margin: -37px 0px 5px 0px;
-    padding-left: 10px;
-    width: 95%;
+    background-color:white;
+    padding-left: 15px;
+    
  }
+ .upScrl{
+  overflow-y: hidden;
+  padding-bottom: 144px;
+}
  @media (max-width: 900px){
     .inp,.inpHist{font-size: 25px;margin-top: 25px;height: 125px;}
-    .inpHist{width: 100%;margin: 0%;}
-    .divHist{width: 80%;margin: 3% 10%;}
+    .inpHist{width: 98%;margin: 1% 2%}    
+    .upScrl{padding-bottom:120px;}
+    .divHist{width: 88%;height: 94%; margin: 3% 6%;}
     .result{font-size: 20px; }
     .ogmentation{animation-name: ogmentTlph;}
+    
 }
 @keyframes ogment{
   to{
@@ -549,10 +559,12 @@ button:not(:disabled),
   }
 }
 #hidHist{/* hident historik */
-  font-size: 30px;
-      color: #302e2ed9;
-      float: right;cursor: pointer;
-      margin: 8px 15px 10px;
+    font-size: 5vh;
+    color: #302e2ed9;
+    float: right;
+    display: block;
+    cursor: pointer;
+    margin: 2% 15px 0px;
 }   
 #contHist{ /* continer historie */
   background-color: #7473739e;
@@ -561,47 +573,41 @@ button:not(:disabled),
   margin-top: -30px;
   display: none;
   position: fixed;
-  z-index: 1;}
+  z-index:1 ;}
+  hr{
+    border-style: hidden;
+    background-color: black;
+    height: 1px;
+}
+.pastBtn{
+  display: none;
+  position: fixed;
+    padding: 5px;
+    font-size: 14px;
+    margin-left: 15%;
+    background-color: #636363;
+    color: white;
+    border-radius: 5px;
+    border: #636363;
+}
+
 
 </style>
     
 </head>
-<body >
-  <div id="contHist"   > 
+<body  >
+  <div id="contHist" onclick="hidHist()"   > 
 
     <div id="divHist" class="divHist">
       <span id="hidHist" onclick="hidHist()" >×</span>
-      <hr style="margin-top: 60px;">
-        <div style="overflow-y: auto;    height: 90%;;">
-          <div id=""  aria-atomic="false"  onclick="paste()" 
-          class="inpHist"   placeholder="0">322658*632586+32589</div>
-          <div id=""     class="result resultHist"  >132555648998</div>
-          <hr>
-          <div id=""  aria-atomic="false"  onclick="paste()" 
-          class="inpHist"   placeholder="0">326559/62336-6256+3665</div>
-          <div id=""     class="result resultHist"  >hghgffg</div>
-          <hr>
-          <div id=""  aria-atomic="false"  onclick="paste()" 
-          class="inpHist"   placeholder="0">0</div>
-          <div id=""     class="result resultHist"  >hhkhgh</div>
-          <hr>
-          <div id=""  aria-atomic="false"  onclick="paste()" 
-          class="inpHist"   placeholder="0">0</div>
-          <div id=""     class="result resultHist"  >hghghjk</div>
-          <hr>
-          <div id=""  aria-atomic="false"  onclick="paste()" 
-          class="inpHist"   placeholder="0">326559/62336-6256+3665</div>
-          <div id=""     class="result resultHist"  >ghgjgjh</div>
-          <hr>
-          <div id=""  aria-atomic="false"  onclick="paste()" 
-          class="inpHist"   placeholder="0">326559/62336-6256+3665+1355546654+12555465-21213546546546489</div>
-          <div id=""     class="result resultHist"  >213325</div>
-          <hr>
+      <hr style="margin-top:8.2vh;">
+          <div id="lHist" style="overflow-y: auto;     height: 90%;">
+          
         </div>
     </div>
    </div> 
   
-  <main role="main" id="background" >
+  <main role="main" id="background"  onclick="gebi('pst').style.display= 'none'" >
   <div id="inner-wrapper">
   <div class="page" data-page-nbr="1">
   
@@ -613,16 +619,14 @@ button:not(:disabled),
       
   <div id="cart">
     <p id="drg" onclick="drgFun()" class="drg">deg</p>
-     <button id="histori" class="btn hist" onclick="hist()">Histori</button>
+     <button id="histori" class="btn hist" onclick="hist()">History</button>
 
     
     <p id="mimoir" class="mimoir">M</p>
-
-    <div id="fichour"  aria-atomic="false"  onclick="paste()" 
-      class="inp"   placeholder="0">0</div>
+    <button class="pastBtn" id="pst" onclick="paste(2)">Paste</button> 
+    <div id="fichour"   onclick="paste(1)"  class="inp"   ondblclick="paste(2) " >0</div>
 
     <div id="result"    onclick="copier()" class="result "  ></div>
-    
     
     
         <div id="fdiv" class="func"></div>
@@ -640,8 +644,8 @@ button:not(:disabled),
       <script type="text/javascript" >
 
       /*////  variables    5310.0000000001 */
-let ongl = 0.017453292519943 ,reOngl=57.29577951308329, mim='' ,fichour =gebi('fichour'),SCN='normal',
-    result = gebi('result'),
+let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
+    result = gebi('result'),rLHF=[],rLHR=[]
     div1= gebi('fdiv'),div2 = gebi('divNum'),
 
     //classes
@@ -704,20 +708,21 @@ let ongl = 0.017453292519943 ,reOngl=57.29577951308329, mim='' ,fichour =gebi('f
 /* #################################################
 ################################################# */
 
-    
+  
 
    /* aficher les divs*/
     divBtn(0,24,'fdiv');
    divBtn(24,44,'divNum');
    
-    divBtn(44,68,'nrmldv')
+    divBtn(44,68,'nrmldv');
+    gHist();
 
    /* //// function creat btn */
 function divBtn(i,fi,div) {
     div= gebi(div);
     for ( ;i < fi; i++) {
-        div.innerHTML+='<button id="b'+i+'"   onclick="'+arF[i]+
-          '"class="btn disabled '+arCl[i]+' "role="button" >'+arIH[i]+'</button>';
+        div.innerHTML+='<button id="b'+i+'"   onclick="'+arF[i]+ ' " '+
+                        ' class="btn disabled '+arCl[i]+' "role="button" >'+arIH[i]+'</button>';
       }
 }
 gebi('b51').style.height = '100%';
@@ -734,12 +739,6 @@ if(localStorage.mim.length > 0){
 }
 
 
-/*  jump functin */
-
-function jump(){
-  fichour.scrollTop = fichour.scrollHeight;
-  sliZir();
-}
 /*   functin of click keybord */
 addEventListener('keyup',   (e) => {//e event
     e.preventDefault();
@@ -758,31 +757,20 @@ addEventListener('keyup',   (e) => {//e event
     if (e.keyCode === 8) { retour();}
     
     if (e.keyCode === 13) { upRes();}
-    if (e.keyCode !== 13) { calcule();}
+    if (e.keyCode !== 13) { jump(); }
     
-    jump(); 
+    
 }
 )
-
-
-/* ///// functin of click moss \\\\\\ */
- 
-gebi('cart').addEventListener('click',  (e)=> {
-  if ((e.target.id !== 'result')&&(e.target.innerText !== '=')&&(e.target.id !== 'fichour')) {
-      calcule();
-    }  
-      
-    jump();  
-    gebi('musique').play();
-    
-})
 
 /* ////// histori and hiding histori   \\\\\\\\\\\\\ */
 function hist() {
   gebi('contHist').style.display = 'block';
+
   setTimeout(() => {
     gebi('divHist').className +=' dHtrnf';
   }, 100);
+  gebi('lHist').scrollTop = gebi('lHist').scrollHeight;
   /* transform:scaleY(1); */
   /* gebi('divHist').style.transform.scaleY()=1; */
 }
@@ -817,6 +805,38 @@ function scNrml() {
   
 }
 
+/*  jump functin */
+
+function jump(pr){
+  /* //// slice C0N */
+
+  let inp  = fichour.innerText,testr=/[^0-9]0[0-9]/gi,tstN=/[0-9]/g
+      symbols = ['+','-','/','×','*','^','('],
+      numbers = ['0','1','2','3','4','5','6','7','8','9'] ;
+  
+  if (inp.charAt(0)==='0'&& tstN.test(inp.charAt(1)) ) {  inp=inp.slice(1,inp.length);}
+
+       if (testr.test(inp) ) {
+
+symbols.forEach((sy)=> {
+ if (inp.indexOf(sy+'0',0)>-1) {
+   numbers.forEach((nu)=> {
+     if(inp.indexOf(sy+'0'+nu,0)>-1){inp=rep(inp,sy+'0'+nu,sy+nu);}
+   })
+ }
+})
+fichour.innerText=inp; 
+      } 
+    /* //////jump \\\\\\\ */  
+  fichour.scrollTop = fichour.scrollHeight;
+ 
+  
+    calcule();
+  
+  
+}
+  
+
 /* /// Copier */
 function copier() {
   if (result.innerText == 'The result copied') {result.innerText='';}
@@ -829,13 +849,22 @@ function copier() {
 }
 
 /* /// paste */
- function paste() { 
-   navigator.clipboard.readText().then((text)=>{ fichour.innerText +=text; 
+ function paste(pr) { 
+   if (pr==1) {
+     setTimeout(() => {
+       
+     document.querySelector('.pastBtn').style.display= 'block';
+     }, 10);
+   }else{
+   navigator.clipboard.readText().then((text)=>{ 
+    if(fichour.innerText=='0'){fichour.innerText='';}
+     fichour.innerText +=text;
+ gebi('pst').style.display= 'none'
+     
    jump();
-   calcule();
   })
   }
- 
+}
 /* ///racorce get elment */
 function gebi(param) { param = document.getElementById(param); return param;}
 
@@ -843,45 +872,27 @@ function gebi(param) { param = document.getElementById(param); return param;}
 /* //// Up result to fichour */
 function upRes() {
  if(result.innerText.length ==0 || result.innerText != 'The result copied' ){
-calcule();
+jump();
 }
   
   if(result.innerText ==''){
       return false}
-
+let fich =fichour.innerText,re=result.innerText;
    result.className +=' ogmentation';
-   fichour.innerText ='';
+   
+   
    setTimeout(() => {
     fichour.className = 'inp';
    fichour.innerText = result.innerText;;
    result.innerText = '';
    result.className ='result';
    }, 300);
-  
+   fichour.className+=' upScrl';
+   fichour.scrollTo({top:1000,behavior:'smooth'})
+  svHist(fich,re);
 }
 
-/* 31256568897*3554665464-31312332+15566588789897-5454546+6589965788555 */
 
-/* function upRes() {
-  calcule();
-  if((result.innerText.length >0)&&result.innerText != 'The result copied'){
-    fichour.className +=' upPad';
-   result.className +=' ogmentation';
-   let trf=true;
-   setTimeout(() => {trf=false;},300);
-  
-
-   setTimeout(() => {
-    fichour.className = 'inp';
-   fichour.innerText = result.innerText;;
-   result.innerText = '';
-   result.className ='result';
-   }, 300);
-   do {
-      jump();
-   }while(trf) 
-  }
-} */
 
 /*  /////// add \\\\\\\\\ */
 function add(caracter) {//f1
@@ -893,6 +904,7 @@ function add(caracter) {//f1
           inp +='×' 
         }
         fichour.innerText = inp+ caracter ;
+        jump();
 }
 
 /*  /////add function\\\\\\ */
@@ -906,6 +918,8 @@ function addFunc(param) { //
         inp += param;
     } else { addSymbF('×');inp =fichour.innerText  + param;}
     fichour.innerText = inp;
+    if(param=='3.141592653589793'){jump();
+    }else{fichour.scrollTop = fichour.scrollHeight;}
     
 }
 
@@ -928,7 +942,7 @@ function adCar(param) { //f3
       
     }
     fichour.innerHTML = inp;
-       
+    jump(); 
 }
 
 
@@ -949,6 +963,7 @@ function addSymbF(param) {//f4
         }else{inp += param; }
     } 
     fichour.innerText = inp;
+    fichour.scrollTop = fichour.scrollHeight;
 }
 
 /* /////// add Symbole + -  \\\\\\\ */
@@ -966,6 +981,7 @@ function addSymbP(param) { //f5
         inp += param; 
     
     fichour.innerText = inp;
+    fichour.scrollTop = fichour.scrollHeight;
     return plus
 }
 
@@ -983,6 +999,7 @@ function addVrgl() {
         if (inp.lastIndexOf('@',lenInp)>=inp.lastIndexOf('.',lenInp)&&(arRe.indexOf(carInp, 0) < 0)) {
           addSymbF(',')
         }
+   fichour.scrollTop = fichour.scrollHeight;
 }
 
 
@@ -995,7 +1012,7 @@ function retour() { //f6
         symbols = '/*×-+(1234567890.,';
     
     if (lenInp > 0) {
-        if (((carInp == '(') || (carInp == '^')) && (symbols.indexOf(carInp2, 0) < 0)&&(SCN=='normal')) {
+        if (((carInp == '(') || (carInp == '^')) && (symbols.indexOf(carInp2, 0) < 0)) {
             ////replace background-color: floralwhite;
     let arRep=[['abs(','cosh(','acos(','cos(','e^(','Ln(','log(','√(','asin(','sinh(','sin(','atan(','tanh(','tan('],
                ['d'   , 'f'   , 'j'   , 'k'  , 'm' , 'p' , 'q'  , 'r', 'u'   , 'v'   , 'w'  , 'x'   , 'y'   , 'z'  ]];
@@ -1014,30 +1031,26 @@ function retour() { //f6
         } else { inp = inp.slice(0, inp.length - 1); }
     }
     fichour.innerText = inp;
-    
+    jump();
 }
 
 /* //////clearing \\\\\\\\\\   */
-function clearing() { /* //f7  */ fichour.innerText = '0'; }
+function clearing() { /* //f7  */ fichour.innerText = '0'; result.innerText='';}
 
 /* //////// replice drg ongle */
 function drgFun() { //f8
     let drg = gebi('drg').innerHTML;
-    if (drg == 'deg') {gebi('drg').innerHTML = 'rad'; ongl = 1; reOngl=1;
-    } else if (drg == 'rad') { gebi('drg').innerHTML = 'grad'; ongl = 0.015707963267948967;reOngl=63.66197723675813;
-    } else {gebi('drg').innerHTML = 'deg'; ongl = 0.017453292519943295; reOngl=57.29577951308329 ;
+    if (drg == 'deg') {gebi('drg').innerHTML = 'rad'; ongl = '1'; reOngl='1';
+    } else if (drg == 'rad') { gebi('drg').innerHTML = 'grad'; ongl = '0.015707963267948967';reOngl='63.66197723675813';
+    } else {gebi('drg').innerHTML = 'deg'; ongl = '0.017453292519943295'; reOngl='57.29577951308329' ;
     }
+    jump();
 }
 
 /* ////mimoiring number \\\\\\*/
 function save() {//f9
-   
 
-    if (result.innerText.length > 0) {
-        mim =  result.innerText;
-        localStorage.mim= mim;
-       gebi('mimoir').style.color = 'black';
-    }else if (fichour.innerText!=='0' && fichour.innerText!=='') {
+     if (fichour.innerText!=='0' && fichour.innerText!=='') {
         mim =  fichour.innerText ;
         fichour.innerText = '';
         setTimeout(() => { 
@@ -1050,12 +1063,12 @@ function save() {//f9
         mim='';
         localStorage.mim= '';
     }
-
+    fichour.scrollTop = fichour.scrollHeight;
 }
 
 /* /////// reteur de sive \\\\\\\\\ */
 function retSive() { //f10
-    if (mim.length > 0) { fichour.innerText += mim;}}
+    if (mim.length > 0) {if(fichour.innerText=='0'){fichour.innerText='';}; fichour.innerText += mim;jump();}}
 
 
 /* ////// add save \\\\\\\\ */
@@ -1064,10 +1077,7 @@ function addSave() { //f11
     if (mim.length == 0) {
         save();
     } else {
-        if (result.innerText.length > 0) {
-            mim +=  addSymbP('+') + result.innerText;
-            localStorage.mim = mim;
-        } else {
+       
           let nMim =fichour.innerText;
             mim += addSymbP('+') + nMim; 
             fichour.innerText = '';
@@ -1075,28 +1085,82 @@ function addSave() { //f11
         fichour.innerText = nMim;
         }, 90);
             localStorage.mim= mim;
-        }
+        
     }
+    fichour.scrollTop = fichour.scrollHeight;
 }
 
 /* //////// replace \\\\\\ */
-function rep(inp,param1,param2) {
-  let inInp =inp.indexOf(param1,0),i=0,
-      upInp , dwInp;
-  while (inInp >-1) {
+function rep(inp,pr1,pr2) {inp= inp.replaceAll(pr1,pr2) 
+  return inp ;}
 
-    upInp  = inp.slice(0,inInp);
-    dwInp  = inp.slice(inInp,inp.length);
-    dwInp  = dwInp.replace(param1,param2);
-    inp    = upInp+dwInp;
-    inInp += param2.length;
-    inInp  = inp.indexOf(param1,inInp);
+
+  function svHist(pr1,pr2) {
+    let dvSv = gebi('lHist');
+    if (pr1==rLHF[rLHF.length-1]) {return false}
+    if(fichour.innerText==='0'){fichour.innerText==''}
+    dvSv.innerHTML+=' <div onclick="toFichour( this.innerText)" class="inpHist">'+pr1+'</div>'+
+        '<div class="result resultHist" onclick="toFichour( this.innerText)">' + pr2 + '</div> <hr>'
     
-  i++;
-    if (i>10) {console.log('rak katart'); break; }
-  }
-  return inp ;
+    /* ///history */
+       pr1= pr1.replace(/\,/g, '.');
+       
+         
+       
+        if (rLHF.length>20) {
+          rLHF = rLHF.slice(1, rLHF.length);
+            rLHR = rLHR.slice(1, rLHR.length);
+        }
+            
+            rLHF.push(pr1);
+            rLHR.push(pr2);
+        
+        
+        localStorage.lHistF = rLHF;
+        localStorage.lHistR = rLHR;
+      
+}/* getItem */
+
+
+
+/* ////// get Hist */
+function gHist() {
+    if (localStorage.getItem('lHistF')) {
+        let dvSv = gebi('lHist');
+        rLHF = hiToDiv('F');
+        rLHR = hiToDiv('R');
+        for (let i = 0; i < rLHF.length; i++) {
+            rLHF[i]=  rLHF[i].replace(/\./g, ',');
+            dvSv.innerHTML += ' <div onclick="toFichour( this.innerText)" class="inpHist">'+
+                 rLHF[i] +'</div>' +
+                '<div class="result resultHist" onclick="toFichour( this.innerText)">' +
+                rLHR[i] + '</div> <hr>'
+        
+      }
+    }
 }
+
+function toFichour(pr) {
+    if (fichour.innerText === '0') { fichour.innerText = '' }
+    fichour.innerText += pr;
+    jump();
+    
+}
+
+function hiToDiv(FR) {//histori to divHistori
+    
+    let Hist = localStorage['lHist' + FR];
+    Hist = Hist.split(',');
+    return Hist;
+}/* 
+localStorage.removeItem('lHistF');
+localStorage.removeItem('lHistR'); */
+
+
+
+/*  ////////// equale \\\\\\\\\\\\\\ */
+///////////////////////////////////////
+///////////////////////////////////////
 
 /* ///////// Calcule valure enter btackets \\\\\\\ */
 function brackets(inp) {
@@ -1104,7 +1168,7 @@ function brackets(inp) {
         i=0,upInp,inLB ,dwInp ,inRBDw ,//inp right bracket down
         bet ; //  between brackets
 
-  while (inp.indexOf(')',0)>-1) {
+  while (inp.indexOf('(',0)>-1) {
         i++;
         inRB = inp.indexOf(')', 0);//index of Right bracket
         upInp = inp.slice(0, inRB);
@@ -1113,13 +1177,15 @@ function brackets(inp) {
         inRBDw = dwInp.indexOf(')', 0);
         bet = dwInp.slice(1, inRBDw); //  between brackets
         upInp = inp.slice(0, inLB);
-
+        console.log(bet+' ,i='+i);
      //calc between brackets
         bet = rep(bet,'left','(' );
         bet = rep(bet,'right',')' );
+        if((bet.charAt(0)==='+')||(bet.charAt(0)==='-')){bet='0'+bet}
         bet = eval(bet);
+        
         if(Math.abs(bet- bet.toFixed(5))< 1e-10){bet =bet.toFixed(5);bet = 1*bet;}
-       
+        /* acos(cos(acos(cos(25))))*5 */
       //replace ( to left and ) to right
         dwInp = dwInp.slice(inRBDw,dwInp.length);
         dwInp = dwInp.replace(')','right')
@@ -1127,58 +1193,86 @@ function brackets(inp) {
 
         inp=upInp+dwInp;
 
-        if (i>10000) { break; }
+        if (i>1000) { break; }
   }
+  
   inp = rep(inp,'left','(');
   inp = rep(inp,'right',')');
     return inp;
 }
 
 /* //// calc Math.cos,sin... and calc Math.acos,asin... \\\\\ */
-function acstAMat(inp,pr) { //acos asin atan and Math.cos,sin,tan
+function acstAMat(inp) { //acos asin atan and Math.cos,sin,tan
 
-  let inUpInp,upInp,dwInp,intLef,intRi,difRL;
-  while (inp.indexOf(pr,0)>-1) {
-    
-      inUpInp=inp.lastIndexOf(pr,inp.length);
-      upInp=inp.slice(0,inUpInp);
-      dwInp=inp.slice(inUpInp,inp.length);
-      intLef = rep(dwInp,'(', '');
-      intRi = rep(dwInp,')', '');
-      difRL = intLef.length - intRi.length;
-      dwInp=dwInp.slice(0,dwInp.length-difRL);
-      //calc between brackets
-      dwInp=brackets(dwInp);
+  let dwInp,i,rdw,ldw, inUpInp=inp.lastIndexOf('Math',inp.length),j=0,dwDwinp;//right dw and left
+  
+  while (inUpInp>0) {
+    if (inp.slice(inUpInp-reOngl.length-1,inUpInp)==reOngl+'*') {
+      inUpInp=inp.lastIndexOf(reOngl+'*Math',inp.length)
+    }
+    rdw=0;ldw=0,i=1;
+    dwInp=inp.slice(inUpInp,inp.length);
+      inp=inp.slice(0,inUpInp);
       
+      ldw = dwInp.indexOf('(',0);
+      
+      // console.log(inUpInp);
+      ldw++;
+      while (i>0)  {
+      rdw=dwInp.indexOf(')',rdw);
+        ldw=dwInp.indexOf('(',ldw);
+
+        if ((ldw<rdw)&&(ldw>-1)) {
+          ldw++;
+          i++;
+        }else {
+          rdw++;
+          if (ldw<0){ldw=rdw;}
+          
+          i--;
+        }
+        console.log(rdw );  
+        console.log(ldw);
+        j++;
+        if (j>10) {
+          console.log('rak mkatar');
+          break
+        }
+      
+     }
+     
+      //  console.log('dw0= '+dwInp);
+      dwDwinp = dwInp.slice(rdw,dwInp.length);
+      dwInp=dwInp.slice(0,rdw);
+
+      if (dwInp.indexOf(ongl,0)===9) {
+        dwInp=dwInp.replace(ongl+'*',ongl+'*(');
+        dwInp +=')';
+      }
+      //  console.log('rdw= '+rdw);
+      //  console.log('dw1= '+dwInp);
+      //  console.log('upInp= '+inp);
+      // calc between brackets
+      dwInp=brackets(dwInp);
+      //  console.log('dw2= '+dwInp);
         dwInp = eval(dwInp);
+
+        //  console.log('dw3= '+dwInp);
+        //  console.log('dwDwinp= '+dwDwinp);
         if(Math.abs(dwInp- dwInp.toFixed(5))<1e-10){dwInp =dwInp.toFixed(5);dwInp = 1*dwInp;}
-        inp=upInp+dwInp;
-        for (let j = 0; j < difRL ; j++) {inp += ')';}
+        /* console.log('dw4= '+dwInp);
+        console.log('inp= '+inp); */
+        inp+= dwInp  + dwDwinp;
+        /* console.log('inp2= '+inp); */
+        inUpInp=inp.lastIndexOf('Math',inp.length)
         
   }
   return inp;
   
 }
 
-/* ////// find 0 after nember and slice \\\\\\ */
-function sliZir() {
-    if(fichour.innerText.indexOf('0',0) ==-1 || fichour.innerText =='0' ){
-      return false}
-    let inp  = fichour.innerText,
-     symbols = ['+','-','/','×','*','^','('],
-     numbers = ['0','1','2','3','4','5','6','7','8','9'];
 
-     if ((inp.charAt(0)==='0')&&(numbers.indexOf(inp.charAt(1))>-1)) {inp=inp.slice(1,inp.length);}
 
-     symbols.forEach((sy)=> {
-      if (inp.indexOf(sy+'0',0)>-1) {
-        numbers.forEach((nu)=> {
-          if(inp.indexOf(sy+'0'+nu,0)>-1){inp=rep(inp,sy+'0'+nu,sy+nu);}
-        })
-      }
-  })
-  fichour.innerText=inp;
-}
 
 /*////// gonfler les valeur \\\\\\ */
 function fixing(inp,ng=0) { // ng nember gonfel
@@ -1188,15 +1282,11 @@ function fixing(inp,ng=0) { // ng nember gonfel
     upInp  = eval(upInp);
     dwInp  = eval(dwInp-ng);
     upInp  = upInp.toFixed(13) ;upInp = 1*upInp;
+    if(Math.abs(inp- inp.toFixed(5))<1e-7){inp =inp.toFixed(5);inp = 1*inp;} 
     sInp   = upInp+'e'+dwInp;
     inp    = eval(sInp);
     return inp ;
 }
-
-
-/*  ////////// equale \\\\\\\\\\\\\\ */
-///////////////////////////////////////
-///////////////////////////////////////
 
 function calcule() { //f12
 
@@ -1204,7 +1294,7 @@ function calcule() { //f12
     let inp    = fichour.innerText;
         lenInp = inp.length,arRe=[],
         carInp = inp.charAt(lenInp - 1),
-        num    = '0123456789',
+        num    = '0123456789',arSy=[];
         symbols = '/*×-+(^'; 
         
         if((symbols.indexOf(carInp,0)>-1)||(lenInp<2)){  
@@ -1221,11 +1311,18 @@ function calcule() { //f12
 
         
     /* ////replasment\\\\ */
-    inp = rep(inp,',', '.');      inp = rep(inp,'×', '*');   inp = rep(inp,'%', '*1/100');
-    inp = rep(inp,'^', '**');     inp = rep(inp,'²', '**2');
-    let fich = inp;
+    arSy = [[',','.'],['×','*'],['%','*1/100'],['^','**'],['²','**2']];
+    arSy.forEach((e)=>{
+      if (inp.indexOf(e[0],0)>-1) {
+        inp = rep(inp,e[0], e[1]);
+      }
+      
+    })
 
-        
+
+    let fich = inp;
+   
+      if((inp.charAt(0)==='+')||(inp.charAt(0)==='-')){inp='0'+inp}  
     if (inp.indexOf('(',0)>-1) {
     
        arRe=[
@@ -1241,8 +1338,8 @@ function calcule() { //f12
               inp = rep(inp,arRe[0][i], arRe[1][i]); 
             }
           }
-          if(inp.indexOf(reOngl+'*Math',0)>-1){inp= acstAMat(inp,reOngl+'*Math');}
-          if(inp.indexOf('Math',0)>-1){inp= acstAMat(inp,'Math');}
+          if(inp.indexOf('Math',0)>-1){inp= acstAMat(inp);}
+        
           if(inp.indexOf('(',0)>-1){inp = brackets(inp);}
           
     }
@@ -1270,7 +1367,7 @@ function calcule() { //f12
           
         }
         inp = inp.toFixed(13) ;inp = 1*inp;  
-        if(Math.abs(inp- inp.toFixed(5))<1e-10){inp =inp.toFixed(5);inp = 1*inp;} 
+        if(Math.abs(inp- inp.toFixed(5))<1e-7){inp =inp.toFixed(5);inp = 1*inp;} 
         result.style.color = 'rgb(14, 66, 20)';
         if ((inp != fich)&&(!isNaN(inp))) {result.innerText = inp;} 
         
@@ -1279,5 +1376,6 @@ function calcule() { //f12
      
  }
       </script>
+      <!-- <script type="text/javascript" src="jsClc.js" ></script> -->
 </body>
 </html>
