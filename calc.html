@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html >
 <head>
@@ -72,6 +71,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  padding: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -607,7 +607,7 @@ button:not(:disabled),
     </div>
    </div> 
   
-  <main role="main" id="background"  onclick="gebi('pst').style.display= 'none'" >
+  <main role="main" id="background"  >
   <div id="inner-wrapper">
   <div class="page" data-page-nbr="1">
   
@@ -623,8 +623,8 @@ button:not(:disabled),
 
     
     <p id="mimoir" class="mimoir">M</p>
-    <button class="pastBtn" id="pst" onclick="paste(2)">Paste</button> 
-    <div id="fichour"   onclick="paste(1)"  class="inp"   ondblclick="paste(2) " >0</div>
+    <button class="pastBtn" id="pst" onclick="paste(2);this.style.display ='none'">Paste</button> 
+    <div id="fichour"   onclick="paste(1)"  class="inp"    >0</div>
 
     <div id="result"    onclick="copier()" class="result "  ></div>
     
@@ -645,33 +645,33 @@ button:not(:disabled),
 
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
-    result = gebi('result'),rLHF=[],rLHR=[]
+    result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],
     div1= gebi('fdiv'),div2 = gebi('divNum'),
 
     //classes
     c1 = ' btn-primary Cbtn',c2 =' btn-success btn-ver',c3= ' btn-info symbolBtn',
 
     // functions  
-    f1 ='add('   , f2='addFunc(', f3='adCar(',   f4='addSymbF(' , f5='addSymbP(', f6='retour()', f7='clearing()',
-    f8='scNrml()', f9='save()'  , f10='retSive()',f11='addSave()', f12='upRes()', f13= 'addVrgl()'
+    f1 ='add('   , f3='adCar(',   f4='addSymbF(' , f5='addSymbP(', f6='retour(', f7='clearing(',
+    f8='scNrml(', f9='save('  , f10='retSive(',f11='addSave(', f12='upRes(', f13= 'addVrgl('
 
     //arrays
     //array function
-     arF =[ f2+"'sin(')",f2+"'cos(')"   ,f2+"'tan(')"  ,f3+"'%')" ,f2+"'abs(')",f8 ,
-            f2+"'asin(')",f2+"'acos(')" ,f2+"'atan(')" ,f2+"'e^(')" ,f2+"'Ln(')"   ,f2+"'log(')",
-            f2+"'sinh(')",f2+"'cosh(')" ,f2+"'tanh(')" ,f2+"'(')"   ,f3+"')')"     , f6,
-            f2+"'3.141592653589793')"   ,f3+"'^')"     ,f2+"'√(')"  ,f3+"'^(-1)')"   ,f3+"'²')"     ,f7,
-            f1+"'7')",f1+"'8')" ,f1+"'9')" ,f4+"'/')", f9,
-            f1+"'4')",f1+"'5')" ,f1+"'6')" ,f4+"'×')", f10,
-            f1+"'1')",f1+"'2')" ,f1+"'3')" ,f5+"'-')", f11,
-            f1+"'0')",f2+"'(-')",f13 ,f5+"'+')" ,f12  ,
+     arF =[ f1+"'sin('",f1+"'cos('"   ,f1+"'tan('"  ,f3+"'%'" ,f1+"'abs('",f8 ,
+            f1+"'asin('",f1+"'acos('" ,f1+"'atan('" ,f1+"'e^('" ,f1+"'Ln('"   ,f1+"'log('",
+            f1+"'sinh('",f1+"'cosh('" ,f1+"'tanh('" ,f1+"'('"   ,f3+"')'"     , f6,
+            f1+"'3.141592653589793'"   ,f3+"'^'"     ,f1+"'√('"  ,f3+"'^(-1)'"   ,f3+"'²'"     ,f7,
+            f1+"'7'",f1+"'8'" ,f1+"'9'" ,f4+"'/'", f9,
+            f1+"'4'",f1+"'5'" ,f1+"'6'" ,f4+"'×'", f10,
+            f1+"'1'",f1+"'2'" ,f1+"'3'" ,f5+"'-'", f11,
+            f1+"'0'",f1+"'(-'",f13 ,f5+"'+'" ,f12  ,
             ///normal
-            f2+"'(')"  , f3+"')')"  ,f8        ,f6    ,
-            f4+"'/')"  ,f4+"'×')"  ,f3+"'%')"  ,f7,
-             f1+"'7')" ,f1+"'8')"  ,f1+"'9')"  ,f3+"'^(-1)')",
-             f1+"'4')" ,f1+"'5')"  ,f1+"'6')"  ,f5+"'-')",
-             f1+"'1')" ,f1+"'2')"  ,f1+"'3')"  ,f5+"'+')",
-             f1+"'0')" ,f2+"'(-')" ,f13        ,f12    ],
+            f1+"'('"  , f3+"')'"  ,f8        ,f6    ,
+            f4+"'/'"  ,f4+"'×'"  ,f3+"'%'"  ,f7,
+             f1+"'7'" ,f1+"'8'"  ,f1+"'9'"  ,f3+"'^(-1)'",
+             f1+"'4'" ,f1+"'5'"  ,f1+"'6'"  ,f5+"'-'",
+             f1+"'1'" ,f1+"'2'"  ,f1+"'3'"  ,f5+"'+'",
+             f1+"'0'" ,f1+"'(-'" ,f13        ,f12    ],
 
            //class normal
     arClN =[c1        ,c1    ,c1              ,c1,
@@ -693,14 +693,14 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
               '7'   ,'8'            , '9'   ,'÷'    ,'X<sup class="fsup">→</sup>M',
               '4'   ,'5'            , '6'   ,'×'    ,'RM',
               '1'   ,'2'            , '3'   ,'-'    ,'M+',
-              '0'   ,'-/+'          , ','   ,'+'    ,'='   ,
+              '0'   ,'-/+'          , '.'   ,'+'    ,'='   ,
             // normal
               '('   ,')'            ,'N/S'   ,'←'    ,
               '÷'   ,'×'            ,'%'    ,'C'    ,
               '7'   ,'8'            , '9'   ,'1/x'  ,
               '4'   ,'5'            , '6'   ,'-'    ,
               '1'   ,'2'            , '3'   ,'+'    ,
-              '0'   ,'-/+'          , ','   ,'='     ];
+              '0'   ,'-/+'          , '.'   ,'='     ];
     
    arCl.fill(c1);arCl.push(c1+' btn-primary2',c2,c2,c2,c3,c3,c2,c2,c2,c3,c3,c2,c2,c2,c3,c3,c2,c2,c2,c3,c3);
    arCl = arCl.concat(arClN);
@@ -708,6 +708,8 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
 /* #################################################
 ################################################# */
 
+ /* localStorage.removeItem('lHistF');
+localStorage.removeItem('lHistR'); */
   
 
    /* aficher les divs*/
@@ -721,7 +723,7 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
 function divBtn(i,fi,div) {
     div= gebi(div);
     for ( ;i < fi; i++) {
-        div.innerHTML+='<button id="b'+i+'"   onclick="'+arF[i]+ ' " '+
+        div.innerHTML+='<button id="b'+i+'"   onclick="'+arF[i]+ ')" '+
                         ' class="btn disabled '+arCl[i]+' "role="button" >'+arIH[i]+'</button>';
       }
 }
@@ -746,19 +748,18 @@ addEventListener('keyup',   (e) => {//e event
     let kc = e.keyCode-96 ,inp=fichour.innerText;
   // fichour.innerText = event.keyCode;
   
-    if ((kc > -1) && (kc < 10)) { fichour.innerText += kc; }
-    if (kc == 14) { addVrgl(','); }
+    if ((kc > -1) && (kc < 10)) { add(kc); }
+    if (kc == 14) { addVrgl('.'); }
     if (e.keyCode === 107) { addSymbP('+'); }
     if (e.keyCode === 109) { addSymbP('-'); }
     if (e.keyCode === 106) { addSymbF('×'); }
     if (e.keyCode === 111) { addSymbF('/'); }
     if (e.keyCode === 219) { adCar(')'); }
-    if (e.keyCode === 53) { addFunc('('); }
+    if (e.keyCode === 53) { add('('); }
     if (e.keyCode === 8) { retour();}
     
     if (e.keyCode === 13) { upRes();}
     if (e.keyCode !== 13) { jump(); }
-    
     
 }
 )
@@ -780,7 +781,7 @@ function hidHist( ) {
   
   setTimeout(() => {
     gebi('contHist').style.display ='none';
-  }, 310);
+  }, 210);
   
   
 }
@@ -810,30 +811,32 @@ function scNrml() {
 function jump(pr){
   /* //// slice C0N */
 
-  let inp  = fichour.innerText,testr=/[^0-9]0[0-9]/gi,tstN=/[0-9]/g
-      symbols = ['+','-','/','×','*','^','('],
-      numbers = ['0','1','2','3','4','5','6','7','8','9'] ;
-  
-  if (inp.charAt(0)==='0'&& tstN.test(inp.charAt(1)) ) {  inp=inp.slice(1,inp.length);}
+      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',
+          symbols = '+-/×*^(';
+      
+      while (inp.charAt(0)=='0' && ind(nm,inp.charAt(1))>-1 ) {  inp=inp.slice(1,inp.length);}
 
-       if (testr.test(inp) ) {
+      if (testr.test(inp)) {
+      let inZiro=ind(inp,'0'),dwInp;
 
-symbols.forEach((sy)=> {
- if (inp.indexOf(sy+'0',0)>-1) {
-   numbers.forEach((nu)=> {
-     if(inp.indexOf(sy+'0'+nu,0)>-1){inp=rep(inp,sy+'0'+nu,sy+nu);}
-   })
- }
-})
-fichour.innerText=inp; 
-      } 
-    /* //////jump \\\\\\\ */  
+        while(inZiro>-1){
+          dwInp=inp.slice(inZiro,inp.length);
+          inp=inp.slice(0,inZiro);
+          if(ind(symbols,inp.charAt(inZiro-1))>-1  && ind(nm,dwInp.charAt(1))>-1 ){
+          dwInp= dwInp.slice(1,dwInp.length);
+        }else{
+        inZiro++;
+        }
+        inp += dwInp;
+        inZiro=ind(inp,'0',inZiro);
+
+        }
+      }
+  fichour.innerText=inp; 
+
+     /* //////jump \\\\\\\ */  
   fichour.scrollTop = fichour.scrollHeight;
- 
-  
-    calcule();
-  
-  
+  calcule();
 }
   
 
@@ -849,22 +852,20 @@ function copier() {
 }
 
 /* /// paste */
+if (localStorage.pas == '1') {psClk=1;}
  function paste(pr) { 
-   if (pr==1) {
-     setTimeout(() => {
-       
-     document.querySelector('.pastBtn').style.display= 'block';
-     }, 10);
-   }else{
+   if (pr===1 && psClk == 0) {
+      document.querySelector('.pastBtn').style.display = 'block';
+      psClk = 1;
+      localStorage.pas  = '1';
+      return 'stop';
+   }
    navigator.clipboard.readText().then((text)=>{ 
     if(fichour.innerText=='0'){fichour.innerText='';}
      fichour.innerText +=text;
-setTimeout(() => {
- gebi('pst').style.display= 'none';
-     },11);
    jump();
   })
-  }
+  
 }
 /* ///racorce get elment */
 function gebi(param) { param = document.getElementById(param); return param;}
@@ -872,22 +873,18 @@ function gebi(param) { param = document.getElementById(param); return param;}
 
 /* //// Up result to fichour */
 function upRes() {
- 
-  
-  if(result.innerText =='' || result.innerText == 'The result copied' ){
-      return false}
-let fich =fichour.innerText,re=result.innerText;
-   result.className +=' ogmentation';
-   
-   
-   setTimeout(() => {
+  if(result.innerText ==''  ||  result.innerText == 'The result copied' ){ return false;}
+  result.className +=' ogmentation';
+  let fich =fichour.innerText,re=result.innerText;
+
+  setTimeout(() => {
     fichour.className = 'inp';
-   fichour.innerText = result.innerText;;
-   result.innerText = '';
-   result.className ='result';
-   }, 300);
-   fichour.className+=' upScrl';
-   fichour.scrollTo({top:1000,behavior:'smooth'})
+    fichour.innerText = result.innerText;
+    result.innerText = '';
+    result.className ='result';
+  }, 300);
+  fichour.className+=' upScrl';
+  fichour.scrollTo({top:1000,behavior:'smooth'})
   svHist(fich,re);
 }
 
@@ -898,45 +895,30 @@ function add(caracter) {//f1
   if (fichour.innerText =='0') {fichour.innerText='';}
      let inp = fichour.innerText,
         lenInp = inp.length,
-        carInp = inp.charAt(lenInp - 1);
-        if ((carInp==')')||(carInp=='²')||(carInp==='%')) {
-          inp +='×' 
+        crInp = inp.charAt(lenInp - 1);
+        if ((crInp==')')||(crInp=='²')||(crInp==='%')) {
+          addSymbF('×')
         }
-        fichour.innerText = inp+ caracter ;
+        fichour.innerText += caracter ;
         jump();
 }
 
-/*  /////add function\\\\\\ */
-function addFunc(param) { //
-  if (fichour.innerText =='0') {fichour.innerText='';}
-    let inp = fichour.innerText,
-        lenInp = inp.length,
-        carInp = inp.charAt(lenInp - 1),
-        symbols = '/*×-+^(';
-    if ((symbols.indexOf(carInp,0) > -1)||(lenInp ==0)) {
-        inp += param;
-    } else { addSymbF('×');inp =fichour.innerText  + param;}
-    fichour.innerText = inp;
-    if(param=='3.141592653589793'){jump();
-    }else{fichour.scrollTop = fichour.scrollHeight;}
-    
-}
 
 /*  /////add caracter\\\\\\ */
-function adCar(param) { //f3
+function adCar(pr) { //f3
   
     let inp = fichour.innerText,
         lenInp = inp.length,
-        carInp = inp.charAt(lenInp - 1),
+        crInp = inp.charAt(lenInp - 1),
         symbols = '/*×-+(',
         inpLef= rep(inp,'(', ''),
         inpRi   = rep(inp,')','');
-    if ((symbols.indexOf(carInp, 0) == -1) && (lenInp != 0)&&
-        (((carInp !='%')||(param !='^'))&&( (carInp !='%')||(param !='²'))   )) {
-      if (param !=')') {
-        inp +=  param;
-      }else if ((param==')')&&(inpLef.length < inpRi.length)) {
-        inp +=  param;
+    if (ind(symbols,crInp) == -1 && lenInp != 0 &&
+         ( crInp !='%' || pr !='^' )&&( crInp !='%' || pr !='²' )  ) {
+      if (pr !=')') {
+        inp +=  pr;
+      }else if ((pr==')')&&(inpLef.length < inpRi.length)) {
+        inp +=  pr;
       }
       
     }
@@ -946,39 +928,39 @@ function adCar(param) { //f3
 
 
 /* //////// add symbole × / */
-function addSymbF(param) {//f4
+function addSymbF(pr) {//f4
     let inp = fichour.innerText,
         lenInp = inp.length - 1,
-        carInp = inp.charAt(lenInp),
-        carInp2 = inp.charAt(lenInp-1),
-        symbols = '/*×-+.,',
-        symbol2 = '(';
-    if ((lenInp > -1) && (symbol2.indexOf(carInp, 0) == -1)) {
-        if (symbols.indexOf(carInp, 0) > -1) {
-            if ((symbol2.indexOf(carInp2, 0) == -1)) {
+        crInp = inp.charAt(lenInp),
+        crInp2 = inp.charAt(lenInp-1),
+        symbols = '/*×-+.,';
+    if ((lenInp > -1) && (ind('(',crInp) == -1)) {
+        if (ind(symbols,crInp) > -1) {
+            if (ind('(',crInp2) == -1) {
                 inp = inp.slice(0, lenInp);
-                inp += param;
+                inp += pr;
             } 
-        }else{inp += param; }
+        }else{inp += pr; }
     } 
+result.innerText ='' ;
     fichour.innerText = inp;
     fichour.scrollTop = fichour.scrollHeight;
 }
 
 /* /////// add Symbole + -  \\\\\\\ */
-function addSymbP(param) { //f5
+function addSymbP(pr) { //f5
     let inp   = fichour.innerText,
         lenInp = inp.length - 1,
-        carInp = inp.charAt(lenInp),
+        crInp = inp.charAt(lenInp),
         plus     = '+' ,
         symbols  = '/*×-+.,';
     
-        if (symbols.indexOf(carInp,0) > -1) {
+        if (ind(symbols,crInp) > -1) {
             inp = inp.slice(0,lenInp );
             plus = '';
         }
-        inp += param; 
-    
+        inp += pr; 
+    result.innerText ='' ;
     fichour.innerText = inp;
     fichour.scrollTop = fichour.scrollHeight;
     return plus
@@ -986,51 +968,35 @@ function addSymbP(param) { //f5
 
 /* ////// add virguele \\\\\ */
 function addVrgl() {
-  let inp = fichour.innerText,lenInp = inp.length ,
-    carInp=inp.charAt(lenInp -1),
-     arRe =['+','-','/','×','*','^','('] ;
-
-    arRe.forEach((e)=> {inp=rep(inp,e,'@');})
-    
-        inp = rep(inp,',','.');
-
-  
-        if (inp.lastIndexOf('@',lenInp)>=inp.lastIndexOf('.',lenInp)&&(arRe.indexOf(carInp, 0) < 0)) {
-          addSymbF(',')
-        }
+  let inp = fichour.innerText, lenInp, crInp, arRe =['+','-','/','×','*','^','('] ;
+    arRe.forEach((e)=> {inp=rep(inp,e,'@');});
+    lenInp = inp.length;crInp=inp.charAt(lenInp -1);
+    if (laIn(inp,'@')>=laIn(inp,'.') && crInp!=='@') {addSymbF('.') }
+    if(lenInp==0 ||crInp=='@'){fichour.innerText +='0.';}
    fichour.scrollTop = fichour.scrollHeight;
 }
 
 
 /* ///// retour \\\\\\\\\\\ */
 function retour() { //f6
-    let inp = fichour.innerText,
-        lenInp = inp.length,
-        carInp = inp.charAt(lenInp - 1),
-        carInp2 = inp.charAt(lenInp - 2),
-        symbols = '/*×-+(1234567890.,';
-    
-    if (lenInp > 0) {
-        if (((carInp == '(') || (carInp == '^')) && (symbols.indexOf(carInp2, 0) < 0)) {
-            ////replace background-color: floralwhite;
-    let arRep=[['abs(','cosh(','acos(','cos(','e^(','Ln(','log(','√(','asin(','sinh(','sin(','atan(','tanh(','tan('],
-               ['d'   , 'f'   , 'j'   , 'k'  , 'm' , 'p' , 'q'  , 'r', 'u'   , 'v'   , 'w'  , 'x'   , 'y'   , 'z'  ]];
+  let inp = fichour.innerText,  lenInp = inp.length,symbols = /([a-z]|\^|√)/gi,
+      crInp = inp.charAt(lenInp - 1),crInp2 = inp.charAt(lenInp - 2);
+  
+  if (lenInp > 0) {
+    if (crInp == '('  && symbols.test(crInp2)) {
+      ////replace background-color: floralwhite;
+      let arRep=[
+      ['abs(','cosh(','acos(','cos(','e^(','Ln(','log(','√(','asin(','sinh(','sin(','atan(','tanh(','tan('],
+      ['d'   , 'f'   , 'j'   , 'k'  , 'm' , 'p' , 'q'  , 'r', 'u'   , 'v'   , 'w'  , 'x'   , 'y'   , 'z'  ]];
 
-          for (let i = 0; i < arRep[0].length; i++) { 
-            if (inp.indexOf(arRep[0][i],0)>-1) {inp = rep(inp,arRep[0][i], arRep[1][i]); }
-            }
-          
-            inp = inp.slice(0,inp.length - 1);
-
-            /////reteur
-            for (let i = 0; i < arRep[0].length; i++) { 
-              if (inp.indexOf(arRep[1][i],0)>-1) { inp = rep(inp,arRep[1][i], arRep[0][i]);}
-            }
-         
-        } else { inp = inp.slice(0, inp.length - 1); }
-    }
-    fichour.innerText = inp;
-    jump();
+      for (let i = 0; i < arRep[0].length; i++) { inp = rep(inp,arRep[0][i], arRep[1][i]); }
+      inp = inp.slice(0,inp.length - 1);
+      /////reteur
+      for (let i = 0; i < arRep[0].length; i++) {  inp = rep(inp,arRep[1][i], arRep[0][i]);}
+    } else { inp = inp.slice(0, inp.length - 1); }
+  }
+  fichour.innerText = inp;
+  calcule();
 }
 
 /* //////clearing \\\\\\\\\\   */
@@ -1038,12 +1004,12 @@ function clearing() { /* //f7  */ fichour.innerText = '0'; result.innerText='';}
 
 /* //////// replice drg ongle */
 function drgFun() { //f8
-    let drg = gebi('drg').innerHTML;
-    if (drg == 'deg') {gebi('drg').innerHTML = 'rad'; ongl = '1'; reOngl='1';
-    } else if (drg == 'rad') { gebi('drg').innerHTML = 'grad'; ongl = '0.015707963267948967';reOngl='63.66197723675813';
-    } else {gebi('drg').innerHTML = 'deg'; ongl = '0.017453292519943295'; reOngl='57.29577951308329' ;
+    let drg = gebi('drg').innerText;
+    if (drg == 'deg') {gebi('drg').innerText = 'rad'; ongl = '1'; reOngl='1';
+    }else if(drg=='rad'){gebi('drg').innerText='grad';ongl='0.015707963267948967';reOngl='63.66197723675813';
+    } else {gebi('drg').innerText = 'deg'; ongl ='0.017453292519943295'; reOngl='57.29577951308329' ;
     }
-    jump();
+    calcule();
 }
 
 /* ////mimoiring number \\\\\\*/
@@ -1066,315 +1032,199 @@ function save() {//f9
 }
 
 /* /////// reteur de sive \\\\\\\\\ */
-function retSive() { //f10
-    if (mim.length > 0) {if(fichour.innerText=='0'){fichour.innerText='';}; fichour.innerText += mim;jump();}}
-
+function retSive(){if(fichour.innerText=='0'){fichour.innerText='';}fichour.innerText+=mim;jump();}
 
 /* ////// add save \\\\\\\\ */
 function addSave() { //f11
     
-    if (mim.length == 0) {
-        save();
-    } else {
-       
-          let nMim =fichour.innerText;
-            mim += addSymbP('+') + nMim; 
-            fichour.innerText = '';
-        setTimeout(() => { //==== setTimeout(function(){code},time)
-        fichour.innerText = nMim;
-        }, 90);
-            localStorage.mim= mim;
-        
-    }
-    fichour.scrollTop = fichour.scrollHeight;
+  if (mim.length == 0) {
+    save();
+  } else {
+    let nMim =fichour.innerText;mim += addSymbP('+') + nMim; fichour.innerText = '';
+    setTimeout(() => {  fichour.innerText = nMim; }, 90); localStorage.mim= mim; 
+  }
+  fichour.scrollTop = fichour.scrollHeight;
 }
 
 /* //////// replace \\\\\\ */
-function rep(inp,pr1,pr2) {inp= inp.replaceAll(pr1,pr2) 
-  return inp ;}
+function rep(inp,pr1,pr2) {if(ind(inp,pr1)>-1){ inp= inp.replaceAll(pr1,pr2)} return inp ;}
 
 
-  function svHist(pr1,pr2) {
-    let dvSv = gebi('lHist');
-    if (pr1==rLHF[rLHF.length-1]) {return false}
-    if(fichour.innerText==='0'){fichour.innerText==''}
-    dvSv.innerHTML+=' <div onclick="toFichour( this.innerText)" class="inpHist">'+pr1+'</div>'+
-        '<div class="result resultHist" onclick="toFichour( this.innerText)">' + pr2 + '</div> <hr>'
-    
-    /* ///history */
-       pr1= pr1.replace(/\,/g, '.');
-       
-         
-       
-        if (rLHF.length>20) {
-          rLHF = rLHF.slice(1, rLHF.length);
-            rLHR = rLHR.slice(1, rLHR.length);
-        }
-            
-            rLHF.push(pr1);
-            rLHR.push(pr2);
-        
-        
-        localStorage.lHistF = rLHF;
-        localStorage.lHistR = rLHR;
+function svHist(pr1,pr2) {
+  let dvSv = gebi('lHist');
+  if (pr1==rLHF[rLHF.length-1]) {return false}
+  if(fichour.innerText==='0'){fichour.innerText==''}
+  dvSv.innerHTML+=' <div onclick="toFichour( this.innerText)" class="inpHist">'+pr1+'</div>'+
+    '<div class="result resultHist" onclick="toFichour( this.innerText)">' + pr2 + '</div> <hr>';
+  
+  /* ///history */
+  if (rLHF.length>20) {
+    rLHF = rLHF.slice(1, rLHF.length);
+    rLHR = rLHR.slice(1, rLHR.length);
+  }
+  rLHF.push(pr1);
+  rLHR.push(pr2);
+  
+  localStorage.lHistF = rLHF.join('@#');
+  localStorage.lHistR = rLHR.join('@#');
       
 }/* getItem */
 
-
-
 /* ////// get Hist */
 function gHist() {
-    if (localStorage.getItem('lHistF')) {
-        let dvSv = gebi('lHist');
-        rLHF = hiToDiv('F');
-        rLHR = hiToDiv('R');
-        for (let i = 0; i < rLHF.length; i++) {
-            rLHF[i]=  rLHF[i].replace(/\./g, ',');
-            dvSv.innerHTML += ' <div onclick="toFichour( this.innerText)" class="inpHist">'+
-                 rLHF[i] +'</div>' +
-                '<div class="result resultHist" onclick="toFichour( this.innerText)">' +
-                rLHR[i] + '</div> <hr>'
-        
-      }
+  if (localStorage.getItem('lHistF')) {
+    let dvSv = gebi('lHist');
+    rLHF = hiToDiv('F');
+    rLHR = hiToDiv('R');
+    for (let i = 0; i < rLHF.length; i++) {
+      dvSv.innerHTML += ' <div onclick="toFichour( this.innerText)" class="inpHist">'+ rLHF[i] +'</div>' +
+        '<div class="result resultHist" onclick="toFichour( this.innerText)">' + rLHR[i] + '</div> <hr>';
+      
     }
+  }
 }
 
-function toFichour(pr) {
-    if (fichour.innerText === '0') { fichour.innerText = '' }
-    fichour.innerText += pr;
-    jump();
-    
-}
+function toFichour(pr){if(fichour.innerText=='0'){fichour.innerText='';}fichour.innerText+=pr;jump();}
 
-function hiToDiv(FR) {//histori to divHistori
-    
-    let Hist = localStorage['lHist' + FR];
-    Hist = Hist.split(',');
-    return Hist;
-}/* 
-localStorage.removeItem('lHistF');
-localStorage.removeItem('lHistR'); */
-
+function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('@#'); return Hist;}
 
 
 /*  ////////// equale \\\\\\\\\\\\\\ */
 ///////////////////////////////////////
 ///////////////////////////////////////
 
+function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
+function laIn(inp,pr,fin=inp.length) {inp=inp.lastIndexOf(pr,fin);return inp;}
+/* /// to fexsed number  */
+Number.prototype.fix =function(fx=13){
+  let th = this;sth=th.toString();
+  if (ind(sth,'e')>-1) {
+    th = fixing(th,fx);
+  }else{
+    th =th*1e103; sth=th.toString();
+    if (ind(sth,'e') > -1) {
+      th = fixing(th,fx,103); sth=th.toString();
+      if (ind(sth,'e') > -1) {th = fixing(th,fx);}
+    }else{th =th/1e103;}
+  }
+  return th ;
+}
+  
 /* ///////// Calcule valure enter btackets \\\\\\\ */
 function brackets(inp) {
-  let   inRB ,//index of Right brackets
-        i=0,upInp,inLB ,dwInp ,inRBDw ,//inp right bracket down
-        bet ; //  between brackets
-
-  while (inp.indexOf('(',0)>-1) {
-        i++;
-        inRB = inp.indexOf(')', 0);//index of Right bracket
-        upInp = inp.slice(0, inRB);
-        inLB = upInp.lastIndexOf('(', inRB);
-        dwInp = inp.slice(inLB, inp.length);
-        inRBDw = dwInp.indexOf(')', 0);
-        bet = dwInp.slice(1, inRBDw); //  between brackets
-        upInp = inp.slice(0, inLB);
-        console.log(bet+' ,i='+i);
-     //calc between brackets
-        bet = rep(bet,'left','(' );
-        bet = rep(bet,'right',')' );
-        if((bet.charAt(0)==='+')||(bet.charAt(0)==='-')){bet='0'+bet}
-        bet = eval(bet);
-        
-        if(Math.abs(bet- bet.toFixed(5))< 1e-10){bet =bet.toFixed(5);bet = 1*bet;}
-        /* acos(cos(acos(cos(25))))*5 */
-      //replace ( to left and ) to right
-        dwInp = dwInp.slice(inRBDw,dwInp.length);
-        dwInp = dwInp.replace(')','right')
-        dwInp ='left'+bet+ dwInp;
-
-        inp=upInp+dwInp;
-
-        if (i>1000) { break; }
-  }
-  
-  inp = rep(inp,'left','(');
-  inp = rep(inp,'right',')');
-    return inp;
-}
-
-/* //// calc Math.cos,sin... and calc Math.acos,asin... \\\\\ */
-function acstAMat(inp) { //acos asin atan and Math.cos,sin,tan
-
-  let dwInp,i,rdw,ldw, inUpInp=inp.lastIndexOf('Math',inp.length),j=0,dwDwinp;//right dw and left
-  
-  while (inUpInp>0) {
-    if (inp.slice(inUpInp-reOngl.length-1,inUpInp)==reOngl+'*') {
-      inUpInp=inp.lastIndexOf(reOngl+'*Math',inp.length)
-    }
-    rdw=0;ldw=0,i=1;
-    dwInp=inp.slice(inUpInp,inp.length);
-      inp=inp.slice(0,inUpInp);
-      
-      ldw = dwInp.indexOf('(',0);
-      
-      // console.log(inUpInp);
-      ldw++;
-      while (i>0)  {
-      rdw=dwInp.indexOf(')',rdw);
-        ldw=dwInp.indexOf('(',ldw);
-
-        if ((ldw<rdw)&&(ldw>-1)) {
-          ldw++;
-          i++;
-        }else {
-          rdw++;
-          if (ldw<0){ldw=rdw;}
-          
-          i--;
-        }
-        console.log(rdw );  
-        console.log(ldw);
-        j++;
-        if (j>10) {
-          console.log('rak mkatar');
-          break
-        }
-      
-     }
-     
-      //  console.log('dw0= '+dwInp);
-      dwDwinp = dwInp.slice(rdw,dwInp.length);
-      dwInp=dwInp.slice(0,rdw);
-
-      if (dwInp.indexOf(ongl,0)===9) {
-        dwInp=dwInp.replace(ongl+'*',ongl+'*(');
-        dwInp +=')';
-      }
-      //  console.log('rdw= '+rdw);
-      //  console.log('dw1= '+dwInp);
-      //  console.log('upInp= '+inp);
-      // calc between brackets
-      dwInp=brackets(dwInp);
-      //  console.log('dw2= '+dwInp);
-        dwInp = eval(dwInp);
-
-        //  console.log('dw3= '+dwInp);
-        //  console.log('dwDwinp= '+dwDwinp);
-        if(Math.abs(dwInp- dwInp.toFixed(5))<1e-10){dwInp =dwInp.toFixed(5);dwInp = 1*dwInp;}
-        /* console.log('dw4= '+dwInp);
-        console.log('inp= '+inp); */
-        inp+= dwInp  + dwDwinp;
-        /* console.log('inp2= '+inp); */
-        inUpInp=inp.lastIndexOf('Math',inp.length)
-        
+  let inRB ,upInp,inLB ,dwInp ,inRBDw ,bet ; 
+  while (ind(inp,'(')>-1) {
+    inRB = ind(inp,')');//index of Right bracket
+    upInp = inp.slice(0, inRB); inLB = laIn(upInp,'(', inRB);
+    dwInp = inp.slice(inLB, inp.length); inRBDw = ind(dwInp,')')+1;
+    bet = dwInp.slice(0, inRBDw);  upInp = inp.slice(0, inLB);
+    bet = eval(bet); bet = bet.fix();
+    dwInp = dwInp.slice(inRBDw,dwInp.length);
+    dwInp =bet+ dwInp;
+    inp=upInp+dwInp;
   }
   return inp;
-  
+}
+/* //// calc Math.cos,sin... and calc Math.acos,asin... \\\\\ */
+function acstAMat(inp) { //acos asin atan and Math.cos,sin,tan
+  let dwInp,i,rdw,ldw, inUpInp=laIn(inp,'Math'),dwDwinp;//right dw and left
+  while (inUpInp>-1) {
+    if (inp.slice(inUpInp-reOngl.length-1,inUpInp)==reOngl+'*'){inUpInp=laIn(inp,reOngl+'*Math') }
+      rdw=0;ldw=0,i=1;dwInp=inp.slice(inUpInp,inp.length);
+      inp=inp.slice(0,inUpInp);ldw = ind(dwInp,'(');ldw++;
+      while (i>0)  {
+        rdw=ind(dwInp,')',rdw); ldw=ind(dwInp,'(',ldw);
+        if (ldw<rdw && ldw>-1) { ldw++;i++; }else { rdw++; if (ldw<0){ldw=rdw;i--;} }
+     }
+    dwDw = dwInp.slice(rdw+1,dwInp.length);
+    dwInp=dwInp.slice(0,rdw+1);
+    if (ind(dwInp,ongl)===9) {dwInp=dwInp.replace(ongl+'*',ongl+'*('); dwInp +=')';}
+    ldw = ind(dwInp,'(');dwInp=brackets(dwInp);
+    dwInp= dwInp.slice(0,ldw) +'('+dwInp.slice(ldw,dwInp.length) +')';
+    dwInp = eval(dwInp);dwInp =dwInp.fix();
+    inp += dwInp + dwDw;
+    inUpInp=laIn(inp,'Math');
+  }
+  return inp;
 }
 
+ /*////// fix les valeur \\\\\\ */
+function fixing(inp,fx,ng=0) { // ng nember gonfel
+  let sInp = inp.toString(),inUpInp = ind(sInp,'e'),abInp,
+      dwInp= sInp.slice(inUpInp+1,sInp.length);
+  inp   = sInp.slice(0,inUpInp); inp = eval(inp);
+  dwInp = eval(dwInp-ng);
+  inp   = inp.toFixed(fx)*1; abInp  = Math.abs(inp);
+  if(abInp.toFixed(5)-abInp <1e-10){inp =inp.toFixed(5)*1;} 
+  sInp  = inp+'e'+dwInp;
+  inp   = eval(sInp); abInp  =Math.abs(inp);
+  if(abInp.toFixed(5)-abInp < 1e-10){inp =inp.toFixed(5)*1;}  
+  return inp ;
+}
 
-
-
-/*////// gonfler les valeur \\\\\\ */
-function fixing(inp,ng=0) { // ng nember gonfel
-  let sInp   = inp.toString(),inUpInp= sInp.indexOf('e',0),
-      upInp  = sInp.slice(0,inUpInp), dwInp  = sInp.slice(inUpInp+1,sInp.length);
-
-    upInp  = eval(upInp);
-    dwInp  = eval(dwInp-ng);
-    upInp  = upInp.toFixed(13) ;upInp = 1*upInp;
-    if(Math.abs(inp- inp.toFixed(5))<1e-7){inp =inp.toFixed(5);inp = 1*inp;} 
-    sInp   = upInp+'e'+dwInp;
-    inp    = eval(sInp);
-    return inp ;
+/* ///////  numMath, num( =>num*Math, num*( \\\\\\\\\ */
+function loopFun(inp,test,car,crs) {
+  if (!test.test(inp)) {return inp}
+  let index = ind(inp,car);
+  while(index>-1){
+    dwInp=inp.slice(index,inp.length);  inp=inp.slice(0,index);
+    if(ind(crs,inp.charAt(index-1),0)>-1 ){ dwInp='*'+ dwInp; }
+    index+=2;   inp += dwInp;   index=ind(inp,car,index);
+  }
+  return inp;
 }
 
 function calcule() { //f12
 
+  let inp    = fichour.innerText,lenInp = inp.length, crInp = inp.charAt(lenInp - 1),
+  arSy=[], fich = inp,symbols = '/*×-+(^.'; 
+  result.innerText='';
+  if(ind(symbols,crInp)>-1||lenInp<2){ return false; } 
+  if(inp.charAt(0)==='+' || inp.charAt(0)==='-' ){inp='0'+inp}
 
-    let inp    = fichour.innerText;
-        lenInp = inp.length,arRe=[],
-        carInp = inp.charAt(lenInp - 1),
-        num    = '0123456789',arSy=[];
-        symbols = '/*×-+(^'; 
+  /* ////replasment\\\\ */
+  arSy = [[',',''],['×','*'],['%','*1/100'],['^','**'],['²','**(2)']];
+  arSy.forEach((e)=>{inp = rep(inp,e[0], e[1]);})
+
+  if (ind(inp,'(')>-1 ||ind(inp,'e**')>-1) {
+    let test1=/\)(\d|M|\()/gi, test2=/\dreOngl/gi,arRe=[],
+    difRL = rep(inp,')', '').length - rep(inp,'(', '').length;
+    for (let i = 0; i < difRL ; i++) {inp += ')';}
+    inp = inp.toLowerCase();
+    arRe=[
+    ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','e**',
+      'ln','√','w','u','v','z','x','y','(-','(+'],
+    ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.logt','Math.abs', 'Math.cos('+ongl+'*',
+    'reOngl*Math.acos','Math.cosh','Math.abs(2.718281828459045)**', 'Math.log', 'Math.sqrt','Math.sin('+ongl+'*',
+    'reOngl*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*', 'reOngl*Math.atan','Math.tanh','(0-','(0+'
+                                                ]  ];
         
-        if((symbols.indexOf(carInp,0)>-1)||(lenInp<2)){  
-           result.innerText='';
-           return false; } 
-
-       if (inp.indexOf('(',0)>-1) {
-          let intLef = rep(inp,'(', ''), 
-              intRi = rep(inp,')', ''),
-            difRL = intRi.length - intLef.length;
-            for (let i = 0; i < difRL ; i++) {inp += ')';}
-        }
-       
-
-        
-    /* ////replasment\\\\ */
-    arSy = [[',','.'],['×','*'],['%','*1/100'],['^','**'],['²','**2']];
-    arSy.forEach((e)=>{
-      if (inp.indexOf(e[0],0)>-1) {
-        inp = rep(inp,e[0], e[1]);
-      }
-      
-    })
-
-
-    let fich = inp;
-   
-      if((inp.charAt(0)==='+')||(inp.charAt(0)==='-')){inp='0'+inp}  
-    if (inp.indexOf('(',0)>-1) {
+    for (let i = 0; i < arRe[0].length; i++) {inp = rep(inp,arRe[0][i], arRe[1][i]);}
     
-       arRe=[
-        ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','e**',
-            'Ln','√','w','u','v','z','x','y'],
-        ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.log10','Math.abs', 'Math.cos('+ongl+'*',
-         reOngl+'*Math.acos','Math.cosh', '2.718281828459045**', 'Math.log', 'Math.sqrt','Math.sin('+ongl+'*',
-         reOngl+'*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*', reOngl+'*Math.atan','Math.tanh']   
-                                                    ];
-         
-          for (let i = 0; i < arRe[0].length; i++) { 
-            if (inp.indexOf(arRe[0][i],0)>-1) {
-              inp = rep(inp,arRe[0][i], arRe[1][i]); 
-            }
-          }
-          if(inp.indexOf('Math',0)>-1){inp= acstAMat(inp);}
-        
-          if(inp.indexOf('(',0)>-1){inp = brackets(inp);}
-          
+    inp = loopFun(inp,/\d\(/gi,'(',num);           inp = loopFun(inp,/\dM/gi,'M',num);
+    inp = loopFun(inp,/\dreOngl/gi,'reOngl',num);  inp = rep(inp,'reOngl',reOngl);
+    
+    if (test1.test(inp)) {
+      let inRight=ind(inp,')'),dwInp;
+      while(inRight>-1){
+        dwInp=inp.slice(inRight+1,inp.length);   inp=inp.slice(0,inRight+1);
+        if((ind(num,dwInp.charAt(0))>-1 || dwInp.charAt(0)==='M' ||dwInp.charAt(0)==='(') 
+        &&  dwInp.length>0){ dwInp ='*'+ dwInp; }
+        inRight++; inp += dwInp; inRight=ind(inp,')',inRight);
+      }
     }
-      
+    inp= rep(inp,'logt','log10');  inp= acstAMat(inp);  inp = brackets(inp);
+  }
+
+  /* /////// result */
+  try {
+    inp = eval(inp);  inp = inp.fix();
+    result.style.color = 'rgb(14, 66, 20)';
+    if (inp != fich&& !isNaN(inp)) {result.innerText = inp;} 
+  } catch(e){result.innerText = e.message;}
   
-
-     
-/* /////// result */
-        result.innerText = '';
-      if (inp.length >0) {
-        if ((inp.charAt(0)==='0')&&(num.indexOf(inp.charAt(1),0) >-1)) { inp=inp.slice(1,inp.length);}
-      try {
-        inp = eval(inp);
-
-        if (inp >=1e21) {
-         inp = fixing(inp);
-            
-        }else{
-          inp =inp*1e103;
-          if (inp >=1e21) {
-            inp = fixing(inp,103);
-            if (inp >=1e21) {inp = fixing(inp);}
-            
-          }else{inp =inp/1e103;}
-          
-        }
-        inp = inp.toFixed(13) ;inp = 1*inp;  
-        if(Math.abs(inp- inp.toFixed(5))<1e-7){inp =inp.toFixed(5);inp = 1*inp;} 
-        result.style.color = 'rgb(14, 66, 20)';
-        if ((inp != fich)&&(!isNaN(inp))) {result.innerText = inp;} 
-        
-      } catch(e){result.innerText=e.message;}
-    }
-     
- }
+    
+}
       </script>
-      <!-- <script type="text/javascript" src="jsClc.js" ></script> -->
 </body>
 </html>
