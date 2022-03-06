@@ -1096,8 +1096,8 @@ function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {inp=inp.lastIndexOf(pr,fin);return inp;}
 /* /// to fexsed number  */
-Number.prototype.fix =function(fx=13){
-  let th = this;sth=th.toString();
+  function fix(th,fx=13){
+  let sth=th.toString();
   if (ind(sth,'e')>-1) {
     th = fixing(th,fx);
   }else{
@@ -1118,7 +1118,7 @@ function brackets(inp) {
     upInp = inp.slice(0, inRB); inLB = laIn(upInp,'(', inRB);
     dwInp = inp.slice(inLB, inp.length); inRBDw = ind(dwInp,')')+1;
     bet = dwInp.slice(0, inRBDw);  upInp = inp.slice(0, inLB);
-    bet = eval(bet); bet = bet.fix();
+    bet = eval(bet); bet = fix(bet);
     dwInp = dwInp.slice(inRBDw,dwInp.length);
     dwInp =bet+ dwInp;
     inp=upInp+dwInp;
@@ -1141,7 +1141,7 @@ function acstAMat(inp) { //acos asin atan and Math.cos,sin,tan
     if (ind(dwInp,ongl)===9) {dwInp=dwInp.replace(ongl+'*',ongl+'*('); dwInp +=')';}
     ldw = ind(dwInp,'(');dwInp=brackets(dwInp);
     dwInp= dwInp.slice(0,ldw) +'('+dwInp.slice(ldw,dwInp.length) +')';
-    dwInp = eval(dwInp);dwInp =dwInp.fix();
+    dwInp = eval(dwInp);dwInp =fix(dwInp);
     inp += dwInp + dwDw;
     inUpInp=laIn(inp,'Math');
   }
@@ -1218,7 +1218,7 @@ function calcule() { //f12
 
   /* /////// result */
   try {
-    inp = eval(inp);  inp = inp.fix();
+    inp = eval(inp);  inp = fix(inp,10);
     result.style.color = 'rgb(14, 66, 20)';
     if (inp != fich&& !isNaN(inp)) {result.innerText = inp;} 
   } catch(e){result.innerText = e.message;}
