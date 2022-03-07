@@ -396,6 +396,7 @@ button:not(:disabled),
     
     #inner-wrapper{
       width:100%;
+      min-height: 95vh;
       background-color: white;
       text-align:center;
       
@@ -639,24 +640,14 @@ button:not(:disabled),
   </div>
   </main>
 
-      <script type="text/javascript" >
-/* /// to fexsed number  */
-Number.prototype.fix =function(fx=13){
-  let th = this;sth=th.toString();
-  if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx);}
-  return th ;
-}
+  <script type="text/javascript" >
+  /* /// to fexsed number  */
+  Number.prototype.fix =function(fx=13){
+    let th = this;sth=th.toString();
+    if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx);}
+    return th ;
+  }
 
-/*////// fix les valeur \\\\\\ */
-function fixing(inp,fx) { // ng nember gonfel
-  let sInp = inp.toString(),inUpInp = ind(sInp,'e'),abInp,abFx,
-      dwInp= sInp.slice(inUpInp+1,sInp.length)*1;
-  inp   = sInp.slice(0,inUpInp)*1; dwInp -=103;
-  inp   = inp.toFixed(fx)*1;  abInp=Math.abs(inp);  abFx=abInp.toFixed(5)*1;
-  if(Math.abs(abInp -abFx) <1e-10){inp =inp.toFixed(5)*1;} 
-  sInp  = inp+'e'+dwInp; inp=sInp*1;
-  return inp ;
-}
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],
@@ -828,7 +819,7 @@ function jump(pr){
       let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',
           symbols = '+-/×*^(';
       
-      while (inp.charAt(0)=='0' && ind(nm,inp.charAt(1))>-1 ) {  inp=inp.slice(1,inp.length);}
+      while (inp.charAt(0)=='0' && ind(nm,inp.charAt(1))>-1 && inp.length >1 ) {  inp=inp.slice(1,inp.length);}
 
       if (testr.test(inp)) {
       let inZiro=ind(inp,'0'),dwInp;
@@ -894,15 +885,11 @@ function upRes() {
 
 
 /*  /////// add \\\\\\\\\ */
-function add(caracter) {//f1
+function add(pr) {//f1
   if (fichour.innerText =='0') {fichour.innerText='';}
-     let inp = fichour.innerText,
-        lenInp = inp.length,
-        crInp = inp.charAt(lenInp - 1);
-        if ((crInp==')')||(crInp=='²')||(crInp==='%')) {
-          addSymbF('×')
-        }
-        fichour.innerText += caracter ;
+     let inp = fichour.innerText,crs = ')²%π',crInp = inp.charAt(inp.length - 1);
+        if ( ind(crs,crInp)>-1 ) { addSymbF('×')}
+        fichour.innerText += pr ;
         jump();
 }
 
@@ -910,25 +897,20 @@ function add(caracter) {//f1
 /*  /////add caracter\\\\\\ */
 function adCar(pr) { //f3
   
-    let inp = fichour.innerText,
-        lenInp = inp.length,
-        crInp = inp.charAt(lenInp - 1),
-        symbols = '/*×-+(',
-        inpLef= rep(inp,'(', ''),
-        inpRi   = rep(inp,')','');
-    if (ind(symbols,crInp) == -1 && lenInp != 0 &&
-         ( crInp !='%' || pr !='^' )&&( crInp !='%' || pr !='²' )  ) {
-      if (pr !=')') {
-        inp +=  pr;
-      }else if ((pr==')')&&(inpLef.length < inpRi.length)) {
-        inp +=  pr;
-      }
-      
-    }
-    fichour.innerHTML = inp;
-    jump(); 
-}
+  let inp = fichour.innerText,
+      lenInp = inp.length,
+      crInp = inp.charAt(lenInp - 1),
+      symbols = '/*×-+(^',
+      inpLef= rep(inp,'(', '').length,
+      inpRi   = rep(inp,')','').length;
+  if (ind(symbols,crInp) == -1 && lenInp != 0 &&
+       ( crInp !='%' || pr !='^' || pr !='²' )  ) {
 
+    if (pr !=')') {inp+=pr; }else if (pr==')' && inpLef< inpRi) { inp +=  pr;} 
+  }
+  fichour.innerHTML = inp;
+  jump(); 
+}
 
 /* //////// add symbole × / */
 function addSymbF(pr) {//f4
@@ -1100,6 +1082,17 @@ function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {inp=inp.lastIndexOf(pr,fin);return inp;}
 
 
+/*////// fix les valeur \\\\\\ */
+function fixing(inp,fx) { // ng nember gonfel
+  let sInp = inp.toString(),inUpInp = ind(sInp,'e'),inFx,
+      dwInp= sInp.slice(inUpInp+1,sInp.length)*1;
+  inp   = sInp.slice(0,inUpInp)*1; dwInp -=103;
+  inp   = inp.toFixed(fx)*1; inFx=inp.toFixed(5)*1;
+  if(Math.abs(inp -inFx) <1e-10){inp =inp.toFixed(5)*1;} 
+  sInp  = inp+'e'+dwInp; inp=sInp*1;
+  return inp ;
+}
+
 /* ///////  numMath, num( =>num*Math, num*( \\\\\\\\\ */
 function loopFun(inp,test,car,crs) {
   if (!test.test(inp)) {return inp}
@@ -1164,7 +1157,7 @@ function calcule() { //f12
   if(inp.charAt(0)==='+' || inp.charAt(0)==='-' ){inp='0'+inp}
 
   /* ////replasment\\\\ */
-  arSy = [[',',''],['×','*'],['%','*1/100'],['^','**'],['²','**(2)'],['π','Math.PI']];
+  arSy = [[',',''],['×','*'],['%','*1/100'],['^','**'],['²','**(2)'],['π','(π)']];
   arSy.forEach((e)=>{inp = rep(inp,e[0], e[1]);})
 
   if (ind(inp,'(')>-1 ||ind(inp,'e**')>-1) {
@@ -1174,11 +1167,11 @@ function calcule() { //f12
     inp = inp.toLowerCase();
     arRe=[
     ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','e**',
-      'ln','√','w','u','v','z','x','y','(-','(+'],
+      'ln','√','w','u','v','z','x','y','(-','(+','π'],
     ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.logt','Math.abs', 'Math.cos('+ongl+'*',
-    'reOngl*Math.acos','Math.cosh','Math.abs(2.718281828459045)**', 'Math.log', 'Math.sqrt','Math.sin('+ongl+'*',
-    'reOngl*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*', 'reOngl*Math.atan','Math.tanh','(0-','(0+'
-                                                ]  ];
+    'reOngl*Math.acos','Math.cosh','(2.718281828459045)**', 'Math.log', 'Math.sqrt','Math.sin('+ongl+'*',
+    'reOngl*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*', 'reOngl*Math.atan','Math.tanh','(0-','(0+',
+    '3.141592653589793'                             ]  ];
         
     for (let i = 0; i < arRe[0].length; i++) {inp = rep(inp,arRe[0][i], arRe[1][i]);}
     
@@ -1198,7 +1191,7 @@ function calcule() { //f12
   }
   /* /////// result */
   try {
-    inp = eval(inp);  inp = inp.fix(10);
+    inp = eval(inp);  inp = inp.fix(13);
     result.style.color = 'rgb(14, 66, 20)';
     if (inp != fich&& !isNaN(inp)) {result.innerText = inp;} 
   } catch(e){console.log('message = '+e.message);}
