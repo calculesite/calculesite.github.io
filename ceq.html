@@ -93,6 +93,7 @@
 
       .fs-5 {
         font-size: 1.25rem !important;
+        margin-left: -5px;
       }
 
       .fs-1 {
@@ -826,28 +827,23 @@
 
                 <!-- Form -->
             
-              a=  <input id="a" onclick="selectText('a','b','d')" required  aria-atomic="false" type="text"
-                  value="0" class="form-control" placeholder="a">
+                a = <input id="a" onclick="selectText('a','b','d')" required  aria-atomic="false" 
+                type="text" value="0" class="form-control" placeholder="a">
                 <span id="vala" class="worning"></span>
                 </br>
 
-
-                <label for>b= </label>
-                <input id="b" onclick="selectText('b','c','a')" required aria-atomic="false" type="text" value="0"
-                  class="form-control" placeholder="b">
+                b = <input id="b" onclick="selectText('b','c','a')" required aria-atomic="false" 
+                type="text" value="0"  class="form-control" placeholder="b">
                 <span id="valb" class="worning"></span>
-
-
                 </br>
-                <label for>c=</label>
-                <input id="c" onclick="selectText('c','d','b')" required aria-atomic="false" type="text" value="0"
-                  class="form-control" placeholder="c">
+
+                c = <input id="c" onclick="selectText('c','d','b')" required aria-atomic="false" 
+                type="text" value="0"  class="form-control" placeholder="c">
                 <span id="valc" class="worning"></span>
-
                 </br>
-                <label for>d=</label>
-                <input id="d" onclick="selectText('d','Cal','c')" required aria-atomic="false" type="text" value="0"
-                  class="form-control" placeholder="d">
+
+                d = <input id="d" onclick="selectText('d','Cal','c')" required aria-atomic="false" 
+                type="text" value="0"  class="form-control" placeholder="d">
                 <span id="vald" class="worning"></span>
                 </br>
 
@@ -863,7 +859,19 @@
       </div>
     </main>
     <script type="text/javascript">
+      /* /// to fexsed number  */
+      Number.prototype.fix =function(fx=13){
+        let th = this;sth=th.toString();
+        if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx);}
+        return th ;
+      }
 
+      addEventListener('keyup',()=>{
+        if (gebi('divMeth').className != 'divMeth') {
+         setTimeout(()=>{hidMethod();},100);console.log('dkhal');
+        }
+      });
+      
       let result = gebi('result'), add ='',tMeth=gebi('method'),hidDiv, hidCon;
 
        gebi('a').click(); 
@@ -872,48 +880,38 @@
 
       function ind(inp,pr,pr2=0) { inp=inp.indexOf(pr,pr2);return inp;}
 
-       /* /// to fexsed number  */
-     /* /// to fexsed number  */
-      Number.prototype.fix =function(fx=13){
-        let th = this;sth=th.toString();
-        if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx);}
-        return th ;
-      }
+      
+     
 
       /*////// fix les valeur \\\\\\ */
       function fixing(inp,fx) { // ng nember gonfel
-        let sInp = inp.toString(),inUpInp = ind(sInp,'e'),abInp,abFx,
+        let sInp = inp.toString(),inUpInp = ind(sInp,'e'),inFx,
             dwInp= sInp.slice(inUpInp+1,sInp.length)*1;
         inp   = sInp.slice(0,inUpInp)*1; dwInp -=103;
-        inp   = inp.toFixed(fx)*1;  abInp=Math.abs(inp);  abFx=abInp.toFixed(5)*1;
-        if(Math.abs(abInp -abFx) <1e-10){inp =inp.toFixed(5)*1;} 
+        inp   = inp.toFixed(fx)*1; inFx=inp.toFixed(5)*1;
+        if(Math.abs(inp -inFx) <1e-10){inp =inp.toFixed(5)*1;} 
         sInp  = inp+'e'+dwInp; inp=sInp*1;
         return inp ;
       }
 
       //////// Selection \\\\\\\\\
       function selectText(alfa, alfb, alfc) {
-
-        'use strict';
-gebi(alfa).addEventListener('dblclick',()=>{  this.select();})
-        setTimeout(()=>{gebi(alfa).select();},10);
-
-
+      'use strict';
+        gebi(alfa).addEventListener('dblclick',()=>{  this.select();})
+      setTimeout(()=>{gebi(alfa).select();},10);
       if (ind(add,alfa) < 0) { enter(alfa, alfb, alfc); add += alfa; }  
-
         result.innerHTML = '';
-
       }
 
       /////// enter buton \\\\\\\\
       function enter(alfa, alfb, alfc) {
         'use strict';
         gebi(alfa).addEventListener('keyup',
-          function (event) {
-            let evKC = event.keyCode;
+          function (ev) {
+            let evKC = ev.keyCode;
             //40=dwn 38=up 13=enter
             if ((evKC === 13) || (evKC === 40) || (evKC === 38)) {
-              event.preventDefault();
+              ev.preventDefault();
               valNum(alfa, alfb, alfc, evKC);
             }
           })
@@ -970,70 +968,51 @@ gebi(alfa).addEventListener('dblclick',()=>{  this.select();})
       }
 
       /* ////// Methori and hiding Methori   \\\\\\\\\\\\\ */
-      function meth() {
-gebi('Cal').focus();
-        gebi('contMeth').style.display = 'block';
+      function upRslt() {
+        gebi('Cal').focus(); gebi('contMeth').style.display = 'block';
         setTimeout(() => { gebi('divMeth').className += ' dMtrnf'; }, 100);
       }
 
 
       /////// function total \\\\\\\\\\\\
-
       function fin() {
         'use strict';
-
-        var a = valNum('a', 'calcule'), b = valNum('b', 'calcule'),
-          c = valNum('c', 'calcule'), d = valNum('d', 'calcule');
-
-
-        result.innerHTML = '';
-        tMeth.innerHTML = '';
-        if (a == 0 && b == 0 && c == 0 && d!=0) {
-          result.innerHTML = 'no exist solution';
-          tMeth.innerHTML = ' ∀ x ∈{-∞ ; +∞}</br> f(x) = '+d+' ≠ 0';
-        } else if (a == 0 && b == 0 && (d == 0)) {
-          result.innerHTML = 'X = 0';
-          tMeth.innerHTML = d+ ' = 0';
-          if(c==0){result.innerHTML = 's={-∞ ; +∞}';tMeth.innerHTML = ' ∀ x ∈{-∞ ; +∞}</br> f(x) = 0';}
-        } else if (a == 0 && b == 0 && c != 0 && d != 0) {
-          let x = -d / c ;
-          result.innerHTML = 'X = ' + x;
-          tMeth.innerHTML = 'cx + d = 0 → X = -d/c </br> X = '+ -d +'/'+c +' </br> X = '+x;
-        } else if (a == 0|| d == 0) {
-          //&&((b!=0)&&(c!=0))
-          let n = 1;
-
-          if (d == 0 && a != 0) {
-
-            result.innerHTML = ' X<sub>1</sub> = 0 </br>';
-            tMeth.innerHTML ='f(x) = '+ a+'x³ + '+b+'x² + '+c+
-                'x + 0 </br> f(x) = '+a+'x³ + '+b+'x² + '+c+
-                'x  </br> f(x) = x( '+a+'x² + '+b+'x + '+c+
-                ' ) </br>f(x) = 0 => X<sub>1</sub> = 0  or '+a+'x² + '+b+'x + '+c+
-                '  = 0</br></br><h4> for '+a+'x² + '+b+'x + '+c+'  = 0</h4>';
-            squarFin(a, b, c, n);
-
-          } else {
-            n = 0;
-            result.innerHTML = '';
-            squarFin(b, c, d, n);
-          }
-
-        } else { ///a!=0 d!=0
-          cubiqFin(a, b, c, d);
-        }/* 
-        if(result.innerHTML.indexOf('NaN',0)<0 && result.innerHTML !=''){meth();} */
-        meth();
+        let a = valNum('a', 'calcule'), b = valNum('b', 'calcule'),
+            c = valNum('c', 'calcule'), d = valNum('d', 'calcule');
+        result.innerHTML = ''; tMeth.innerHTML = '';
+        if (a!=0) {cubiqFin(a, b, c, d);}else if(b!=0){squarFun(b, c, d, 0)} else{prFun(c,d,'') } 
+        if(result.innerHTML.indexOf('NaN',0)<0 && result.innerHTML !=''){upRslt();} 
       }
 
 
+      /////// functin promier grad
+      function prFun(a,b,n) {
+        if (a!=0 ) {
+          let x = -b / a ;
+          result.innerHTML += 'X<sub>'+n+'</sub> = ' + x;
+          tMeth.innerHTML+='ax + b = 0 → X<sub>'+n+'</sub> = -b/a </br> X<sub>'+n+'</sub> = '+
+           -b +'/'+a +' </br> X<sub>'+n+'</sub> = '+x;
+        }else if (b!=0){
+          result.innerHTML='no exist solution';tMeth.innerHTML=' ∀ x ∈{-∞ ; +∞}</br> f(x) = '+b+' ≠ 0';
+        }else if (b==0){
+          result.innerHTML= 's={-∞ ; +∞}';tMeth.innerHTML = ' ∀ x ∈{-∞ ; +∞}</br> f(x) = 0';
+          }
+      }
+      
       ///////finctin 2em grad \\\\\\\
-
-      function squarFin(a, b, c, n) {
+      function squarFun(a, b, c, n) {
         'use strict';
+        
         let dilta2 = (b ** 2 - 4 * a * c ).fix(15), x1,x2,re= result.innerHTML,
             i = n + 1, i2 = i + 1, dilta = Math.pow(Math.abs(dilta2), 1 / 2);
 
+          if(c==0){ 
+            result.innerHTML+= 'X<sub>'+i+'</sub> = 0 </br>';
+            tMeth.innerHTML += 'f(x) = '+ a+'x² + '+b+'x '+
+             '+ 0 </br> f(x) = '+a+'x² + '+b+'x'+
+              '</br> f(x) = x( '+a+'x + '+b+' ) </br>f(x) = 0 → X<sub>'+i+'</sub> = 0  or '+a+'x + '+b+
+              '  = 0</br></br><h4> for '+a+'x + '+b+'  = 0</h4></br>';prFun(a,b,i2);return 'stop';
+          }
           dilta = dilta.fix(15);i= '<sub>'+i+'</sub>';i2= '<sub>'+i2+'</sub>';
           tMeth.innerHTML +='</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = '+
            b+'² -4×'+a+'×'+c+' </br> Δ = '+dilta2;
@@ -1051,12 +1030,12 @@ gebi('Cal').focus();
           x1 = -b / (2 * a); x1 = x1.fix();   x2=x1;
           re += 'X' + i + ', X'+i2+' = ' + x1;
         } else {
-          let tx = -b / (2 * a),   ty = Math.abs(dilta / (2 * a)).fix();
+          let tx = -b / (2 * a),   ty = Math.abs(dilta / (2 * a)).fix(),pl=' +i';
           tx = tx.fix(); 
-          if(tx==0){tx = '';}
-          re += ' X' + i + ' = ' + tx + ' +i' + ty +
+          if(tx==0){tx = '';pl=' i';}
+          re += ' X' + i + ' = ' + tx + pl + ty +
             '</br>  X' + i2 + ' = ' + tx + ' -i' + ty;
-          x1 = tx + ' +i' + ty;    x2 = tx + ' -i' + ty;
+          x1 = tx + pl + ty;    x2 = tx + ' -i' + ty;
           dilta = 'i'+dilta;
         }
         result.innerHTML = re;
@@ -1072,12 +1051,22 @@ gebi('Cal').focus();
       ////////Solving cubic equation\\\\\\\\\\
       function cubiqFin(a, b, c, d) {
         'use strict';
+        if (d == 0) {
+          result.innerHTML = ' X<sub>1</sub> = 0 </br>';
+          tMeth.innerHTML ='f(x) = '+ a+'x³ + '+b+'x² + '+c+
+              'x + 0 </br> f(x) = '+a+'x³ + '+b+'x² + '+c+
+              'x  </br> f(x) = x( '+a+'x² + '+b+'x + '+c+
+              ' ) </br>f(x) = 0 => X<sub>1</sub> = 0  or '+a+'x² + '+b+'x + '+c+
+              '  = 0</br></br><h4> for '+a+'x² + '+b+'x + '+c+'  = 0</h4></br>';
+          squarFun(a, b, c, 1); return 'stop';
+        }
+
         let bs,cs;//b and c for squar functin
           if (a+b+c+d==0) {easy(1); return 'stop'; }
           if (a+c==b+d) { easy(-1);return 'stop'; }
           function easy(pr) {
             result.innerHTML = ' X<sub>1</sub> = '+pr+'</br>';   bs=b+pr*a;   cs= -pr*d; 
-            squarFin(a, bs, cs, 1);     tMeth.innerHTML ='';
+            squarFun(a, bs, cs, 1);     tMeth.innerHTML ='';
           }
 
         let a2 = (a ** 2).fix(13),    a3 = (a ** 3).fix(13),         b2 = (b ** 2).fix(13),   b3 = (b ** 3).fix(13),
@@ -1109,7 +1098,7 @@ gebi('Cal').focus();
         x1 = (t1  -b/(3*a)).fix() ;
         bs=(0.6666666666666667*b+a*t1).fix(15);  cs= (-d/x1).fix(15);
         result.innerHTML = ' X<sub>1</sub> = ' + x1 + '</br>';
-        squarFin(a, bs, cs, 1);
+        squarFun(a, bs, cs, 1);
         tMeth.innerHTML ='';
       }
 
