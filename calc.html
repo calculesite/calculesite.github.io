@@ -626,7 +626,7 @@ button:not(:disabled),
     <button class="pastBtn" id="pst" onclick="paste(2);this.style.display ='none'">Paste</button> 
     <div id="fichour"   onclick="paste(1)"  class="inp"    >0</div>
 
-    <div id="result"    onclick="copier()" class="result "  ></div>
+    <div id="result" class="result "  ></div>
     
     
         <div id="fdiv" class="func"></div>
@@ -639,10 +639,24 @@ button:not(:disabled),
   </div>
   </main>
 
- 
-  <audio id='musique' src='sound.mp3' preload="auto"></audio>
       <script type="text/javascript" >
+/* /// to fexsed number  */
+Number.prototype.fix =function(fx=13){
+  let th = this;sth=th.toString();
+  if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx);}
+  return th ;
+}
 
+/*////// fix les valeur \\\\\\ */
+function fixing(inp,fx) { // ng nember gonfel
+  let sInp = inp.toString(),inUpInp = ind(sInp,'e'),abInp,abFx,
+      dwInp= sInp.slice(inUpInp+1,sInp.length)*1;
+  inp   = sInp.slice(0,inUpInp)*1; dwInp -=103;
+  inp   = inp.toFixed(fx)*1;  abInp=Math.abs(inp);  abFx=abInp.toFixed(5)*1;
+  if(Math.abs(abInp -abFx) <1e-10){inp =inp.toFixed(5)*1;} 
+  sInp  = inp+'e'+dwInp; inp=sInp*1;
+  return inp ;
+}
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],
@@ -660,7 +674,7 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
      arF =[ f1+"'sin('",f1+"'cos('"   ,f1+"'tan('"  ,f3+"'%'" ,f1+"'abs('",f8 ,
             f1+"'asin('",f1+"'acos('" ,f1+"'atan('" ,f1+"'e^('" ,f1+"'Ln('"   ,f1+"'log('",
             f1+"'sinh('",f1+"'cosh('" ,f1+"'tanh('" ,f1+"'('"   ,f3+"')'"     , f6,
-            f1+"'3.141592653589793'"   ,f3+"'^'"     ,f1+"'√('"  ,f3+"'^(-1)'"   ,f3+"'²'"     ,f7,
+            f1+"'&pi;'"   ,f3+"'^'"     ,f1+"'√('"  ,f3+"'^(-1)'"   ,f3+"'²'"     ,f7,
             f1+"'7'",f1+"'8'" ,f1+"'9'" ,f4+"'/'", f9,
             f1+"'4'",f1+"'5'" ,f1+"'6'" ,f4+"'×'", f10,
             f1+"'1'",f1+"'2'" ,f1+"'3'" ,f5+"'-'", f11,
@@ -689,7 +703,7 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
      arIH = ['sin' ,'cos' ,'tan'    ,'%'    ,'|x|'  ,'S/N',
               'asin','acos','atan'  ,'e<sup>x</sup>','Ln' ,'log',
               'sinh','cosh','tanh'  ,'('    ,')'    ,'←'  ,
-              'π'   ,'y<sup>x</sup>','√x'   ,'1/x'  ,'x²' ,'C',
+              '&pi;'   ,'y<sup>x</sup>','√x'   ,'1/x'  ,'x²' ,'C',
               '7'   ,'8'            , '9'   ,'÷'    ,'X<sup class="fsup">→</sup>M',
               '4'   ,'5'            , '6'   ,'×'    ,'RM',
               '1'   ,'2'            , '3'   ,'-'    ,'M+',
@@ -838,18 +852,7 @@ function jump(pr){
   fichour.scrollTop = fichour.scrollHeight;
   calcule();
 }
-  
 
-/* /// Copier */
-function copier() {
-  if (result.innerText == 'The result copied') {result.innerText='';}
-
-  if (result.innerText.length>0) {
-    navigator.clipboard.writeText(result.innerText);
-      result.innerText = 'The result copied';
-  } 
-  
-}
 
 /* /// paste */
 if (localStorage.pas == '1') {psClk=1;}
@@ -1095,72 +1098,7 @@ function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('
 
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {inp=inp.lastIndexOf(pr,fin);return inp;}
-/* /// to fexsed number  */
-  function fix(th,fx=13){
-  let sth=th.toString();
-  if (ind(sth,'e')>-1) {
-    th = fixing(th,fx);
-  }else{
-    th =th*1e103; sth=th.toString();
-    if (ind(sth,'e') > -1) {
-      th = fixing(th,fx,103); sth=th.toString();
-      if (ind(sth,'e') > -1) {th = fixing(th,fx);}
-    }else{th =th/1e103;}
-  }
-  return th ;
-}
-  
-/* ///////// Calcule valure enter btackets \\\\\\\ */
-function brackets(inp) {
-  let inRB ,upInp,inLB ,dwInp ,inRBDw ,bet ; 
-  while (ind(inp,'(')>-1) {
-    inRB = ind(inp,')');//index of Right bracket
-    upInp = inp.slice(0, inRB); inLB = laIn(upInp,'(', inRB);
-    dwInp = inp.slice(inLB, inp.length); inRBDw = ind(dwInp,')')+1;
-    bet = dwInp.slice(0, inRBDw);  upInp = inp.slice(0, inLB);
-    bet = eval(bet); bet = fix(bet);
-    dwInp = dwInp.slice(inRBDw,dwInp.length);
-    dwInp =bet+ dwInp;
-    inp=upInp+dwInp;
-  }
-  return inp;
-}
-/* //// calc Math.cos,sin... and calc Math.acos,asin... \\\\\ */
-function acstAMat(inp) { //acos asin atan and Math.cos,sin,tan
-  let dwInp,i,rdw,ldw, inUpInp=laIn(inp,'Math'),dwDwinp;//right dw and left
-  while (inUpInp>-1) {
-    if (inp.slice(inUpInp-reOngl.length-1,inUpInp)==reOngl+'*'){inUpInp=laIn(inp,reOngl+'*Math') }
-      rdw=0;ldw=0,i=1;dwInp=inp.slice(inUpInp,inp.length);
-      inp=inp.slice(0,inUpInp);ldw = ind(dwInp,'(');ldw++;
-      while (i>0)  {
-        rdw=ind(dwInp,')',rdw); ldw=ind(dwInp,'(',ldw);
-        if (ldw<rdw && ldw>-1) { ldw++;i++; }else { rdw++; if (ldw<0){ldw=rdw;i--;} }
-     }
-    dwDw = dwInp.slice(rdw+1,dwInp.length);
-    dwInp=dwInp.slice(0,rdw+1);
-    if (ind(dwInp,ongl)===9) {dwInp=dwInp.replace(ongl+'*',ongl+'*('); dwInp +=')';}
-    ldw = ind(dwInp,'(');dwInp=brackets(dwInp);
-    dwInp= dwInp.slice(0,ldw) +'('+dwInp.slice(ldw,dwInp.length) +')';
-    dwInp = eval(dwInp);dwInp =fix(dwInp);
-    inp += dwInp + dwDw;
-    inUpInp=laIn(inp,'Math');
-  }
-  return inp;
-}
 
- /*////// fix les valeur \\\\\\ */
-function fixing(inp,fx,ng=0) { // ng nember gonfel
-  let sInp = inp.toString(),inUpInp = ind(sInp,'e'),abInp,
-      dwInp= sInp.slice(inUpInp+1,sInp.length);
-  inp   = sInp.slice(0,inUpInp); inp = eval(inp);
-  dwInp = eval(dwInp-ng);
-  inp   = inp.toFixed(fx)*1; abInp  = Math.abs(inp);
-  if(abInp.toFixed(5)-abInp <1e-10){inp =inp.toFixed(5)*1;} 
-  sInp  = inp+'e'+dwInp;
-  inp   = eval(sInp); abInp  =Math.abs(inp);
-  if(abInp.toFixed(5)-abInp < 1e-10){inp =inp.toFixed(5)*1;}  
-  return inp ;
-}
 
 /* ///////  numMath, num( =>num*Math, num*( \\\\\\\\\ */
 function loopFun(inp,test,car,crs) {
@@ -1174,6 +1112,49 @@ function loopFun(inp,test,car,crs) {
   return inp;
 }
 
+
+/* ///////// Calcule valure enter btackets \\\\\\\ */
+function brackets(inp) {
+  let inRB ,upInp,inLB ,dwInp ,inRBDw ,bet ; 
+  while (ind(inp,'(')>-1) {
+    inRB = ind(inp,')');//index of Right bracket
+    upInp = inp.slice(0, inRB); inLB = laIn(upInp,'(', inRB);
+    dwInp = inp.slice(inLB, inp.length); inRBDw = ind(dwInp,')');
+    bet = dwInp.slice(1, inRBDw);  upInp = inp.slice(0, inLB);
+
+    bet = rep(bet,'left','(' );bet = rep(bet,'right',')' );
+    bet = eval(bet); bet = bet.fix();
+    dwInp = dwInp.slice(inRBDw,dwInp.length);
+    dwInp = dwInp.replace(')','right')
+    dwInp ='left'+bet+ dwInp;
+    inp=upInp+dwInp;
+  }
+  inp = rep(inp,'left','('); inp = rep(inp,'right',')');
+  return inp;
+}
+  
+/* //// calc Math.cos,sin... and calc Math.acos,asin... \\\\\ */
+function acstAMat(inp) { //acos asin atan and Math.cos,sin,tan
+  let dwInp,i,rdw,ldw, inUpInp=laIn(inp,'Math'),dwDwinp;//right dw and left
+  while (inUpInp>0) {
+    if (inp.slice(inUpInp-reOngl.length-1,inUpInp)==reOngl+'*'){inUpInp=laIn(inp,reOngl+'*Math') }
+      rdw=0;ldw=0,i=1;dwInp=inp.slice(inUpInp,inp.length);
+      inp=inp.slice(0,inUpInp);ldw = ind(dwInp,'(');ldw++;
+      while (i>0)  {
+        rdw=ind(dwInp,')',rdw); ldw=ind(dwInp,'(',ldw);
+        if (ldw<rdw && ldw>-1) { ldw++;i++; }else { rdw++; if (ldw<0){ldw=rdw;i--;} }
+      }
+    dwDwinp = dwInp.slice(rdw,dwInp.length);
+    dwInp=dwInp.slice(0,rdw);
+    if (ind(dwInp,ongl)===9) {dwInp=dwInp.replace(ongl+'*',ongl+'*('); dwInp +=')';}
+    dwInp=brackets(dwInp);
+    dwInp = eval(dwInp);dwInp =dwInp.fix();
+    inp+= dwInp  + dwDwinp;
+    inUpInp=laIn(inp,'Math');
+  }
+  return inp;
+}
+
 function calcule() { //f12
 
   let inp    = fichour.innerText,lenInp = inp.length, crInp = inp.charAt(lenInp - 1),
@@ -1183,7 +1164,7 @@ function calcule() { //f12
   if(inp.charAt(0)==='+' || inp.charAt(0)==='-' ){inp='0'+inp}
 
   /* ////replasment\\\\ */
-  arSy = [[',',''],['×','*'],['%','*1/100'],['^','**'],['²','**(2)']];
+  arSy = [[',',''],['×','*'],['%','*1/100'],['^','**'],['²','**(2)'],['π','Math.PI']];
   arSy.forEach((e)=>{inp = rep(inp,e[0], e[1]);})
 
   if (ind(inp,'(')>-1 ||ind(inp,'e**')>-1) {
@@ -1215,13 +1196,12 @@ function calcule() { //f12
     }
     inp= rep(inp,'logt','log10');  inp= acstAMat(inp);  inp = brackets(inp);
   }
-
   /* /////// result */
   try {
-    inp = eval(inp);  inp = fix(inp,10);
+    inp = eval(inp);  inp = inp.fix(10);
     result.style.color = 'rgb(14, 66, 20)';
     if (inp != fich&& !isNaN(inp)) {result.innerText = inp;} 
-  } catch(e){result.innerText = e.message;}
+  } catch(e){console.log('message = '+e.message);}
   
     
 }
