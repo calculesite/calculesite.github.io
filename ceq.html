@@ -810,7 +810,7 @@
             <!-- <img src="copCubic.jpg" alt="img" class="img" >  -->
             <div class="divImg">
               <span class="cofition fs-1">a</span><span class="xform fs-1 ">x</span>
-              <sup class="puissance fs-5">3</sup> <span class="xform fs-1">+</span>
+             <sup class="puissance fs-5">3</sup><span class="xform fs-1">+</span>
               <span class="cofition fs-1">b</span><span class="xform fs-1">x</span>
               <sup class="puissance fs-5">2</sup><span class="xform fs-1">+</span>
               <span class="cofition fs-1">c</span><span class="xform fs-1">x</span>
@@ -825,8 +825,8 @@
               <div id="cart">
 
                 <!-- Form -->
-                <label for>a= </label>
-                <input id="a" onclick="selectText('a','b','d')" required autofocus aria-atomic="false" type="text"
+            
+              a=  <input id="a" onclick="selectText('a','b','d')" required  aria-atomic="false" type="text"
                   value="0" class="form-control" placeholder="a">
                 <span id="vala" class="worning"></span>
                 </br>
@@ -864,51 +864,42 @@
     </main>
     <script type="text/javascript">
 
-      let result = gebi('result'), add = 'x',tMeth=gebi('method'),hidDiv, hidCon;
+      let result = gebi('result'), add ='',tMeth=gebi('method'),hidDiv, hidCon;
 
-        gebi('a').select(); selectText('a', 'b', 'd');
-      /* 25( -1.45418863396)^3 +3( -1.45418863396)^2 -32( -1.45418863396)+24 +d
+       gebi('a').click(); 
+      /* 2(-7.515586667)^3+13(-7.515586667)^2-15(-7.515586667)+2 +d
       -3,2,5,-4 */
 
-      function isSt(inp,pr,pr2=0) {let ind=inp.indexOf(pr,pr2);return ind;}
+      function ind(inp,pr,pr2=0) { inp=inp.indexOf(pr,pr2);return inp;}
 
        /* /// to fexsed number  */
-      Number.prototype.fix =function(fx=10){
-         let th = this,sth=th.toString();
-        if (isSt(sth,'e')>-1) {
-         th = fixing(th,fx);
-        }else{
-          th =th*1e103; sth=th.toString();
-          if (isSt(sth,'e') > -1) {
-            th = fixing(th,fx,103); sth=th.toString();
-            if (isSt(sth,'e') > -1){th = fixing(th,fx);}
-          }else{th =th/1e103;}
-        }
+     /* /// to fexsed number  */
+      Number.prototype.fix =function(fx=13){
+        let th = this;sth=th.toString();
+        if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx);}
         return th ;
       }
 
-      /*////// gonfler les valeur \\\\\\ */
-      function fixing(inp,fx,ng=0) { // ng nember gonfel
-        let sInp   = inp.toString(),inUpInp= sInp.indexOf('e',0),
-            dwInp  = sInp.slice(inUpInp+1,sInp.length);
-          inp  = sInp.slice(0,inUpInp);
-          inp  = eval(inp);
-          dwInp  = eval(dwInp-ng);
-          inp  = inp.toFixed(fx)*1;
-          if(Math.abs(inp- inp.toFixed(5))<1e-7){inp =inp.toFixed(5)*1;} 
-          sInp   = inp+'e'+dwInp;
-          inp    = eval(sInp);
-          return inp ;
+      /*////// fix les valeur \\\\\\ */
+      function fixing(inp,fx) { // ng nember gonfel
+        let sInp = inp.toString(),inUpInp = ind(sInp,'e'),abInp,abFx,
+            dwInp= sInp.slice(inUpInp+1,sInp.length)*1;
+        inp   = sInp.slice(0,inUpInp)*1; dwInp -=103;
+        inp   = inp.toFixed(fx)*1;  abInp=Math.abs(inp);  abFx=abInp.toFixed(5)*1;
+        if(Math.abs(abInp -abFx) <1e-10){inp =inp.toFixed(5)*1;} 
+        sInp  = inp+'e'+dwInp; inp=sInp*1;
+        return inp ;
       }
+
       //////// Selection \\\\\\\\\
       function selectText(alfa, alfb, alfc) {
 
         'use strict';
-        const input = gebi(alfa);
-        input.focus();
-        input.select();
+gebi(alfa).addEventListener('dblclick',()=>{  this.select();})
+        setTimeout(()=>{gebi(alfa).select();},10);
 
-        if (isSt(add,alfa) < 0) { enter(alfa, alfb, alfc); add += alfa; }
+
+      if (ind(add,alfa) < 0) { enter(alfa, alfb, alfc); add += alfa; }  
 
         result.innerHTML = '';
 
@@ -917,59 +908,54 @@
       /////// enter buton \\\\\\\\
       function enter(alfa, alfb, alfc) {
         'use strict';
-
-        let input = gebi(alfa);
-        input.addEventListener('keyup',
+        gebi(alfa).addEventListener('keyup',
           function (event) {
-
             let evKC = event.keyCode;
-
-
             //40=dwn 38=up 13=enter
-
             if ((evKC === 13) || (evKC === 40) || (evKC === 38)) {
               event.preventDefault();
               valNum(alfa, alfb, alfc, evKC);
             }
-
           })
 
       }
       /////// validation of number \\\\\\\
       function valNum(alfa, alfb, alfc, evKC) {
         'use strict';
-        let val = 'val' + alfa,   pvaled = gebi(val),number = gebi(alfa).value,
-          crz=number.charAt(0);
-          if (isSt(number,'(')) {
-            let arRe,ongl = '0.017453292519943' ,reOngl='57.29577951308329';
-            number = number.toLowerCase();
-            arRe=[ 
-               ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','^',
-                'e**', 'ln','√','w','u','v','z','x','y',',','،','×','(-','(+'],
-               ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.log10','Math.abs', 'Math.cos('+ongl+'*',
-                reOngl+'*Math.acos','Math.cosh','**','Math.abs(2.718281828459045)**', 'Math.log', 'Math.sqrt',
-                'Math.sin('+ongl+'*',reOngl+'*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*',
-                reOngl+'*Math.atan','Math.tanh','','.','*','(0-','(0+'] 
-              ];
+        let val = 'val' + alfa,   pvaled = gebi(val),num = gebi(alfa).value,
+             err=['f','j','k','u','v','w','x','y','z'],crz=num.charAt(0);
+        err.forEach((e)=>{num=num.replace(e,'error');});
+        if (ind(num,'(')) {
+          let arRe,ongl = '0.017453292519943' ,reOngl='57.29577951308329';
+          num = num.toLowerCase();
+          arRe=[ 
+              ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','^',
+              'e**', 'ln','√','w','u','v','z','x','y',',','،','×','(-','(+'],
+              ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.log10','Math.abs', 'Math.cos('+ongl+'*',
+              reOngl+'*Math.acos','Math.cosh','**','Math.abs(2.718281828459045)**', 'Math.log', 'Math.sqrt',
+              'Math.sin('+ongl+'*',reOngl+'*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*',
+              reOngl+'*Math.atan','Math.tanh','','.','*','(0-','(0+'] 
+            ];
 
-            for (let i = 0; i < arRe[0].length; i++) { 
-              if (isSt(number,arRe[0][i])>-1) {number = number.replaceAll(arRe[0][i], arRe[1][i]); }
-            }
+          for (let i = 0; i < arRe[0].length; i++) { 
+            if (ind(num,arRe[0][i])>-1) {num = num.replaceAll(arRe[0][i], arRe[1][i]); }
           }
-         
-        if(crz==='+' || crz==='-' ){number='0'+number} ;
+        }
+          
+        if(crz==='+' || crz==='-' ){num='0'+num} ;
         try {
-          number = eval(number);
-          number = number.fix();
-          if (pvaled.innerHTML = ' is not number') { pvaled.innerHTML = ''; }
-          if(alfb=='calcule'){return number }
-          if (evKC == 13 || evKC == 40) {if (evKC === 40 && alfa == 'd') { alfb = 'a'; }gebi(alfb).focus();gebi(alfb).click(); }
-         
+          num = eval(num).toString().replace('NaN','error');
+          num =eval(num); num = num.fix();
+          
+          pvaled.innerText = '';
+          if(alfb=='calcule'){return num }
+          if (evKC == 13 || evKC == 40) {
+            if (evKC === 40 && alfa == 'd') { alfb = 'a'; }
+            gebi(alfb).click();
+          }
           if (evKC == 38) { gebi(alfc).click(); }
           
-        } catch (e) {
-          pvaled.innerHTML = e.message ;gebi(alfa).click();
-        }
+        } catch (e) {pvaled.innerText = 'is not number ' ;gebi(alfa).click(); }
 
       }
     
@@ -985,6 +971,7 @@
 
       /* ////// Methori and hiding Methori   \\\\\\\\\\\\\ */
       function meth() {
+gebi('Cal').focus();
         gebi('contMeth').style.display = 'block';
         setTimeout(() => { gebi('divMeth').className += ' dMtrnf'; }, 100);
       }
@@ -1038,7 +1025,7 @@
         if(result.innerHTML.indexOf('NaN',0)<0 && result.innerHTML !=''){meth();} */
         meth();
       }
-let iss =1;
+
 
       ///////finctin 2em grad \\\\\\\
 
@@ -1055,8 +1042,8 @@ let iss =1;
           x2 = -(b  + dilta) / (2 * a);   x2 = x2.fix(); 
 
          let cx1=' = '+x1, cx2=' = '+x2;
-         if(isSt(re,cx2)>-1){ [cx1,cx2]=[cx2,cx1]} 
-         if(isSt(re,cx1)>-1){re=' X<sub>1</sub>,';}
+         if(ind(re,cx2)>-1){ [cx1,cx2]=[cx2,cx1]} 
+         if(ind(re,cx1)>-1){re=' X<sub>1</sub>,';}
 
          re += ' X' + i + ' = ' + x1 + '</br> X' + i2 + ' = ' + x2;
          
