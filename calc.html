@@ -914,20 +914,15 @@ function adCar(pr) { //f3
 
 /* //////// add symbole × / */
 function addSymbF(pr) {//f4
-    let inp = fichour.innerText,
-        lenInp = inp.length - 1,
-        crInp = inp.charAt(lenInp),
-        crInp2 = inp.charAt(lenInp-1),
+    let inp = fichour.innerText,lft='('+inp,
+        lenLft = lft.length - 2,
+        crInp  = lft.charAt(lenLft+1),
+        crInp2 = lft.charAt(lenLft),
         symbols = '/÷*×-+.,';
-    if ((lenInp > -1) && (ind('(',crInp) == -1)) {
-        if (ind(symbols,crInp) > -1) {
-            if (ind('(',crInp2) == -1) {
-                inp = inp.slice(0, lenInp);
-                inp += pr;
-            } 
-        }else{inp += pr; }
-    } 
-result.innerText ='' ;
+    if (crInp!='(' ) {
+       if(ind(symbols,crInp)> -1) {if(crInp2 != '(') {  inp= inp.slice(0, lenLft)+pr; }   }else{inp += pr; }
+     } 
+    result.innerText ='' ;
     fichour.innerText = inp;
     fichour.scrollTop = fichour.scrollHeight;
 }
@@ -1124,8 +1119,8 @@ function brackets(inp) {
   return inp;
 }
   
-/* //// calc Math.cos,sin... and calc Math.acos,asin... \\\\\ */
-function acstAMat(inp) { //acos asin atan and Math.cos,sin,tan
+/* //// Calculate Math.function(x)  \\\\\ */
+function calcMat(inp) { //acos asin atan and Math.cos,sin,tan
   let dwInp,i,rdw,ldw, inUpInp=laIn(inp,'Math'),dwDwinp;//right dw and left
   while (inUpInp>0) {
     if (inp.slice(inUpInp-reOngl.length-1,inUpInp)==reOngl+'*'){inUpInp=laIn(inp,reOngl+'*Math') }
@@ -1185,7 +1180,7 @@ function calcule() { //f12
         inRight++; inp += dwInp; inRight=ind(inp,')',inRight);
       }
     }
-    inp= rep(inp,'logt','log10');  inp= acstAMat(inp);  inp = brackets(inp);
+    inp= rep(inp,'logt','log10');  inp= calcMat(inp);  inp = brackets(inp);
   }
   /* /////// result */
   try {
