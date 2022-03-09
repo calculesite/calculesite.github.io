@@ -644,7 +644,7 @@ button:not(:disabled),
   /* /// to fexsed number  */
   Number.prototype.fix =function(fx=13){
     let th = this;sth=th.toString();
-    if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx);}
+    if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx,103);}
     return th ;
   }
 
@@ -898,15 +898,15 @@ function add(pr) {//f1
 function adCar(pr) { //f3
   
   let inp = fichour.innerText,
-      lenInp = inp.length,
-      crInp = inp.charAt(lenInp - 1),
-      symbols = '/÷*×-+(^',
+      len = inp.length,pls ='+'+inp,
+      cr = pls.charAt(len),
+      smb = '/÷*×-+(^',
       inpLef= rep(inp,'(', '').length,
       inpRi   = rep(inp,')','').length;
-  if (ind(symbols,crInp) == -1 && lenInp != 0 &&
-       ( crInp !='%'  || pr !='^' || pr !='²' )  ) {
+  if (ind(smb,cr) <0  &&
+       ( cr !='%'  || pr !='^' || pr !='²' )  ) {
 
-    if (pr !=')') {inp+=pr; }else if (pr==')' && inpLef< inpRi) { inp +=  pr;} 
+    if (pr !=')' ||  inpLef< inpRi) {inp+=pr; } 
   }
   fichour.innerHTML = inp;
   jump(); 
@@ -915,12 +915,12 @@ function adCar(pr) { //f3
 /* //////// add symbole × / */
 function addSymbF(pr) {//f4
     let inp = fichour.innerText,lft='('+inp,
-        lenLft = lft.length - 2,
-        crLft  = lft.charAt(lenLft+1),
-        crLft2 = lft.charAt(lenLft),
-        smb      = '/÷*×-+.,';
-    if (ind('(^',crLft)<0) {
-       if(ind(smb,crLft)> -1) {if(ind('(^',crLft2)<0) {  inp= inp.slice(0, lenLft)+pr; }   }else{inp += pr; }
+        len = lft.length - 2,
+        cr   = lft.charAt(len+1),
+        cr2 = lft.charAt(len),
+        smb = '/÷*×-+.,';
+    if (ind('(^',cr)<0) {
+       if(ind(smb,cr)> -1) {if(ind('(^',cr2)<0) {  inp= inp.slice(0, len)+pr; }   }else{inp += pr; }
      } 
     result.innerText ='' ;
     fichour.innerText = inp;
@@ -1076,10 +1076,10 @@ function laIn(inp,pr,fin=inp.length) {inp=inp.lastIndexOf(pr,fin);return inp;}
 
 
 /*////// fix les valeur \\\\\\ */
-function fixing(inp,fx) { // ng nember gonfel
+function fixing(inp,fx,ng=0) { // ng nember gonfel
   let sInp = inp.toString(),inUpInp = ind(sInp,'e'),inFx,
       dwInp= sInp.slice(inUpInp+1,sInp.length)*1;
-  inp   = sInp.slice(0,inUpInp)*1; dwInp -=103;
+  inp   = sInp.slice(0,inUpInp)*1; dwInp -=ng;
   inp   = inp.toFixed(fx)*1; inFx=inp.toFixed(5)*1;
   if(Math.abs(inp -inFx) <1e-10){inp =inp.toFixed(5)*1;} 
   sInp  = inp+'e'+dwInp; inp=sInp*1;
