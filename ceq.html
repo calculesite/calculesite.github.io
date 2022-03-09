@@ -846,7 +846,6 @@
                 type="text" value="0"  class="form-control" placeholder="d">
                 <span id="vald" class="worning"></span>
                 </br>
-
                 <div class="boton"><button id="Cal" type='button' onclick="fin()" 
                   class="btn disabled btn-success"  role="button">Calculate</button>
 
@@ -923,7 +922,7 @@
         let val = 'val' + alfa,   pvaled = gebi(val),num = gebi(alfa).value,
              err=['f','j','k','u','v','w','x','y','z'],crz=num.charAt(0);
         err.forEach((e)=>{num=num.replace(e,'error');});
-        if (ind(num,'(')) {
+        if (/[^0-9]/gi.test(num)) {
           let arRe,ongl = '0.017453292519943' ,reOngl='57.29577951308329';
           num = num.toLowerCase();
           arRe=[ 
@@ -1103,9 +1102,5 @@
       }
 
     </script>
-
-
-
   </body>
-
 </html>
