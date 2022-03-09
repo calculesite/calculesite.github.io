@@ -916,11 +916,11 @@ function adCar(pr) { //f3
 function addSymbF(pr) {//f4
     let inp = fichour.innerText,lft='('+inp,
         lenLft = lft.length - 2,
-        crInp  = lft.charAt(lenLft+1),
-        crInp2 = lft.charAt(lenLft),
-        symbols = '/÷*×-+.,';
-    if (crInp!='(' ) {
-       if(ind(symbols,crInp)> -1) {if(crInp2 != '(') {  inp= inp.slice(0, lenLft)+pr; }   }else{inp += pr; }
+        crLft  = lft.charAt(lenLft+1),
+        crLft2 = lft.charAt(lenLft),
+        smb      = '/÷*×-+.,';
+    if (ind('(^',crLft)<0) {
+       if(ind(smb,crLft)> -1) {if(ind('(^',crLft2)<0) {  inp= inp.slice(0, lenLft)+pr; }   }else{inp += pr; }
      } 
     result.innerText ='' ;
     fichour.innerText = inp;
