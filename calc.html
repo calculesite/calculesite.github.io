@@ -1120,7 +1120,7 @@ function brackets(inp) {
 /* //// Calculate Math.function(x)  \\\\\ */
 function calcMat(inp) { //acos asin atan and Math.cos,sin,tan
   let dwInp,i,rdw,ldw, inUpInp=laIn(inp,'Math'),dwDwinp;//right dw and left
-  while (inUpInp>0) {
+  while (inUpInp>-1) {
     if (inp.slice(inUpInp-reOngl.length-1,inUpInp)==reOngl+'*'){inUpInp=laIn(inp,reOngl+'*Math') }
       rdw=0;ldw=0,i=1;dwInp=inp.slice(inUpInp,inp.length);
       inp=inp.slice(0,inUpInp);ldw = ind(dwInp,'(');ldw++;
