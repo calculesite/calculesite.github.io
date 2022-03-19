@@ -1071,6 +1071,7 @@ function nFix(){
   Number.prototype.fix =function(fx=13){
     let th = this;sth=''+th;
     if (ind(sth,'e')>-1){th=fixing(th,fx);}else{th=th*1e103;th=fixing(th,fx,103);}
+    th=th.toFixed(fx);
     return th ;
   }
 
