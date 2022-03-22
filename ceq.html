@@ -840,7 +840,7 @@
                 </br>
 
                 d = <input id="d" onclick="selectText('d','Cal','c')" required aria-atomic="false" 
-                type="text" value=""  class="form-control" placeholder="d">
+                type="text" value="0"  class="form-control" placeholder="d">
                 <span id="vald" class="worning"></span>
                 </br>
                 <div class="boton"><button id="Cal" type='button' onclick="fin()" 
@@ -858,6 +858,7 @@
     nFix();
       addEventListener('keyup',()=>{
         if (gebi('divMeth').className != 'divMeth') {setTimeout(()=>{hidMethod();},100); }
+
       });
       
       let result = gebi('result'), add ='',tMeth=gebi('method'),hidDiv, hidCon;
@@ -906,7 +907,7 @@
         gebi(alfa).addEventListener('keyup', function (ev) {
           let evKC = ev.keyCode;ev.preventDefault();
           //40=dwn 38=up 13=enter
-          if(ind('134038',''+evKC)>-1){ valNum(alfa,alfb,alfc,evKC);}
+          if(ind('13@40@38','@'+evKC)>-1){ valNum(alfa,alfb,alfc,evKC);}
         })
       }
       /////// validation of number \\\\\\\
