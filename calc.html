@@ -646,10 +646,11 @@ nFix();
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],
-    div1= gebi('fdiv'),div2 = gebi('divNum'),
-
+    div1= gebi('fdiv'),div2 = gebi('divNum');
+    creatin()
+function creatin() { 
     //classes
-    c1 = ' btn-primary Cbtn',c2 =' btn-success btn-ver',c3= ' btn-info symbolBtn',
+   let c1 = ' btn-primary Cbtn',c2 =' btn-success btn-ver',c3= ' btn-info symbolBtn',
 
     // functions  
     f1 ='add('   , f3='adCar(',   f4='addSymbF(' , f5='addSymbP(', f6='retour(', f7='clearing(',
@@ -705,65 +706,66 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
    arCl.fill(c1);arCl.push(c1+' btn-primary2',c2,c2,c2,c3,c3,c2,c2,c2,c3,c3,c2,c2,c2,c3,c3,c2,c2,c2,c3,c3);
    arCl = arCl.concat(arClN);
    
-/* #################################################
-################################################# */
+  /* #################################################
+  ################################################# */
 
- /* localStorage.removeItem('lHistF');
-localStorage.removeItem('lHistR'); */
-  
-
-   /* aficher les divs*/
-    divBtn(0,24,'fdiv');
-   divBtn(24,44,'divNum');
-   
-    divBtn(44,68,'nrmldv');
-    gHist();
-
-   /* //// function creat btn */
-function divBtn(i,fi,div) {
-    div= gebi(div);
-    for ( ;i < fi; i++) {
-        div.innerHTML+='<button id="b'+i+'"   onclick="'+arF[i]+ ')" '+
-                        ' class="btn disabled '+arCl[i]+' "role="button" >'+arIH[i]+'</button>';
-      }
-}
-gebi('b51').style.height = '100%';
-
-/* //// chek clc is normal or scientific \\\\\\ */
-if (localStorage.ScNo ==='sc') {SCN='sc'; } 
-scNrml();
-
-
-/* /////  sev mimoir on href \\\\\\\\\\ */
-if(localStorage.mim.length > 0){
-  let mim = localStorage.mim; 
-    gebi('mimoir').style.color = 'black';
-}
-
-
-/*   functin of click keybord */
-addEventListener('keyup',   (e) => {//e event
-    e.preventDefault();
-   
-    let kc = e.keyCode-96 ,inp=fichour.innerText;
-  // fichour.innerText = e.keyCode;
-  
-    if ((kc > -1) && (kc < 10)) { add(kc); }
-    if (kc == 14) { addVrgl('.'); }
-    if (e.keyCode === 107) { addSymbP('+'); }
-    if (e.keyCode === 109) { addSymbP('-'); }
-    if (e.keyCode === 106) { addSymbF('×'); }
-    if (e.keyCode === 111) { addSymbF('/'); }
-    if (e.keyCode === 219) { adCar(')'); }
-    if (e.keyCode === 53) { add('('); }
-    if (e.keyCode === 8) { retour();}
+  /* localStorage.removeItem('lHistF');
+  localStorage.removeItem('lHistR'); */
     
-    if (e.keyCode === 13) { upRes();}
-    if (e.keyCode !== 13) { jump(); }
-    
-}
-)
 
+    /* aficher les divs*/
+      divBtn(0,24,'fdiv');
+    divBtn(24,44,'divNum');
+    
+      divBtn(44,68,'nrmldv');
+      gHist();
+
+    /* //// function creat btn */
+  function divBtn(i,fi,div) {
+      div= gebi(div);
+      for ( ;i < fi; i++) {
+          div.innerHTML+='<button id="b'+i+'"   onclick="'+arF[i]+ ')" '+
+                          ' class="btn disabled '+arCl[i]+' "role="button" >'+arIH[i]+'</button>';
+        }
+  }
+  gebi('b51').style.height = '100%';
+
+  /* //// chek clc is normal or scientific \\\\\\ */
+  if (localStorage.ScNo ==='sc') {SCN='sc'; } 
+  scNrml();
+
+
+  /* /////  sev mimoir on href \\\\\\\\\\ */
+  if(localStorage.mim.length > 0){
+    let mim = localStorage.mim; 
+      gebi('mimoir').style.color = 'black';
+  }
+
+
+  /*   functin of click keybord */
+  addEventListener('keyup',   (e) => {//e event
+      e.preventDefault();
+    
+      let kc = e.keyCode-96 ,inp=fichour.innerText;
+    // fichour.innerText = e.keyCode;
+    
+      if ((kc > -1) && (kc < 10)) { add(kc); }
+      if (kc == 14) { addVrgl('.'); }
+      if (e.keyCode === 107) { addSymbP('+'); }
+      if (e.keyCode === 109) { addSymbP('-'); }
+      if (e.keyCode === 106) { addSymbF('×'); }
+      if (e.keyCode === 111) { addSymbF('÷'); }
+      if (e.keyCode === 219) { adCar(')'); }
+      if (e.keyCode === 53) { add('('); }
+      if (e.keyCode === 8) { retour();}
+      
+      if (e.keyCode === 13) { upRes();}
+      if (e.keyCode !== 13) { jump(); }
+      
+  }
+  )
+
+}
 /* ////// histori and hiding histori   \\\\\\\\\\\\\ */
 function hist() {
   gebi('contHist').style.display = 'block';
@@ -857,7 +859,7 @@ if (localStorage.pas == '1') {psClk=1;}
   
 }
 /* ///racorce get elment */
-function gebi(param) { param = document.getElementById(param); return param;}
+function gebi(pr) { return document.getElementById(pr);}
 
 
 /* //// Up result to fichour */
