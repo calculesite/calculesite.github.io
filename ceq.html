@@ -1004,8 +1004,8 @@
               '  = 0</br></br><h4> for '+a+'x + '+b+'  = 0</h4></br>';prFun(a,b,i2);return 'stop';
           }
           dilta = dilta.fix();i= '<sub>'+i+'</sub>';i2= '<sub>'+i2+'</sub>';
-          tMeth.innerHTML +='</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = '+
-           b+'² -4×'+a+'×'+c+' </br> Δ = '+dilta2;
+          tMeth.innerHTML +='</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = ('+
+       b+')² -4×'+a+'×'+c+' </br> Δ = '+dilta2;
         if (dilta2 > 0) {
           x1 = (-b  + dilta) / (2 * a);   x1 = x1.fix(13);
           x2 = -(b  + dilta) / (2 * a);   x2 = x2.fix(13); 
@@ -1104,7 +1104,7 @@
         }
         t1 = t1.fix();
         x = (t1  -b/(3*a)).fix() ;cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';
-        if(Math.abs(aplFn(x))> 1e-11){x=ext().fix(10);}
+        x=ext().fix(10);
 cMeth+='</br> fx1 = ' + aplFn(x);
         result.innerHTML = ' X<sub>'+i+'</sub> = ' + x + '</br>';
         cMeth +='</br> X<sub>'+i+'</sub> = T1 -b/3a = '+t1+' -'+b+'/(3×'+a+')</br> X<sub>'+i+'</sub> = '+x;
@@ -1124,14 +1124,17 @@ cMeth+='</br> plus = '+pls+'</br>  mins = '+mins +'</br> drv = '+drv +'</br> apf
           if (aplFn(pls)<0) {[pls,mins]=[mins,pls]}
 
           do { cont++; bet= (pls+mins)/2; fbet=aplFn(bet); if(fbet>0){pls=bet}else{mins=bet}
-          } while (Math.abs(fbet)>1e-11 && cont<1e3 && Math.abs(pls-mins)> 1e-15);
+          } while ( cont<1e3 && Math.abs(pls-mins)> 1e-12);
+pls -=mins;
+tMeth.innerHTML +='</br> pls-mins = '+pls;
           return bet; 
         }
        
         function aplFn(pr) {pr = a*pr**3+b*pr**2+c*pr+d;return pr;}
         function min(pr1,pr2){if(pr1>pr2){pr1=pr2;} return pr1 }
         function max(pr1,pr2){if(pr1<pr2){pr1=pr2;} return pr1 }
-
+let rfx = a*x**3+b*x**2+c*x+d;
+tMeth.innerHTML +='</br> fx = '+rfx;
       }
        
 /* 1 -6 11 6  565665
