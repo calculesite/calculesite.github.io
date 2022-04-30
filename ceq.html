@@ -860,22 +860,27 @@
         if (gebi('divMeth').className != 'divMeth') {setTimeout(()=>{hidMethod();},100); }
       });
       
+
+
       let result = gebi('result'), add ='',tMeth=gebi('method'),hidDiv, hidCon;
 
        gebi('a').click(); 
+       
       /* 1(-2.9348413682162997)^3 -6(-2.9348413682162997)^2+11(-2.9348413682162997)+2 +d
       -3,2,5,-4 */
-
-      function ind(inp,pr,pr2=0) { inp=inp.indexOf(pr,pr2);return inp;}
-
-      
-     
+     /* ////// short function \\\\\\\\\\ */
+      function ind(inp,pr,pr2=0) { inp=inp.indexOf(pr,pr2);return inp}
+      function plus(pr) {if(pr>=0){pr='+'+pr} return pr}
+      function ngtv(pr) {if(pr>=0){pr='-'+pr}else{pr='+'+-pr} return pr }
+      function gebi(pr) { return document.getElementById(pr)}
+      function ngtvB(b){if(b<0){b='('+b+')'}return b }
 
       /*////// fix les valeur \\\\\\ */
       function nFix(){
         Number.prototype.fix =function(fx=13){
           let th = this;sth=''+th;
-          if (ind(sth,'e')>-1){th=fixing(th,fx); if(Math.abs(th)<1e-12){th=0}}else{th=th*1e103;th=fixing(th,fx,103);}
+          if (ind(sth,'e')>-1){th=fixing(th,fx); if(Math.abs(th)<1e-12){th=0}
+          }else{th=th*1e103;th=fixing(th,fx,103);}
           return th ;
         }
         function fixing(inp,fx,ng=0) { // ng nember gonfel
@@ -948,10 +953,6 @@
 
       }
     
-      /* ///racorce get elment */
-      function gebi(param) { param = document.getElementById(param); return param; }
-
-     
       /* ////// hid div Mithod */
       function hidMethod() {
         hidCon = setTimeout(() => { gebi('divMeth').className = 'divMeth'; }, 20);
@@ -1000,12 +1001,12 @@
             result.innerHTML+= 'X<sub>'+i+'</sub> = 0 </br>';
             tMeth.innerHTML += 'f(x) = '+ a+'x² + '+b+'x '+
               '+ 0 </br> f(x) = '+a+'x² + '+b+'x'+
-              '</br> f(x) = x( '+a+'x + '+b+' ) </br>f(x) = 0 → X<sub>'+i+'</sub> = 0  or '+a+'x + '+b+
-              '  = 0</br></br><h4> for '+a+'x + '+b+'  = 0</h4></br>';prFun(a,b,i2);return 'stop';
+              '</br> f(x) = x( '+a+'x  '+ngtv(b)+' ) </br>f(x) = 0 → X<sub>'+i+'</sub> = 0  or '+a+'x + '+plus(b)+
+              '  = 0</br></br><h4> for '+a+'x  '+plus(b)+'  = 0</h4></br>';prFun(a,b,i2);return 'stop';
           }
           dilta = dilta.fix();i= '<sub>'+i+'</sub>';i2= '<sub>'+i2+'</sub>';
-          tMeth.innerHTML +='</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = ('+
-       b+')² -4×'+a+'×'+c+' </br> Δ = '+dilta2;
+          tMeth.innerHTML +='</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = '+
+          ngtvB(b)+'² -4×'+a+'×'+c+' </br> Δ = '+dilta2;
         if (dilta2 > 0) {
           x1 = (-b  + dilta) / (2 * a);   x1 = x1.fix(13);
           x2 = -(b  + dilta) / (2 * a);   x2 = x2.fix(13); 
@@ -1043,11 +1044,11 @@
         let bs,cs,i=n+1;
         if (d == 0) {
           result.innerHTML = ' X<sub>'+i+'</sub> = 0 </br>';
-          tMeth.innerHTML ='f(x) = '+ a+'x³ + '+b+'x² + '+c+
-              'x + 0 </br> f(x) = '+a+'x³ + '+b+'x² + '+c+
-              'x  </br> f(x) = x( '+a+'x² + '+b+'x + '+c+
-              ' ) </br>f(x) = 0 => X<sub>'+i+'</sub> = 0  or '+a+'x² + '+b+'x + '+c+
-              '  = 0</br></br><h4> for '+a+'x² + '+b+'x + '+c+'  = 0</h4></br>';
+          tMeth.innerHTML ='f(x) = '+ a+'x³  '+plus(b)+'x² '+plus(c)+
+              'x + 0 </br> f(x) = '+a+'x³  '+plus(b)+'x² '+plus(c)+
+              'x  </br> f(x) = x( '+a+'x²  '+plus(b)+'x '+plus(c)+
+              ' ) </br>f(x) = 0 => X<sub>'+i+'</sub> = 0  or '+a+'x²  '+plus(b)+'x '+plus(c)+
+              '  = 0</br></br><h4> for '+a+'x²  '+plus(b)+'x '+plus(c)+'  = 0</h4></br>';
           squarFun(a, b, c, n);return 'stop';
         }
         //b and c for squar functin
@@ -1057,20 +1058,18 @@
           easy(-1);return 'stop';}
           function easy(pr) {
             result.innerHTML = ' X<sub>'+i+'</sub> = '+pr+'</br>';   bs=(b+pr*a).fix(); cs= (-d/pr).fix();
-            let ppr = '+'+pr,pb='+'+bs,pc='+'+cs; 
-            if(pr<0){ ppr = pr} if(bs<0){ pb = bs} if(cs<0){ pc = cs}
             tMeth.innerHTML +='</br> f(x) = (x -x<sub>'+i+'</sub>)(ax² +bx +c)'+
-                   '</br> f(x) = (x '+ppr+')('+a+'x² '+pb+'x '+pc+')'+
-                   '</br></br><h4> for '+a+'x² '+pb+'x '+pc+' = 0</h4>'; 
+                   '</br> f(x) = (x '+ngtv(pr)+')('+a+'x² '+plus(bs)+'x '+plus(cs)+')'+
+                   '</br></br><h4> for '+a+'x² '+plus(bs)+'x '+plus(cs)+' = 0</h4>'; 
             squarFun(a, bs, cs,i);
           }
 
         let a2 = (a ** 2).fix(13),    a3 = (a ** 3).fix(13),         b2 = (b ** 2).fix(13),   b3 = (b ** 3).fix(13),
-            p = (c / a - b2 / (3 * a2)).fix(),                     p3 = (p ** 3).fix(),   cMeth='' , 
+            p = (c / a - b2 / (3 * a2)).fix(),                     p3 = (p ** 3).fix(),   t='' ,cMeth='', 
             q = (2 * b3 /(27 * a3) - b*c/(3 * a2) +d / a).fix(),   q2 = (q ** 2).fix(), 
             dilta2 = (p3 / 27 + q2 / 4).fix()  ,t1, x,dilta = Math.pow(Math.abs(dilta2), 1 / 2);
         if (b !=0) {
-          cMeth+='<h4> we transform the equation into the form :<h4></br> f(x) = x³ +px +q</br> x = t +b/3a</br>'+
+          t+='<h4> we transform the equation into the form :<h4></br> f(x) = x³ +px +q</br> x = t +b/3a</br>'+
           ' f(x) = f(t+b/3a) = (t+b/3a)³ +b(t+b/3a)² +c(t+b/3a) + d</br> f(x) = t³ +(c/a -b²/3a²)t'+
           ' +2b³/27a -bc/3a² +d/a </br> f(x) = f(t+b/3a) = t³ +pt +q </br></br><h4>with</h4></br> p = c/a -b²/3a²'+
           '</br> p = '+ p+'</br> and </br> q = 2b³/27a -bc/3a² +d/a </br> q = '+q+
@@ -1103,20 +1102,18 @@
                   '³√(√((q/2)² -Q) ×e(-iθ) ) </br> T1 = ³√(√((q/2)² -Q) ×cos(θ) </br> T1 = '+t1;
         }
         t1 = t1.fix();
-        x = (t1  -b/(3*a)).fix() ;cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';
-        x=ext().fix(10);
-cMeth+='</br> fx1 = ' + aplFn(x);
+        x = (t1  -b/(3*a)) ;cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';
+        if (Math.abs(aplFn(x))>1e-13) {  x = ext(); cMeth+='</br> fx1 = ' + aplFn(x);}
+        x = x.fix(10);
         result.innerHTML = ' X<sub>'+i+'</sub> = ' + x + '</br>';
         cMeth +='</br> X<sub>'+i+'</sub> = T1 -b/3a = '+t1+' -'+b+'/(3×'+a+')</br> X<sub>'+i+'</sub> = '+x;
         tMeth.innerHTML +=cMeth;easy(x);
 
         function ext(){
-      cMeth+='rah f ext';
           let mins=x-1,pls=x+1,bet,fbet,cont=0,sq=squarFun(3*a,2*b, c, 30);
           if (sq.length==2) { 
             let apfx = aplFn(x),mnSq=min(sq[0],sq[1]),mxSq=max(sq[0],sq[1]),drv=3*a*x**2+2*b*x+c;
             if(a*drv<0){mins=sq[0];pls=sq[1];}else if(apfx*drv>0){mins=x-5;pls=x;}else{mins=x;pls=+5;}
-cMeth+='</br> plus = '+pls+'</br>  mins = '+mins +'</br> drv = '+drv +'</br> apfx = '+apfx +'</br> X1 = '+x;
           }
           if (aplFn(pls)==0) {return pls; }
           if (aplFn(mins)==0) {return mins; }
@@ -1124,27 +1121,14 @@ cMeth+='</br> plus = '+pls+'</br>  mins = '+mins +'</br> drv = '+drv +'</br> apf
           if (aplFn(pls)<0) {[pls,mins]=[mins,pls]}
 
           do { cont++; bet= (pls+mins)/2; fbet=aplFn(bet); if(fbet>0){pls=bet}else{mins=bet}
-          } while ( cont<1e3 && Math.abs(pls-mins)> 1e-12);
-pls -=mins;
-tMeth.innerHTML +='</br> pls-mins = '+pls;
+          } while ( cont<1e3 && Math.abs(pls-mins)> 1e-13);
           return bet; 
         }
        
         function aplFn(pr) {pr = a*pr**3+b*pr**2+c*pr+d;return pr;}
         function min(pr1,pr2){if(pr1>pr2){pr1=pr2;} return pr1 }
         function max(pr1,pr2){if(pr1<pr2){pr1=pr2;} return pr1 }
-let rfx = a*x**3+b*x**2+c*x+d;
-tMeth.innerHTML +='</br> fx = '+rfx;
       }
-       
-/* 1 -6 11 6  565665
-    console.log('sq[0] = '+sq[0],'sq[1] = '+sq[1],);
-          console.log('fsq[0] = '+aplFn(sq[0]),'fq[1] = '+aplFn(sq[1]),); 
-          gebi('log').innerHTML+=  xCari(-2,3,4);
-      function xCari(a,b,c) {
-        let pui2=a+b+c,pui1=b*c+a*(b+c),pui0=a*b*c;
-        c='x³ +'+pui2+'x² +'+pui1+'x +'+pui0;return c;
-      } */
     </script>
   </body>
 </html>
