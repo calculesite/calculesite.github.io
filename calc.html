@@ -647,7 +647,7 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
     div1= gebi('fdiv'),div2 = gebi('divNum');
     
     creation();
-
+localStorage.removeItem('mim');
 function creation() { 
     //classes
   let c1 = ' btn-primary Cbtn',c2 =' btn-success btn-ver',c3= ' btn-info symbolBtn',
@@ -734,6 +734,7 @@ function creation() {
 
 
   /* /////  sev mimoir on href \\\\\\\\\\ */
+  
   if(localStorage.getItem('mim')){
     let mim = localStorage.mim; 
       gebi('mimoir').style.color = 'black';
