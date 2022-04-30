@@ -734,7 +734,7 @@ function creation() {
 
 
   /* /////  sev mimoir on href \\\\\\\\\\ */
-  if(localStorage.mim.length > 0){
+  if(localStorage.getItem('mim')){
     let mim = localStorage.mim; 
       gebi('mimoir').style.color = 'black';
   }
@@ -801,13 +801,13 @@ function scNrml() {
                 [ ['none','none','none','grid' ],['grid' , 'grid' ,'block', 'none' ] ] ];//display
   if (SCN=='normal') { 
     for (let i = 0; i < arStl[0].length; i++) {
-       gebi(arStl[0][i]).style.display   = arStl[1][0][i];
+      gebi(arStl[0][i]).style.display   = arStl[1][0][i];
     }
     localStorage.ScNo='normal';
     SCN='sc';
   } else {
     for (let i = 0; i < arStl[0].length; i++) {
-       gebi(arStl[0][i]).style.display   = arStl[1][1][i];
+      gebi(arStl[0][i]).style.display   = arStl[1][1][i];
     }
     localStorage.ScNo='sc';
     SCN='normal';
@@ -961,7 +961,7 @@ function retour() { //f6
   
   
     if (crInp == '('  && symbols.test(crInp2)) {
-      ////replace background-color: floralwhite;
+      ////replace 
       let arRep=[
       ['abs(','cosh(','acos(','cos(','e^(','Ln(','Log(' ,'√(','asin(','sinh(','sin(','atan(','tanh(','tan('],
       ['d'   , 'f'   , 'j'   , 'k'  , 'm' , 'p' , 'q'  , 'r', 'u'   , 'v'   , 'w'  , 'x'   , 'y'   , 'z'  ]];
