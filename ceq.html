@@ -858,7 +858,10 @@
     <script type="text/javascript">
     nFix();
       
-
+addEventListener('keyup',()=>{
+        if (gebi('divMeth').className != 'divMeth') {setTimeout(()=>{hidMethod();},100); }
+      });
+      
 
       let result = gebi('result'), add ='',tMeth=gebi('method'),hidDiv, hidCon;
 
