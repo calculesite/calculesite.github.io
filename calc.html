@@ -862,16 +862,16 @@ function upRes() {
   if(result.innerText ==''){ return false;}
   result.className +=' ogmentation';
   let fich =fichour.innerText,re=result.innerText;
-
+fichour.className+=' upScrl';
+  fichour.scrollTo({top:1000,behavior:'smooth'})
+  svHist(fich,re);
   setTimeout(() => {
     fichour.className = 'inp';
     fichour.innerText = result.innerText;
     result.innerText = '';
     result.className ='result';
-  }, 300);
-  fichour.className+=' upScrl';
-  fichour.scrollTo({top:1000,behavior:'smooth'})
-  svHist(fich,re);
+  }, 305);
+  
 }
 
 
