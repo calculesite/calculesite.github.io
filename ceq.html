@@ -788,10 +788,11 @@
         <hr style="margin-top:8.2vh;">
         <div id="lMeth" style="overflow: auto; height: 90%;"
           onclick=" setTimeout( ()=> { clearTimeout(hidDiv);clearTimeout(hidCon); } ,10); ">
+          <h3 id="tMet" style="margin: 10px 20px -9px;color: #0e700e;" >Solution</h3>
           <p style="margin: 13px 20px;" id="result"></p>
           <hr>
           <h3 id="tMet" style="margin: 10px 20px;color: #0e700e;" >Method</h3>
-          <p id="method" style="margin-left: 20px;" ></p>
+          <p id="method" style="margin: 0 15px 1rem 15px;" ></p>
         </div>
       </div>
     </div>
@@ -872,9 +873,10 @@ addEventListener('keyup',()=>{
      /* ////// short function \\\\\\\\\\ */
       function ind(inp,pr,pr2=0) { inp=inp.indexOf(pr,pr2);return inp}
       function plus(pr) {if(pr>=0){pr='+'+pr} return pr}
-      function ngtv(pr) {if(pr>=0){pr='-'+pr}else{pr='+'+-pr} return pr }
+      function ngtv(pr) {if(pr>=0){pr=' -'+pr}else{pr=' +'+-pr} return pr }
       function gebi(pr) { return document.getElementById(pr)}
       function ngtvB(b){if(b<0){b='('+b+')'}return b }
+      function sub(i){return 'X<sub>'+i+'</sub>'}
 
       /*////// fix les valeur \\\\\\ */
       function nFix(){
@@ -982,9 +984,9 @@ addEventListener('keyup',()=>{
       function prFun(a,b,n=1) {
         if (a!=0 ) {
           let x = -b / a ;
-          result.innerHTML += 'X<sub>'+n+'</sub> = ' + x;
-          tMeth.innerHTML+='ax + b = 0 → X<sub>'+n+'</sub> = -b/a </br> X<sub>'+n+'</sub> = '+
-           -b +'/'+a +' </br> X<sub>'+n+'</sub> = '+x;
+          result.innerHTML += sub(n)+' = ' + x;
+          tMeth.innerHTML+='ax + b = 0 → '+sub(n)+' = -b/a </br> '+sub(n)+' = '+
+           -b +'/'+a +' </br> '+sub(n)+' = '+x;
         }else if (b!=0){
           result.innerHTML='no exist solution';tMeth.innerHTML=' ∀ x ∈{-∞ ; +∞}</br> f(x) = '+b+' ≠ 0';
         }else if (b==0){
@@ -999,44 +1001,44 @@ addEventListener('keyup',()=>{
             i = n + 1, i2 = i + 1, dilta = Math.pow(Math.abs(dilta2), 1 / 2);
 
           if(c==0){ 
-            result.innerHTML+= 'X<sub>'+i+'</sub> = 0 </br>';
-            tMeth.innerHTML += 'f(x) = '+ a+'x² + '+b+'x '+
-              '+ 0 </br> f(x) = '+a+'x² + '+b+'x'+
-              '</br> f(x) = x( '+a+'x  '+ngtv(b)+' ) </br>f(x) = 0 → X<sub>'+i+'</sub> = 0  or '+a+'x + '+plus(b)+
+            result.innerHTML+= ''+sub(i)+' = 0 </br>';
+            tMeth.innerHTML += 'f(x) = '+ a+'x² '+plus(b)+'x '+
+              '+0 </br> f(x) = '+a+'x² '+plus(b)+'x </br> f(x) = x( '+a+'x '
+              +ngtv(b)+' ) </br>f(x) = 0 → '+sub(i)+' = 0  or '+a+'x  '+plus(b)+
               '  = 0</br></br><h4> for '+a+'x  '+plus(b)+'  = 0</h4></br>';prFun(a,b,i2);return 'stop';
           }
-          dilta = dilta.fix();i= '<sub>'+i+'</sub>';i2= '<sub>'+i2+'</sub>';
+          dilta = dilta.fix();
           tMeth.innerHTML +='</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = '+
-          ngtvB(b)+'² -4×'+a+'×'+c+' </br> Δ = '+dilta2;
+          ngtvB(b)+'² -4×'+ngtvB(a)+'×'+ngtvB(c)+' </br> Δ = '+dilta2;
         if (dilta2 > 0) {
           x1 = (-b  + dilta) / (2 * a);   x1 = x1.fix(13);
           x2 = -(b  + dilta) / (2 * a);   x2 = x2.fix(13); 
 
          let cx1=' = '+x1, cx2=' = '+x2;
          if(ind(re,cx2)>-1){ [cx1,cx2]=[cx2,cx1]} 
-         if(ind(re,cx1)>-1){re=' X<sub>1</sub>,';}
+         if(ind(re,cx1)>-1){re=sub(1)+',';}
 
-         re += ' X' + i + ' = ' + x1 + '</br> X' + i2 + ' = ' + x2;
+         re += sub(i) + ' = ' + x1 + '</br>'+ sub(i2)+ ' = ' + x2;
          cRet=[x1,x2];
         } else if (dilta2 == 0) {
           x1 = -b / (2 * a); x1 = x1.fix(13);   x2=x1;
-          re += 'X' + i + ', X'+i2+' = ' + x1;cRet=['a']
+          re += sub(i)+ ', '+sub(i2)+' = ' + x1;cRet=['a']
         } else {
           let tx = -b / (2 * a),   ty = Math.abs(dilta / (2 * a)).fix(13),pl=' +i';
           tx = tx.fix(13); 
           if(tx==0){tx = '';pl=' i';}
-          re += ' X' + i + ' = ' + tx + pl + ty +
-            '</br>  X' + i2 + ' = ' + tx + ' -i' + ty;
+          re += sub(i)+ ' = ' + tx + pl + ty +
+            '</br>'+ sub(i2)+ ' = ' + tx + ' -i' + ty;
           x1 = tx + pl + ty;    x2 = tx + ' -i' + ty;
           dilta = 'i'+dilta;cRet=['b'];
         }
         if(n==30) {return cRet; }
         result.innerHTML = re;
-        tMeth.innerHTML +='</br> √(Δ) = √('+dilta2+') </br> √(Δ) = '+dilta+
-          '</br></br><h4>Calcul X'+i+' and X'+i2+
-            '</h4></br> X'+i+' = (-b + √(Δ) ) / 2a </br> X'+i+' = ('+ -b +' +'+dilta+') / (2×'+a+
-            ')</br> X'+i+' = '+ x1 +'</br></br> X'+i2+' = (-b - √(Δ) ) / 2a</br> X'
-            +i2+' = ('+ -b +' -'+dilta+ ') / (2×'+a+')</br> X'+i2+' = '+ x2  ;
+        tMeth.innerHTML +='</br> √(Δ) = √('+dilta2+') </br> √(Δ) = '+dilta
+          +'</br></br><h4>Calcul '+sub(i)+' and '+sub(i2)+
+          '</h4></br> '+sub(i)+' = (-b + √(Δ) ) / 2a </br> '+sub(i)+' = ('+ -b +' +'+dilta+') / (2×'+
+          ngtvB(a) +')</br> '+sub(i)+' = '+ x1 +'</br></br> '+sub(i2)+' = (-b - √(Δ) ) / 2a</br>'+
+          sub(i2)+' = ('+ -b +' -'+dilta+ ') / (2×'+ngtvB(a)+')</br> '+sub(i2)+' = '+ x2  ;
         
       }
     
@@ -1044,22 +1046,22 @@ addEventListener('keyup',()=>{
       function cubiqFin(a, b, c, d,n=0) {
         let bs,cs,i=n+1;
         if (d == 0) {
-          result.innerHTML = ' X<sub>'+i+'</sub> = 0 </br>';
+          result.innerHTML = ' '+sub(i)+' = 0 </br>';
           tMeth.innerHTML ='f(x) = '+ a+'x³  '+plus(b)+'x² '+plus(c)+
-              'x + 0 </br> f(x) = '+a+'x³  '+plus(b)+'x² '+plus(c)+
+              'x +0 </br> f(x) = '+a+'x³  '+plus(b)+'x² '+plus(c)+
               'x  </br> f(x) = x( '+a+'x²  '+plus(b)+'x '+plus(c)+
-              ' ) </br>f(x) = 0 => X<sub>'+i+'</sub> = 0  or '+a+'x²  '+plus(b)+'x '+plus(c)+
-              '  = 0</br></br><h4> for '+a+'x²  '+plus(b)+'x '+plus(c)+'  = 0</h4></br>';
-          squarFun(a, b, c, n);return 'stop';
+              ' ) </br>f(x) = 0 => '+sub(i)+' = 0  or '+a+'x²  '+plus(b)+'x '+plus(c)+
+              '  = 0</br></br><h4> for '+a+'x² '+plus(b)+'x '+plus(c)+' = 0 </h4></br>';
+          squarFun(a, b, c, i);return 'stop';
         }
         //b and c for squar functin
-          if (a+b+c+d==0) {tMeth.innerHTML +='as a+b+c+d = '+a+'+'+b+'+'+c+'+'+d+
-          ' = 0 </br> → X<sub>'+i+'</sub> = 1';easy(1);  return 'stop'; }
-          if (a+c==b+d) {tMeth.innerHTML+='as a+c = b+d → X<sub>'+i+'</sub> = -1';
+          if (a+b+c+d==0) {tMeth.innerHTML +='as a +b +c +d = '+a+' '+plus(b)+' '+plus(c)+' '+plus(d)+
+          ' = 0 </br> → '+sub(i)+' = 1';easy(1);  return 'stop'; }
+          if (a+c==b+d) {tMeth.innerHTML+='as a+c = b+d → '+sub(i)+' = -1';
           easy(-1);return 'stop';}
           function easy(pr) {
-            result.innerHTML = ' X<sub>'+i+'</sub> = '+pr+'</br>';   bs=(b+pr*a).fix(); cs= (-d/pr).fix();
-            tMeth.innerHTML +='</br> f(x) = (x -x<sub>'+i+'</sub>)(ax² +bx +c)'+
+            result.innerHTML = ' '+sub(i)+' = '+pr+'</br>';   bs=(b+pr*a).fix(); cs= (-d/pr).fix();
+            tMeth.innerHTML +='</br> f(x) = (x -'+sub(i)+')(ax² +bx +c)'+
                    '</br> f(x) = (x '+ngtv(pr)+')('+a+'x² '+plus(bs)+'x '+plus(cs)+')'+
                    '</br></br><h4> for '+a+'x² '+plus(bs)+'x '+plus(cs)+' = 0</h4>'; 
             squarFun(a, bs, cs,i);
@@ -1103,16 +1105,16 @@ addEventListener('keyup',()=>{
                   '³√(√((q/2)² -Q) ×e(-iθ) ) </br> T1 = ³√(√((q/2)² -Q) ×cos(θ) </br> T1 = '+t1;
         }
         t1 = t1.fix();
-        x = (t1  -b/(3*a)) ;cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';
+        x = (t1  -b/(3*a)) ; /*cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';*/
         fx1=aplFn(x)*1e13;fx2=aplFn(x+5e-11)*1e7;fx3=aplFn(x-5e-11)*1e7;
         if (fx1*fx2>0 && fx1*fx3>0) { let xf = ext(); if(aplFn(xf) < aplFn(x)){x=xf} }
         x = x.fix(10);
-        result.innerHTML = ' X<sub>'+i+'</sub> = ' + x + '</br>';
-        cMeth +='</br> X<sub>'+i+'</sub> = T1 -b/3a = '+t1+' -'+b+'/(3×'+a+')</br> X<sub>'+i+'</sub> = '+x;
+        result.innerHTML = ' '+sub(i)+' = ' + x + '</br>';
+        cMeth +='</br>'+sub(i)+' = T1 -b/3a = '+t1+ngtv(b)+'/(3×'+ngtvB(a)+')</br>'+sub(i)+' = '+x;
         tMeth.innerHTML +=cMeth;easy(x);
 
         function ext(){
-          let mins=x-0.01,pls=x+0.01,bet,fnx,cont=0,sq=squarFun(3*a,2*b, c, 30);
+          let mins=x-0.001,pls=x+0.001,bet,fnx,cont=0,sq=squarFun(3*a,2*b, c, 30);
           if (sq.length==2 && aplFn(mins)*aplFn(pls)>0 ) { 
             let apfx = aplFn(x),mnSq=min(sq[0],sq[1]),mxSq=max(sq[0],sq[1]),drv=3*a*x**2+2*b*x+c;
             if(a*drv<0){
@@ -1122,6 +1124,8 @@ addEventListener('keyup',()=>{
             }else{
               if(x <mnSq){pls = mnSq }else{pls= x+10 } mins=x
             }
+            if (aplFn(sq[0]) == 0 ) { return sq[0]}
+            if (aplFn(sq[1]) == 0 ) { return sq[1]}
           }
           if (aplFn(pls)==0) {return pls }
           if (aplFn(mins)==0) {return mins }
