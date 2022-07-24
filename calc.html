@@ -597,7 +597,7 @@ button:not(:disabled),
     
 </head>
 <body  >
-  <div id="contHist" onclick="setTimeout(() => { hidHist()},30)"   > 
+  <div id="contHist" onclick="hidHist()"   > 
 
     <div id="divHist" class="divHist">
       <span id="hidHist" onclick="hidHist()" >×</span>
@@ -646,8 +646,8 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],
     div1= gebi('fdiv'),div2 = gebi('divNum');
     
-    creation();
-function creation() { 
+    creatin()
+function creatin() { 
     //classes
   let c1 = ' btn-primary Cbtn',c2 =' btn-success btn-ver',c3= ' btn-info symbolBtn',
 
@@ -655,7 +655,6 @@ function creation() {
     f1 ='add('   , f3='adCar(',   f4='addSymbF(' , f5='addSymbP(', f6='retour(', f7='clearing(',
     f8='scNrml(', f9='save('  , f10='toFchr(',f11='addSave(', f12='upRes(', f13= 'addVrgl('
 
-    
     //array function
     arF =[ f1+"'sin('",f1+"'cos('"   ,f1+"'tan('"  ,f3+"'%'" ,f1+"'abs('",f8 ,
             f1+"'asin('",f1+"'acos('" ,f1+"'atan('" ,f1+"'e^('" ,f1+"'Ln('"   ,f1+"'Log('",
@@ -759,6 +758,7 @@ function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {inp=inp.lastIndexOf(pr,fin);return inp;}
 function rep(inp,pr1,pr2) {return inp.replaceAll(pr1,pr2);}
+
 
 
   /* localStorage.removeItem('lHistF');
@@ -967,7 +967,6 @@ function retour() { //f6
 }
 
 
-
 /* //////// replice drg ongle */
 function drgFun() { //f8
     let drg = gebi('drg').innerText;
@@ -1016,8 +1015,8 @@ function svHist(pr1,pr2) {
   let dvSv = gebi('lHist');
   if (pr1==rLHF[rLHF.length-1]) {return false}
   if(fichour.innerText==='0'){fichour.innerText==''}
-  dvSv.innerHTML+=' <div onclick="toFichour( this.innerText)" class="inpHist">'+pr1+'</div>'+
-    '<div class="result resultHist" onclick="toFichour( this.innerText)">' + pr2 + '</div> <hr>';
+  dvSv.innerHTML+=' <div onclick="toFchr( this.innerText)" class="inpHist">'+pr1+'</div>'+
+    '<div class="result resultHist" onclick="toFchr( this.innerText)">' + pr2 + '</div> <hr>';
   
   /* ///history */
   if (rLHF.length>20) {
@@ -1029,7 +1028,7 @@ function svHist(pr1,pr2) {
   
   localStorage.lHistF = rLHF.join('@#');
   localStorage.lHistR = rLHR.join('@#');
-}
+}/* getItem */
 
 /* ////// get Hist */
 function gHist() {
@@ -1038,8 +1037,8 @@ function gHist() {
     rLHF = hiToDiv('F');
     rLHR = hiToDiv('R');
     for (let i = 0; i < rLHF.length; i++) {
-      dvSv.innerHTML += ' <div onclick="toFichour( this.innerText)" class="inpHist">'+ rLHF[i] +'</div>' +
-        '<div class="result resultHist" onclick="toFichour( this.innerText)">' + rLHR[i] + '</div> <hr>';
+      dvSv.innerHTML += ' <div onclick="toFchr( this.innerText)" class="inpHist">'+ rLHF[i] +'</div>' +
+        '<div class="result resultHist" onclick="toFchr( this.innerText)">' + rLHR[i] + '</div> <hr>';
       
     }
   }
@@ -1183,6 +1182,6 @@ inp = brackets(inp);
   
     
 }
-      </script>
+</script>
 </body>
 </html>
