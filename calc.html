@@ -452,8 +452,10 @@ button:not(:disabled),
     color: rgb(14, 66, 20);
 }
 .ogmentation{
-  animation-name: ogment;
-  animation-duration: 0.301s;
+  transition: 0.3s;
+  transform:translateY(-113px) ;
+    font-size: 30px;
+    color: black
 }
 
 
@@ -532,7 +534,7 @@ button:not(:disabled),
  }
  .upScrl{
   overflow-y: hidden;
-  padding-bottom: 144px;
+  padding-bottom: 144px
 }
  @media (max-width: 900px){
     .inp,.inpHist{font-size: 25px;margin-top: 25px;height: 125px;}
@@ -540,25 +542,10 @@ button:not(:disabled),
     .upScrl{padding-bottom:120px;}
     .divHist{width: 88%;height: 94%; margin: 3% 6%;}
     .result{font-size: 20px; }
-    .ogmentation{animation-name: ogmentTlph;}
+    .ogmentation{transform:translateY(-88px) ; font-size: 25px;}
     
 }
-@keyframes ogment{
-  to{
-    transform:translateY(-113px) ;
-    font-size: 30px;
-    color: black;
-  }
-}
-/* 31256568897*3554665464-31312332+15566588789897-5454546+6589965788555 */
-@keyframes ogmentTlph{
-  to{
-    transform:translateY(-88px) ;
-    font-size: 25px;
-    color: black;
-    
-  }
-}
+
 #hidHist{/* hident historik */
     font-size: 5vh;
     color: #302e2ed9;
@@ -580,7 +567,7 @@ button:not(:disabled),
     background-color: black;
     height: 1px;
 }
-.pastBtn{
+.pstBtn{
   display: none;
   position: fixed;
     padding: 5px;
@@ -589,7 +576,7 @@ button:not(:disabled),
     background-color: #636363;
     color: white;
     border-radius: 5px;
-    border: #636363;
+    border: #636363
 }
 
 
@@ -624,7 +611,7 @@ button:not(:disabled),
 
     
     <p id="mimoir" class="mimoir">M</p>
-    <button class="pastBtn" id="pst" onclick="paste(2);this.style.display ='none'">Paste</button> 
+    <button class="pstBtn" id="pst" onclick="paste(2);this.style.display ='none'">Paste</button> 
     <div id="fichour"   onclick="paste(1)"  class="inp"    >0</div>
 
     <div id="result" class="result "  ></div>
@@ -844,7 +831,7 @@ function jump(pr){
 if (localStorage.pas == '1') {psClk=1;}
  function paste(pr) { 
    if (pr===1 && psClk == 0) {
-      document.querySelector('.pastBtn').style.display = 'block';
+      document.querySelector('.pstBtn').style.display = 'block';
       psClk = 1;
       localStorage.pas  = '1';
       return 'stop';
@@ -859,18 +846,18 @@ if (localStorage.pas == '1') {psClk=1;}
 
 /* //// Up result to fichour */
 function upRes() {
-  if(result.innerText ==''){ return false;}
+  if(result.innerText ==''){ return false}
   result.className +=' ogmentation';
   let fich =fichour.innerText,re=result.innerText;
 fichour.className+=' upScrl';
   fichour.scrollTo({top:1000,behavior:'smooth'})
   svHist(fich,re);
   setTimeout(() => {
-    fichour.className = 'inp';
     fichour.innerText = result.innerText;
+    fichour.className = 'inp';
     result.innerText = '';
     result.className ='result';
-  }, 305);
+  }, 300);
   
 }
 
@@ -1132,7 +1119,7 @@ function calcule() { //f12
   let inp    = fichour.innerText,lenInp = inp.length, crInp = inp.charAt(lenInp - 1),
   arSy=[], fich = inp,symbols = '/*×-+(^.'; 
   result.innerText='';
-  if(ind(symbols,crInp)>-1||lenInp<2){ return false; } 
+  if((ind(symbols,crInp)>-1||lenInp<2)&& ind(inp,'π') <0){ return false; } 
   if(inp.charAt(0)==='+' || inp.charAt(0)==='-' ){inp='0'+inp}
 
   /* ////replasment\\\\ */
