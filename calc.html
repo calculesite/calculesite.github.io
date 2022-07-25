@@ -846,7 +846,7 @@ if (localStorage.pas == '1') {psClk=1;}
 
 /* //// Up result to fichour */
 function upRes() {
-  if(result.innerText ==''){ return false}
+  if(result.innerText =='' || ind(result.innerText,'You must')>-1){ return false}
   result.className +=' ogmentation';
   let fich =fichour.innerText,re=result.innerText;
 fichour.className+=' upScrl';
@@ -1157,15 +1157,22 @@ function calcule() { //f12
     inp= rep(inp,'logt','log10'); 
  inp= calcMat(inp);  
 
-inp = brackets(inp);
+ inp = brackets(inp);
   }
 
   /* /////// result */
   try {
     inp = eval(inp);  inp = inp.fix();
     result.style.color = 'rgb(14, 66, 20)';
-    if (inp != fich&& !isNaN(inp)) {result.innerText = inp;} 
-  } catch(e){console.log('message = '+e.message);}
+    if (inp != fich && !isNaN(inp)) {result.innerText = inp;} 
+
+  } catch(e){
+    function forErr(pr1,pr2) {result.style.color = 'red';result.innerText = 'You must convert " '+pr1+pr2+ 
+    ' " to " '+pr1+'('+pr2 +' "' }
+    if (ind(inp,'*-')>-1) {forErr('×','-')} else if (ind(inp,'*+')>-1) {forErr('×','+')
+    } else if (ind(inp,'/-')>-1){forErr('÷','-') }else if (ind(inp,'/+')>-1){forErr('÷','+')
+    }  
+  }
   
     
 }
