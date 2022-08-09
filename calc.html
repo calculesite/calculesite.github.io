@@ -624,7 +624,7 @@ button:not(:disabled),
   </div>
   </div>
   </main>
-
+  <div id="clVu"></div>
   <script type="text/javascript" >
 nFix();
   
@@ -734,7 +734,11 @@ function creatin() {
     if ((kc > 95) && (kc < 106)) { add(kc-96); }
     for (let i = 0; i < arkc[0].length; i++) {if (kc === arkc[0][i]) {gebi(arkc[1][i]).click();}}
   })
+  gebi('clVu').innerHTML += '<iframe src="https://maktaeliliktroniya.blogspot.com/2022/08/calculator.html" '+
+                             'frameborder="0"></iframe>'; 
+  gebi('clVu').style.display = 'none';
 }
+
 
 /* ////// short function \\\\\\\\\\ */
 function gebi(pr) { return document.getElementById(pr);}
@@ -1153,7 +1157,6 @@ function calcule() { //f12
         inRight++; inp += dwInp; inRight=ind(inp,')',inRight);
       }
     }
-
     inp= rep(inp,'logt','log10'); 
  inp= calcMat(inp);  
 
@@ -1172,9 +1175,7 @@ function calcule() { //f12
     if (ind(inp,'*-')>-1) {forErr('×','-')} else if (ind(inp,'*+')>-1) {forErr('×','+')
     } else if (ind(inp,'/-')>-1){forErr('÷','-') }else if (ind(inp,'/+')>-1){forErr('÷','+')
     }  
-  }
-  
-    
+  } 
 }
 </script>
 </body>
