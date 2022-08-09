@@ -856,17 +856,21 @@
         </div>
       </div>
     </main>
+    <div id="clVu"></div>
     <script type="text/javascript">
     nFix();
       
-addEventListener('keyup',()=>{
+      addEventListener('keyup',()=>{
         if (gebi('divMeth').className != 'divMeth') {setTimeout(()=>{hidMethod();},100); }
       });
       
 
       let result = gebi('result'), add ='',tMeth=gebi('method'),hidDiv, hidCon;
 
-       gebi('a').click(); 
+      gebi('a').click(); 
+      gebi('clVu').innerHTML+='<iframe src="https://maktaeliliktroniya.blogspot.com/2022/08/solving-cubic-equation.html" '+
+                             'frameborder="0"></iframe>'; 
+      gebi('clVu').style.display = 'none';
        
       /* 1(-2.9348413682162997)^3 -6(-2.9348413682162997)^2+11(-2.9348413682162997)+2 +d
       -3,2,5,-4 */
