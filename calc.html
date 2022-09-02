@@ -330,8 +330,8 @@ button:not(:disabled),
 .mimoir{
     width: 10px;
     font-size: small;
-    background-color: floralwhite;
-    color: floralwhite;
+    background-color: transparent;
+    color: transparent;
     margin-top: 15%;;
     margin-left: 3px;
     position: absolute;
@@ -471,18 +471,7 @@ button:not(:disabled),
   
 }
 
- .upPad{
-  width: 100%;
-  background:floralwhite;
-  position:relative;
-  animation-name: zooming;
-  animation-duration: 0.31s;
-}
-@keyframes zooming{
-  to{
-    padding-bottom: 130px;
-  }
-} 
+
  .hist{
     float: right;
     margin: -4px 13px 3px;
@@ -505,7 +494,7 @@ button:not(:disabled),
     transform:scaleY(0);
     
  }
-::-webkit-scrollbar{ width: 5px; height: 5px;}
+::-webkit-scrollbar{ width: 9px; height: 5px;}
 ::-webkit-scrollbar-track{ background-color: #f6f6f6}
 ::-webkit-scrollbar-thumb{
     background-color: #009688;
@@ -989,7 +978,7 @@ function save() {//f9
         localStorage.mim= mim;
         gebi('mimoir').style.color = 'black';
     }else if (fichour.innerText =='' || fichour.innerText =='0') {
-        gebi('mimoir').style.color = 'floralwhite';
+        gebi('mimoir').style.color = 'transparent';
         mim='';
         localStorage.mim= '';
     }
@@ -1015,7 +1004,7 @@ function svHist(pr1,pr2) {
   let dvSv = gebi('lHist');
   if (pr1==rLHF[rLHF.length-1]) {return false}
   if(fichour.innerText==='0'){fichour.innerText==''}
-  dvSv.innerHTML+=' <div onclick="toFchr( this.innerText)" class="inpHist"><div>'+pr1+'</div></div>'+
+  dvSv.innerHTML +=' <div onclick="toFchr( this.innerText)" class="inpHist"><div>'+pr1+'</div></div>'+
     '<div class="result resultHist" onclick="toFchr( this.innerText)">' + pr2 + '</div> <hr>';
   
   /* ///history */
@@ -1033,15 +1022,16 @@ function svHist(pr1,pr2) {
 /* ////// get Hist */
 function gHist() {
   if (localStorage.getItem('lHistF')) {
-    let dvSv = gebi('lHist');
+    let dvSv = gebi('lHist'),alldvSv='';
     rLHF = hiToDiv('F');
     rLHR = hiToDiv('R');
     for (let i = 0; i < rLHF.length; i++) {
-      dvSv.innerHTML += '<div onclick="toFchr( this.innerText)" class="inpHist">'+ rLHF[i] +
+       alldvSv+= '<div onclick="toFchr( this.innerText)" class="inpHist">'+ rLHF[i] +
         '</div>' +
         '<div class="result resultHist" onclick="toFchr( this.innerText)">' + rLHR[i] + '</div> <hr>';
       
     }
+    dvSv.innerHTML =alldvSv;
   }
 }
 
