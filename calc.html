@@ -798,7 +798,7 @@ function scNrml() {
 /*  jump functin */
 
 function jump(pr){
-  /* //// slice C0N */
+  /* //// ce C0N */
 
       let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',
           symbols = '+-/×*^(';
@@ -1168,8 +1168,20 @@ function calcule() { //f12
   try {
     inp = eval(inp);  inp = inp.fix();
     result.style.color = 'rgb(14, 66, 20)';
-    if (inp != fich && !isNaN(inp)) {result.innerText = inp;} 
-
+    if (inp != fich && !isNaN(inp)) {
+inp+='';
+let ln =inp.length,afInp='',sl;
+if(ind(inp,'.')>-1){afInp = inp.slice(ind(inp,'.'),ln);
+inp = inp.slice(0,ind(inp,'.'));
+}
+ln=inp.length;
+while(ln/3>1){
+ln-=3; sl=inp.slice(ln,inp.length);
+inp = inp.slice(0,ln) +',' ;   inp += sl;
+}
+inp+=afInp;
+result.innerText = inp;
+}
   } catch(e){
     function forErr(pr1,pr2) {result.style.color = 'red';result.innerText = 'You must convert " '+pr1+pr2+ 
     ' " to " '+pr1+'('+pr2 +' "' }
