@@ -589,7 +589,24 @@ border : 1px solid black ;
 cursor: pointer;
 display:none
 }
-
+.fchr{
+/*overflow: hidden;
+  white-space: nowrap;*/
+margin:0;
+height:20px;
+border-right: 1.5px solid  black;
+animation:blink 1s infinite;
+}
+@keyframes blink { 
+   0% {
+       border-right-color: black;
+   } 75% { 
+       border-right-color: black; 
+   } 
+100% { 
+       border-right-color: transparent; 
+   } 
+}
 </style>
     
 </head>
@@ -622,11 +639,11 @@ display:none
     
     <p id="mimoir" class="mimoir">M</p>
     <span id='psSp' onclick="past()">paste</span>
-    <div class="inp scrl" ><span id="fichour">0</span></div>
+    <div id="dvfch" class="inp scrl" ><span id="fichour" class="fchr">0</span></div>
 
     <div id="result" class="result "  ></div>
     
-    <p id="log"> </p>
+    <p id="log"></p>
         <div id="fdiv" class="func"></div>
 
         <div id="divNum" class="continent"></div>
@@ -804,7 +821,7 @@ function hist() {
   }, 100);
   gebi('lHist').scrollTop = gebi('lHist').scrollHeight;
   /* transform:scaleY(1); */
-  /* gebi('divHist').style.transform.scaleY()=1; */
+  /* gebi('divHist').style.nsform.scaleY()=1; */
 }
 
 function hidHist( ) {
@@ -875,14 +892,15 @@ function upRes() {
   if(result.innerText =='' || ind(result.innerText,'You must')>-1){ return false}
   result.className +=' ogmentation';
   let fich =fichour.innerText,re=result.innerText;
-fichour.className+=' upScrl';
-  fichour.scrollTo({top:1000,behavior:'smooth'})
-  svHist(fich,re);
+gebi('dvfch').className+=' upScrl';
+  gebi('dvfch').scrollTo({top:1000,behavior:'smooth'})
+  svHist(fich,re);fichour.className='';
   setTimeout(() => {
-    fichour.innerText = result.innerText;
-    fichour.className = 'inp';
+    fichour.innerText =rep(result.innerText,',','');
+    gebi('dvfch').className = 'inp';
     result.innerText = '';
     result.className ='result';
+    fichour.className='fchr';
   }, 300);
   
 }
@@ -911,7 +929,7 @@ function adCar(pr) { //f3
   if (ind(smb,cr)<0 && ind('%²',cr)<0 || ind('^(²',pr)<0 ){
     if (pr !=')' ||  inpLef< inpRi) {inp+=pr; } 
   }
-  fichour.innerHTML = inp;
+  fichour.innerText = inp;
   jump(); 
 }
 
@@ -1204,6 +1222,7 @@ ln-=3; sl=inp.slice(ln,inp.length);
 inp = inp.slice(0,ln) +',' ;   inp += sl;
 }
 inp+=afInp;
+inp=inp.replace('-,','-');
 result.innerText = inp;
 }
   } catch(e){
