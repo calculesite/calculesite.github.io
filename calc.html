@@ -505,8 +505,8 @@ button:not(:disabled),
 
  @media (max-width: 500px) {
     .divHist{
-    width: 94%;
-    margin: 3% 3% 3% 3%;
+    width: 98%;
+    margin: 1% 2% ;
     }
  }    
  
@@ -658,7 +658,7 @@ nFix();
   
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
-    result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],
+    result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],dvfch=gebi('dvfch'),
     div1= gebi('fdiv'),div2 = gebi('divNum'), onlongtouch,timer, touchduration = 500; 
 
 function touchstart(e) {
@@ -688,7 +688,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function past(){
 navigator.clipboard.readText().then((text)=>{ 
     toFchr(text);});
-gebi('psSp').style.display ='none'; 
+
+ 
 }
     creatin()
 function creatin() { 
@@ -782,6 +783,7 @@ function creatin() {
       gebi('mimoir').style.color = 'black';
   }
 
+document.addEventListener('click', ()=>{gebi('psSp').style.display ='none'});
 
   /*   functin of click keybord */
   addEventListener('keydown',   (e) => {//e event
@@ -882,7 +884,7 @@ function jump(pr){
   fichour.innerText=inp; 
 
      /* //////jump \\\\\\\ */  
-  fichour.scrollTop = fichour.scrollHeight;
+  dvfch.scrollTop = dvfch.scrollHeight;
   calcule();
 }
 
@@ -892,12 +894,12 @@ function upRes() {
   if(result.innerText =='' || ind(result.innerText,'You must')>-1){ return false}
   result.className +=' ogmentation';
   let fich =fichour.innerText,re=result.innerText;
-gebi('dvfch').className+=' upScrl';
-  gebi('dvfch').scrollTo({top:1000,behavior:'smooth'})
+  dvfch.className+=' upScrl';
+  dvfch.scrollTo({top:1000,behavior:'smooth'})
   svHist(fich,re);fichour.className='';
   setTimeout(() => {
     fichour.innerText =rep(result.innerText,',','');
-    gebi('dvfch').className = 'inp';
+    dvfch.className = 'inp';
     result.innerText = '';
     result.className ='result';
     fichour.className='fchr';
