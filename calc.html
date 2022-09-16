@@ -576,7 +576,19 @@ button:not(:disabled),
     border-radius: 5px;
     border: #636363
 }
-
+#psSp{
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  margin-left: -40px;
+font-size: 20px;
+background-color: white;
+padding: 4px; 
+border : 1px solid black ;
+  border-radius: 3px;
+cursor: pointer;
+display:none
+}
 
 </style>
     
@@ -609,13 +621,14 @@ button:not(:disabled),
 
     
     <p id="mimoir" class="mimoir">M</p>
-    <button class="pstBtn" id="pst" onclick="paste(2);this.style.display ='none'">Paste</button> 
-    <div id="fichour" class="inp scrl"  onclick="paste(1)" >0</div>
+    <span id='psSp' onclick="past()">paste</span>
+    <div class="inp scrl" ><span id="fichour">0</span></div>
 
     <div id="result" class="result "  ></div>
     
     <p id="log"> </p>
         <div id="fdiv" class="func"></div>
+
         <div id="divNum" class="continent"></div>
 
         <div id="nrmldv" class="nrml"></div>
@@ -629,8 +642,37 @@ nFix();
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],
-    div1= gebi('fdiv'),div2 = gebi('divNum');
-    
+    div1= gebi('fdiv'),div2 = gebi('divNum'), onlongtouch,timer, touchduration = 500; 
+
+function touchstart(e) {
+    e.preventDefault();
+    if (!timer) {
+        timer = setTimeout(onlongtouch, touchduration);
+    }
+}
+
+function touchend() {
+    //stops short touches from firing the event
+    if (timer) {
+        clearTimeout(timer);
+        timer = null;
+    }
+}
+
+onlongtouch = function() { 
+    timer = null;
+    document.getElementById('psSp').style.display='inline'; 
+};
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+    window.addEventListener("touchstart", touchstart, false);
+    window.addEventListener("touchend", touchend, false);
+});
+    function past(){
+navigator.clipboard.readText().then((text)=>{ 
+    toFchr(text);});
+gebi('psSp').style.display ='none'; 
+}
     creatin()
 function creatin() { 
     //classes
@@ -800,8 +842,7 @@ function scNrml() {
 function jump(pr){
   /* //// ce C0N */
 
-      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',
-          symbols = '+-/×*^(';
+      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',symbols = '+-/×*^(';
       
       while (inp.charAt(0)=='0' && ind(nm,inp.charAt(1))>-1 && inp !='0' ) {  inp=inp.slice(1,inp.length);}
 
@@ -827,23 +868,6 @@ function jump(pr){
   fichour.scrollTop = fichour.scrollHeight;
   calcule();
 }
-
-
-/* /// paste */
-if (localStorage.pas == '1') {psClk=1;}
- function paste(pr) { 
-   if (pr===1 && psClk == 0) {
-      document.querySelector('.pstBtn').style.display = 'block';
-      psClk = 1;
-      localStorage.pas  = '1';
-      return 'stop';
-   }
-   navigator.clipboard.readText().then((text)=>{ 
-    toFchr(text);
-  })
-  
-}
-
 
 
 /* //// Up result to fichour */
