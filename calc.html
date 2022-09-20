@@ -454,7 +454,7 @@ button:not(:disabled),
 }
 .ogmentation{
   transition: 0.3s;
-  transform:translateY(-113px) ;
+  transm:translateY(-113px) ;
     font-size: 30px;
     color: black
 }
@@ -806,7 +806,7 @@ function forziro() {if(fichour.innerText=='0'){fichour.innerText='';}}
 function toFchr(pr=mim){forziro();fichour.innerText+=pr;jump();}
 function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('@#'); return Hist;}
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
-function laIn(inp,pr,fin=inp.length) {inp=inp.lastIndexOf(pr,fin);return inp;}
+function laIn(inp,pr,fin=inp.length) {return inp.lastIndexOf(pr,fin)}
 function rep(inp,pr1,pr2) {return inp.replaceAll(pr1,pr2);}
 
 
@@ -881,6 +881,11 @@ function jump(pr){
 
         }
       }
+/*
+inp=rep(inp,',','');
+let frm = new Intl.NumberFormat().format(inp);
+inp=frm;
+*/
   fichour.innerText=inp; 
 
      /* //////jump \\\\\\\ */  
@@ -971,8 +976,12 @@ function addSymbP(pr) { //f5
 
 /* ////// add virguele \\\\\ */
 function addVrgl() {
-  let inp = '+'+fichour.innerText, fin=')%π', smbl='+-/×*^÷(',crInp=inp.charAt(inp.length -1),add='';
+  let inp = '+'+fichour.innerText, fin=')%π', smbl='+-/×*^÷(',crInp=inp.charAt(inp.length -1),add='',tst=laIn(inp,'.'),inSm=0;
 if(ind(fin,crInp)>-1){add='×0.';} else if ( ind(smbl,crInp)>-1 ) {add='0.';}else if(crInp !=='.'){add='.';} 
+smbl+=fin;
+smbl=smbl.split('');
+smbl.forEach(e=>{inp=rep(inp,e,'#')})
+if(tst>laIn(inp,'#')){add=''}
 fichour.innerText+=add;
   jump();
 }
@@ -1213,18 +1222,11 @@ function calcule() { //f12
     inp = eval(inp);  inp = inp.fix();
     result.style.color = 'rgb(14, 66, 20)';
     if (inp != fich && !isNaN(inp)) {
-inp+='';
-let ln =inp.length,afInp='',sl;
-if(ind(inp,'.')>-1){afInp = inp.slice(ind(inp,'.'),ln);
-inp = inp.slice(0,ind(inp,'.'));
-}
-ln=inp.length;
-while(ln/3>1){
-ln-=3; sl=inp.slice(ln,inp.length);
-inp = inp.slice(0,ln) +',' ;   inp += sl;
-}
-inp+=afInp;
-inp=inp.replace('-,','-');
+inp=inp+''; 
+let fl ='',i=ind(inp,'.') ;   
+if(i>-1){fl=inp.slice(i,inp.length);inp=inp.slice(0,i)}
+ inp = new Intl.NumberFormat().format(inp);
+inp += fl;
 result.innerText = inp;
 }
   } catch(e){
