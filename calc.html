@@ -595,15 +595,13 @@ display:none
 margin:0;
 height:20px;
 border-right: 1.5px solid  black;
-animation:blink 1s infinite;
+animation:blink 1s step-end  infinite;
 }
 @keyframes blink { 
-   0% {
+   0% , 100% {
        border-right-color: black;
-   } 75% { 
-       border-right-color: black; 
    } 
-100% { 
+50% { 
        border-right-color: transparent; 
    } 
 }
@@ -638,7 +636,7 @@ animation:blink 1s infinite;
 
     
     <p id="mimoir" class="mimoir">M</p>
-    <span id='psSp' onclick="past()">paste</span>
+    <span id='psSp' >paste</span>
     <div id="dvfch" class="inp scrl" ><span id="fichour" class="fchr">0</span></div>
 
     <div id="result" class="result "  ></div>
@@ -685,7 +683,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     gebi('dvfch').addEventListener("touchstart", touchstart, false);
     gebi('dvfch').addEventListener("touchend", touchend, false);
 });
-    function past(){
+   gebi('psSp').onclick = (e)=>{
+
 navigator.clipboard.readText().then((text)=>{ 
     toFchr(text);});
 
@@ -861,7 +860,7 @@ function scNrml() {
 function jump(pr){
   /* //// ce C0N */
 
-      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',symbols = '+-/×*^(';
+      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',symbols = '+-/×*^(',tst2=/\d\d\d/;
       
       while (inp.charAt(0)=='0' && ind(nm,inp.charAt(1))>-1 && inp !='0' ) {  inp=inp.slice(1,inp.length);}
 
@@ -883,8 +882,10 @@ function jump(pr){
       }
 /*
 inp=rep(inp,',','');
+
 let frm = new Intl.NumberFormat().format(inp);
 inp=frm;
+inp = inp.replace(/\d\d\d/g,''+/\d\d\d/g)
 */
   fichour.innerText=inp; 
 
@@ -934,7 +935,7 @@ function adCar(pr) { //f3
       inpLef= rep(inp,'(', '').length,
       inpRi   = rep(inp,')','').length;
   if (ind(smb,cr)<0 && ind('%²',cr)<0 || ind('^(²',pr)<0 ){
-    if (pr !=')' ||  inpLef< inpRi) {inp+=pr; } 
+    if (pr !=')' ||  inpLef< inpRi && cr!='(') {inp+=pr; } 
   }
   fichour.innerText = inp;
   jump(); 
@@ -978,12 +979,12 @@ function addSymbP(pr) { //f5
 function addVrgl() {
   let inp = '+'+fichour.innerText, fin=')%π', smbl='+-/×*^÷(',crInp=inp.charAt(inp.length -1),add='',tst=laIn(inp,'.'),inSm=0;
 if(ind(fin,crInp)>-1){add='×0.';} else if ( ind(smbl,crInp)>-1 ) {add='0.';}else if(crInp !=='.'){add='.';} 
-smbl+=fin;
-smbl=smbl.split('');
-smbl.forEach(e=>{inp=rep(inp,e,'#')})
-if(tst>laIn(inp,'#')){add=''}
+
+inp = inp.replace(/\d/g,'')
+if(inp[inp.length-1] == '.'){add=''}
 fichour.innerText+=add;
   jump();
+//result.innerText = inp
 }
 
 
@@ -1222,7 +1223,7 @@ function calcule() { //f12
     inp = eval(inp);  inp = inp.fix();
     result.style.color = 'rgb(14, 66, 20)';
     if (inp != fich && !isNaN(inp)) {
-inp=inp+''; 
+inp+=''; 
 let fl ='',i=ind(inp,'.') ;   
 if(i>-1){fl=inp.slice(i,inp.length);inp=inp.slice(0,i)}
  inp = new Intl.NumberFormat().format(inp);
