@@ -9,64 +9,6 @@
       
 <!-- bootstrap -->
 <style>
-  @charset "UTF-8";
-
- :focus
-:root {
-  --bs-blue: #0d6efd;
-  --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
-  --bs-pink: #d63384;
-  --bs-red: #dc3545;
-  --bs-orange: #fd7e14;
-  --bs-yellow: #ffc107;
-  --bs-green: #198754;
-  --bs-teal: #20c997;
-  --bs-cyan: #0dcaf0;
-  --bs-white: #fff;
-  --bs-gray: #6c757d;
-  --bs-gray-dark: #343a40;
-  --bs-gray-100: #f8f9fa;
-  --bs-gray-200: #e9ecef;
-  --bs-gray-300: #dee2e6;
-  --bs-gray-400: #ced4da;
-  --bs-gray-500: #adb5bd;
-  --bs-gray-600: #6c757d;
-  --bs-gray-700: #495057;
-  --bs-gray-800: #343a40;
-  --bs-gray-900: #212529;
-  --bs-primary: #0d6efd;
-  --bs-secondary: #6c757d;
-  --bs-success: #198754;
-  --bs-info: #0dcaf0;
-  --bs-warning: #ffc107;
-  --bs-danger: #dc3545;
-  --bs-light: #f8f9fa;
-  --bs-dark: #212529;
-  --bs-primary-rgb: 13, 110, 253;
-  --bs-secondary-rgb: 108, 117, 125;
-  --bs-success-rgb: 25, 135, 84;
-  --bs-info-rgb: 13, 202, 240;
-  --bs-warning-rgb: 255, 193, 7;
-  --bs-danger-rgb: 220, 53, 69;
-  --bs-light-rgb: 248, 249, 250;
-  --bs-dark-rgb: 33, 37, 41;
-  --bs-white-rgb: 255, 255, 255;
-  --bs-black-rgb: 0, 0, 0;
-  --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg-rgb: 255, 255, 255;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-   "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 400;
-  --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
-  --bs-body-bg: #fff;
-}
-
 *,
 *::before,
 *::after {
@@ -76,21 +18,12 @@
 
 @media (prefers-reduced-motion: no-preference) {
   :root {
-    scroll-behavior: smooth;
+/*    scroll-behavior: smooth;*/
   }
 }
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
-  font-size: var(--bs-body-font-size);
-  font-weight: var(--bs-body-font-weight);
-  line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 a {
@@ -807,7 +740,13 @@ function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {return inp.lastIndexOf(pr,fin)}
 function rep(inp,pr1,pr2) {return inp.replaceAll(pr1,pr2);}
-
+function frNm(vl){
+vl+='';
+let fl ='',i=ind(vl,'.') ;   
+if(i>-1){fl=vl.slice(i,vl.length);vl=vl.slice(0,i)}
+ vl = new Intl.NumberFormat().format(vl);
+return  vl+ fl;
+}
 
 
   /* localStorage.removeItem('lHistF');
@@ -857,10 +796,10 @@ function scNrml() {
 
 /*  jump functin */
 
-function jump(pr){
+function jump(){
   /* //// ce C0N */
 
-      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',symbols = '+-/×*^(',tst2=/\d\d\d/;
+      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',symbols = '+-/×*^(',tst2=/\d\d\d\d/;
       
       while (inp.charAt(0)=='0' && ind(nm,inp.charAt(1))>-1 && inp !='0' ) {  inp=inp.slice(1,inp.length);}
 
@@ -880,18 +819,20 @@ function jump(pr){
 
         }
       }
-/*
-inp=rep(inp,',','');
 
-let frm = new Intl.NumberFormat().format(inp);
-inp=frm;
-inp = inp.replace(/\d\d\d/g,''+/\d\d\d/g)
-*/
+inp=rep(inp,',','');
+if(tst2.test(inp)){
+let  sp = inp.split(/[^\d|'.']/g);
+sp.forEach(e=>{
+if(e){ let vl=e ;vl=frNm(vl);inp=inp.replace(e,vl)}
+})
+}
   fichour.innerText=inp; 
 
      /* //////jump \\\\\\\ */  
   dvfch.scrollTop = dvfch.scrollHeight;
   calcule();
+//result.innerText +=sp
 }
 
 
@@ -904,7 +845,7 @@ function upRes() {
   dvfch.scrollTo({top:1000,behavior:'smooth'})
   svHist(fich,re);fichour.className='';
   setTimeout(() => {
-    fichour.innerText =rep(result.innerText,',','');
+ fichour.innerText =re;
     dvfch.className = 'inp';
     result.innerText = '';
     result.className ='result';
@@ -1006,7 +947,7 @@ function retour() { //f6
       for (let i = 0; i < arRep[0].length; i++) {  inp = rep(inp,arRep[1][i], arRep[0][i]);}
     } else { inp = inp.slice(0, inp.length - 1); }
   fichour.innerText = inp;
-  calcule();
+  jump();
 }
 
 
@@ -1017,7 +958,7 @@ function drgFun() { //f8
     }else if(drg=='rad'){gebi('drg').innerText='grad';ongl='0.015707963267948967';reOngl='63.66197723675813';
     } else {gebi('drg').innerText = 'deg'; ongl ='0.017453292519943295'; reOngl='57.29577951308329' ;
     }
-    calcule();
+    jump();
 }
 
 /* ////mimoiring number \\\\\\*/
@@ -1222,13 +1163,10 @@ function calcule() { //f12
   try {
     inp = eval(inp);  inp = inp.fix();
     result.style.color = 'rgb(14, 66, 20)';
-    if (inp != fich && !isNaN(inp)) {
-inp+=''; 
-let fl ='',i=ind(inp,'.') ;   
-if(i>-1){fl=inp.slice(i,inp.length);inp=inp.slice(0,i)}
- inp = new Intl.NumberFormat().format(inp);
-inp += fl;
-result.innerText = inp;
+
+    if ( !isNaN(inp)) {
+inp=frNm(inp);
+if(inp != fich){result.innerText = inp}
 }
   } catch(e){
     function forErr(pr1,pr2) {result.style.color = 'red';result.innerText = 'You must convert " '+pr1+pr2+ 
