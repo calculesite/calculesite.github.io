@@ -617,11 +617,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     gebi('dvfch').addEventListener("touchend", touchend, false);
 });
    gebi('psSp').onclick = (e)=>{
-
-navigator.clipboard.readText().then((text)=>{ 
-    toFchr(text);});
-
- 
+navigator.clipboard.readText().then((text)=>{toFchr(text)})
 }
     creatin()
 function creatin() { 
@@ -819,9 +815,8 @@ function jump(){
 
         }
       }
-
-inp=rep(inp,',','');
 if(tst2.test(inp)){
+inp=rep(inp,',','');
 let  sp = inp.split(/[^\d|'.']/g);
 sp.forEach(e=>{
 if(e){ let vl=e ;vl=frNm(vl);inp=inp.replace(e,vl)}
@@ -946,6 +941,7 @@ function retour() { //f6
       /////reteur
       for (let i = 0; i < arRep[0].length; i++) {  inp = rep(inp,arRep[1][i], arRep[0][i]);}
     } else { inp = inp.slice(0, inp.length - 1); }
+  inp=rep(inp,',','');
   fichour.innerText = inp;
   jump();
 }
