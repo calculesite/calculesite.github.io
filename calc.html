@@ -590,7 +590,7 @@ nFix();
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],dvfch=gebi('dvfch'),
-    div1= gebi('fdiv'),div2 = gebi('divNum'), onlongtouch,timer, touchduration = 500; 
+    div1= gebi('fdiv'),div2 = gebi('divNum'),inp, onlongtouch,timer, touchduration = 500; 
 
 function touchstart(e) {
     e.preventDefault();
@@ -617,7 +617,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     gebi('dvfch').addEventListener("touchend", touchend, false);
 });
    gebi('psSp').onclick = (e)=>{
-navigator.clipboard.readText().then((text)=>{toFchr(text)})
+navigator.clipboard.readText().then((txt)=>{ inp=slcFchr(txt);toFchr(inp)}) 
 }
     creatin()
 function creatin() { 
@@ -743,8 +743,14 @@ if(i>-1){fl=vl.slice(i,vl.length);vl=vl.slice(0,i)}
  vl = new Intl.NumberFormat().format(vl);
 return  vl+ fl;
 }
-
-
+function slcFchr(inp){
+inp=rep(inp,',',''); let tst = /\d\d\d\d/;
+if(tst.test(inp)){
+let  sp = inp.split(/[^\d|'.']/g);
+sp.forEach(e=>{if(e){ let vl=e ;vl=frNm(vl);inp=inp.replace(e,vl)}})
+}
+return inp
+}
   /* localStorage.removeItem('lHistF');
   localStorage.removeItem('lHistR'); */
 
@@ -794,8 +800,8 @@ function scNrml() {
 
 function jump(){
   /* //// ce C0N */
-
-      let inp  = fichour.innerText,testr=/[^1-9]0\d/g ,nm='0123456789',symbols = '+-/×*^(',tst2=/\d\d\d\d/;
+inp  = fichour.innerText;
+      let testr=/[^1-9]0\d/g ,nm='0123456789',symbols = '+-/×*^(',tst2=/\d\d\d\d/;
       
       while (inp.charAt(0)=='0' && ind(nm,inp.charAt(1))>-1 && inp !='0' ) {  inp=inp.slice(1,inp.length);}
 
@@ -815,19 +821,18 @@ function jump(){
 
         }
       }
+
 if(tst2.test(inp)){
-inp=rep(inp,',','');
-let  sp = inp.split(/[^\d|'.']/g);
-sp.forEach(e=>{
-if(e){ let vl=e ;vl=frNm(vl);inp=inp.replace(e,vl)}
-})
+let  sp = inp.split(/[^\d|'.'|',']/g),e=sp[sp.length-1],vl=e ;
+if(e){vl=rep(vl,',','');vl=frNm(vl);inp=inp.replace(e,vl)}
 }
+
   fichour.innerText=inp; 
 
      /* //////jump \\\\\\\ */  
   dvfch.scrollTop = dvfch.scrollHeight;
   calcule();
-//result.innerText +=sp
+//result.innerText =inp;
 }
 
 
@@ -894,8 +899,7 @@ function addSymbF(pr) {//f4
 
 /* /////// add Symbole + -  \\\\\\\ */
 function addSymbP(pr) { //f5
-    let inp   = fichour.innerText,
-        lenInp = inp.length - 1,
+inp   = fichour.innerText;  let lenInp = inp.length - 1,
         crInp = inp.charAt(lenInp),
         plus     = '+' ,
         symbols  = '/÷*×-+.,';
@@ -913,7 +917,7 @@ function addSymbP(pr) { //f5
 
 /* ////// add virguele \\\\\ */
 function addVrgl() {
-  let inp = '+'+fichour.innerText, fin=')%π', smbl='+-/×*^÷(',crInp=inp.charAt(inp.length -1),add='',tst=laIn(inp,'.'),inSm=0;
+inp = '+'+fichour.innerText;  let  fin=')%π', smbl='+-/×*^÷(',crInp=inp.charAt(inp.length -1),add='',tst=laIn(inp,'.'),inSm=0;
 if(ind(fin,crInp)>-1){add='×0.';} else if ( ind(smbl,crInp)>-1 ) {add='0.';}else if(crInp !=='.'){add='.';} 
 
 inp = inp.replace(/\d/g,'')
@@ -926,7 +930,8 @@ fichour.innerText+=add;
 
 /* ///// retour \\\\\\\\\\\ */
 function retour() { //f6
-  let inp = fichour.innerText,  lenInp = inp.length,symbols = /([a-z]|\^|√)/gi,
+inp = fichour.innerText; 
+  let lenInp = inp.length,symbols = /([a-z]|\^|√)/gi,
       crInp = inp.charAt(lenInp - 1),crInp2 = inp.charAt(lenInp - 2);
   
   
@@ -940,8 +945,9 @@ function retour() { //f6
       inp = inp.slice(0,inp.length - 1);
       /////reteur
       for (let i = 0; i < arRep[0].length; i++) {  inp = rep(inp,arRep[1][i], arRep[0][i]);}
-    } else { inp = inp.slice(0, inp.length - 1); }
-  inp=rep(inp,',','');
+    } else { inp = inp.slice(0, inp.length - 1)}
+let  sp = inp.split(/[^\d|'.'|',']/g),e=sp[sp.length-1],vl=e ;
+vl=rep(vl,',','');inp=inp.replace(e,vl);
   fichour.innerText = inp;
   jump();
 }
