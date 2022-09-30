@@ -617,7 +617,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     gebi('dvfch').addEventListener("touchend", touchend, false);
 });
    gebi('psSp').onclick = (e)=>{
-navigator.clipboard.readText().then((txt)=>{ inp=slcFchr(txt);toFchr(inp)}) 
+navigator.clipboard.readText().then((txt)=>{ toFchr(inp)}) 
 }
     creatin()
 function creatin() { 
@@ -731,7 +731,7 @@ document.addEventListener('click', ()=>{gebi('psSp').style.display ='none'});
 function gebi(pr) { return document.getElementById(pr);}
 function clearing() { /* //f7  */ fichour.innerText = '0'; result.innerText='';}
 function forziro() {if(fichour.innerText=='0'){fichour.innerText='';}}
-function toFchr(pr=mim){forziro();fichour.innerText+=pr;jump();}
+function toFchr(pr=mim){forziro();pr=slcFchr(pr);fichour.innerText+=pr;jump();}
 function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('@#'); return Hist;}
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {return inp.lastIndexOf(pr,fin)}
@@ -745,9 +745,9 @@ return  vl+ fl;
 }
 function slcFchr(inp){
 inp=rep(inp,',',''); let tst = /\d\d\d\d/;
-if(tst.test(inp)){
+if( tst.test(inp)){
 let  sp = inp.split(/[^\d|'.']/g);
-sp.forEach(e=>{if(e){ let vl=e ;vl=frNm(vl);inp=inp.replace(e,vl)}})
+sp.forEach(e=>{if(e){ let vl=e ;vl=frNm(vl);inp=inp.replace(e,vl) }})
 }
 return inp
 }
@@ -762,8 +762,6 @@ function hist() {
     gebi('divHist').className +=' dHtrnf';
   }, 100);
   gebi('lHist').scrollTop = gebi('lHist').scrollHeight;
-  /* transform:scaleY(1); */
-  /* gebi('divHist').style.nsform.scaleY()=1; */
 }
 
 function hidHist( ) {
@@ -824,7 +822,7 @@ inp  = fichour.innerText;
 
 if(tst2.test(inp)){
 let  sp = inp.split(/[^\d|'.'|',']/g),e=sp[sp.length-1],vl=e ;
-if(e){vl=rep(vl,',','');vl=frNm(vl);inp=inp.replace(e,vl)}
+if(e){vl=rep(vl,',','');vl=frNm(vl); inp=inp.slice(0,laIn(inp,e));inp+=vl;}
 }
 
   fichour.innerText=inp; 
@@ -947,7 +945,8 @@ inp = fichour.innerText;
       for (let i = 0; i < arRep[0].length; i++) {  inp = rep(inp,arRep[1][i], arRep[0][i]);}
     } else { inp = inp.slice(0, inp.length - 1)}
 let  sp = inp.split(/[^\d|'.'|',']/g),e=sp[sp.length-1],vl=e ;
-vl=rep(vl,',','');inp=inp.replace(e,vl);
+inp=inp.slice(0,laIn(inp,e));
+vl=rep(vl,',','');inp+=vl;
   fichour.innerText = inp;
   jump();
 }
