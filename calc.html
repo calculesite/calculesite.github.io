@@ -731,7 +731,7 @@ document.addEventListener('click', ()=>{gebi('psSp').style.display ='none'});
 function gebi(pr) { return document.getElementById(pr);}
 function clearing() { /* //f7  */ fichour.innerText = '0'; result.innerText='';}
 function forziro() {if(fichour.innerText=='0'){fichour.innerText='';}}
-function toFchr(pr=mim){forziro();pr=slcFchr(pr);fichour.innerText+=pr;jump();}
+function toFchr(pr=mim){let fch=fichour.innerText; forziro();fch+=pr;fch=slcFchr(fch);fichour.innerText=fch;jump()}
 function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('@#'); return Hist;}
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {return inp.lastIndexOf(pr,fin)}
