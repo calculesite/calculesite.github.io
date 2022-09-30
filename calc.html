@@ -607,12 +607,15 @@ function touchend() {
     }
 }
 
-onlongtouch = function() { 
-    timer = null;
-    document.getElementById('psSp').style.display='inline'; 
-};
+onlongtouch = ()=> { 
+    timer = null; document.getElementById('psSp').style.display='inline';
+let  range = document.createRange(), selection = window.getSelection();
+    range.selectNodeContents(fichour);
+    selection.removeAllRanges();
+    selection.addRange(range)
+}
 
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", ()=> { 
     gebi('dvfch').addEventListener("touchstart", touchstart, false);
     gebi('dvfch').addEventListener("touchend", touchend, false);
 });
