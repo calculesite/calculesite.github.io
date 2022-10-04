@@ -16,12 +16,6 @@
   padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-/*    scroll-behavior: smooth;*/
-  }
-}
-
 body {
   margin: 0;
 }
@@ -78,22 +72,9 @@ button:not(:disabled),
    background-color 0.15s ease-in-out,
    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-@media (prefers-reduced-motion: reduce) {
-  .btn {
-    transition: none;
-  }
-}
 .btn:hover {
   color: #212529;
 }
-.btn-check:focus + .btn, .btn:focus {
-   outline: none;
- /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); */
-}
-/* .btn:disabled, .btn.disabled, fieldset:disabled .btn {
-  pointer-events: none;
-  opacity: 0.65;
-} */
 
 .btn-primary {
   color: #fff;
@@ -105,23 +86,6 @@ button:not(:disabled),
   background-color: #0b5ed7;
   border-color: #0a58ca;
 }
-/* .btn-check:focus + .btn-primary, .btn-primary:focus {
-  color: #fff;
-  background-color: #0b5ed7;
-  border-color: #0a58ca;
-  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5); 
-} */
-.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary,
- .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
-  color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-.btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus,
- .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
-}
-
 .btn-primary:disabled, .btn-primary.disabled {
   color: #fff;
   background-color: #0d6efd;
@@ -137,18 +101,6 @@ button:not(:disabled),
   background-color: #157347;
   border-color: #146c43;
 }
-
-/* .btn-check:checked + .btn-success, .btn-check:active + .btn-success,
- .btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
-  color: #fff;
-  background-color: #146c43;
-  border-color: #13653f;
-}*/
-.btn-check:checked + .btn-success:focus, .btn-check:active +
- .btn-success:focus, .btn-success:active:focus, .btn-success.active:focus,
-  .show > .btn-success.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
-} 
 .btn-success:disabled, .btn-success.disabled {
   color: #fff;
   background-color: #198754;
@@ -160,34 +112,6 @@ button:not(:disabled),
   background-color: #0dcaf0;
   border-color: #0dcaf0;
 }
-.btn-info:hover {
-  color: #000;
-  background-color: #31d2f2;
-  border-color: #25cff2;
-}
-/*  .btn-check:focus + .btn-info, .btn-info:focus {
-  color: #000;
-  background-color: #31d2f2;
-  border-color: #25cff2;
-  box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
-}  */
-.btn-check:checked + .btn-info, .btn-check:active + .btn-info, .btn-info:active,
- .btn-info.active, .show > .btn-info.dropdown-toggle {
-  color: #000;
-  background-color: #3dd5f3;
-  border-color: #25cff2;
-}
-.btn-check:checked + .btn-info:focus, .btn-check:active + .btn-info:focus,
- .btn-info:active:focus, .btn-info.active:focus, .show > .btn-info.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
-}
-.btn-info:disabled, .btn-info.disabled {
-  color: #000;
-  background-color: #0dcaf0;
-  border-color: #0dcaf0;
-}
- 
-
 
 .card {
   position: relative;
@@ -367,10 +291,9 @@ button:not(:disabled),
     overflow-y: auto;
     cursor: pointer;
 }
-.inp ,.result ,button :focus{
+.inp:hover,.result ,button :focus{
     outline-width: inherit;
-    outline: none;
-    
+    outline: none
 }
 
 .result{
@@ -570,7 +493,7 @@ animation:blink 1s step-end  infinite;
     
     <p id="mimoir" class="mimoir">M</p>
     <span id='psSp' >paste</span>
-    <div id="dvfch" class="inp scrl" ><span id="fichour" class="fchr">0</span></div>
+    <div id="dvfch" class="inp scrl"><span id="fichour" class="fchr">0</span></div>
 
     <div id="result" class="result "  ></div>
     
@@ -593,7 +516,7 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
     div1= gebi('fdiv'),div2 = gebi('divNum'),inp, onlongtouch,timer, touchduration = 500; 
 
 function touchstart(e) {
-    e.preventDefault();
+  // e.style.backgroundColor = 'red' ;
     if (!timer) {
         timer = setTimeout(onlongtouch, touchduration);
     }
@@ -607,13 +530,13 @@ function touchend() {
     }
 }
 
-onlongtouch = ()=> { 
+onlongtouch = function() { 
     timer = null; document.getElementById('psSp').style.display='inline';
-let  range = document.createRange(), selection = window.getSelection();
+/*let  range = document.createRange(), selection = window.getSelection();
     range.selectNodeContents(fichour);
     selection.removeAllRanges();
-    selection.addRange(range)
-}
+    selection.addRange(range);*/
+};
 
 document.addEventListener("DOMContentLoaded", ()=> { 
     gebi('dvfch').addEventListener("touchstart", touchstart, false);
@@ -734,7 +657,10 @@ document.addEventListener('click', ()=>{gebi('psSp').style.display ='none'});
 function gebi(pr) { return document.getElementById(pr);}
 function clearing() { /* //f7  */ fichour.innerText = '0'; result.innerText='';}
 function forziro() {if(fichour.innerText=='0'){fichour.innerText='';}}
-function toFchr(pr=mim){let fch=fichour.innerText; forziro();fch+=pr;fch=slcFchr(fch);fichour.innerText=fch;jump()}
+function toFchr(pr=mim){let fch=fichour.innerText,pr2=pr.replace(/\d|,/g,''); forziro();
+inp = fch.replace(/\d/g,'');
+if(inp[inp.length-1] == '.' && pr2[0] == '.' ){fch+='+'}
+fch+=pr;fch=slcFchr(fch);fichour.innerText=fch;jump()}
 function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('@#'); return Hist;}
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {return inp.lastIndexOf(pr,fin)}
