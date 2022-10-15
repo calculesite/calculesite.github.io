@@ -654,10 +654,12 @@ document.addEventListener('click', ()=>{gebi('psSp').style.display ='none'});
 function gebi(pr) { return document.getElementById(pr);}
 function clearing() { /* //f7  */ fichour.innerText = '0'; result.innerText='';}
 function forziro() {if(fichour.innerText=='0'){fichour.innerText='';}}
-function toFchr(pr=mim){let fch=fichour.innerText,pr2=pr.replace(/\d|,/g,''); forziro();
+function toFchr(pr=mim){
+forziro();
+let fch=fichour.innerText,pr2=pr.replace(/\d|,/g,''); 
 inp = fch.replace(/\d/g,'');
-if(inp[inp.length-1] == '.' && pr2[0] == '.' ){fch+='+'}
-fch+=pr;fch=slcFchr(fch);fichour.innerText=fch;jump()}
+if(inp[inp.length-1] == '.' && pr2[0] == '.' ){fch+='+' + slcFchr(pr)}else{fch+=pr;fch=slcFchr(fch)}
+fichour.innerText=fch;jump()}
 function hiToDiv(FR) {let Hist = localStorage['lHist' + FR]; Hist = Hist.split('@#'); return Hist;}
 function ind(inp,pr,pr2=0) {inp=inp.indexOf(pr,pr2);return inp;}
 function laIn(inp,pr,fin=inp.length) {return inp.lastIndexOf(pr,fin)}
@@ -1110,4 +1112,4 @@ if(inp != fich){result.innerText = inp}
 </script>
 </body>
 </html>
-
+ 
