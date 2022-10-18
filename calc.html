@@ -669,7 +669,7 @@ function frNm(vl){
 vl+='';
 let fl ='',i=ind(vl,'.') ;   
 if(i>-1){fl=vl.slice(i,vl.length);vl=vl.slice(0,i)}
- vl = new Intl.NumberFormat().format(vl);
+ vl = new Intl.NumberFormat('en-us').format(vl);
 return  vl+ fl;
 }
 function slcFchr(inp){
