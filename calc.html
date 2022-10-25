@@ -182,6 +182,7 @@ button:not(:disabled),
     border-width: medium;
     border-radius: 6%;
     cursor: pointer;
+   -webkit-tap-highlight-color: transparent ;
 }
 
 .mimoir{
@@ -202,10 +203,8 @@ button:not(:disabled),
 
 
 .btn-ver{
-
     background: #198743;
     transition: 0.3s;
-    
 }
 
 .Cbtn{
@@ -227,28 +226,19 @@ button:not(:disabled),
 .btn-primary2.disabled{
     background-color:#ff5a61 ;
     border-color: #ee3c3e;
-    padding: 10%;/* 
-    height: 100%; */
-    
+    padding: 10%;
 }
 
 .btn-primary2:hover{
     background-color: rgb(248, 61, 61) ;
-    border-color: rgb(254, 34, 34);
-    
+    border-color: rgb(254, 34, 34);  
 }
 
-</style>
-
-  <style>
-
     #background {
-      
       text-align: center;
       background-size:cover;
       background-position:center center;
       background-repeat: no-repeat;
-      
     }
     
     #inner-wrapper{
@@ -256,7 +246,6 @@ button:not(:disabled),
       min-height: 95vh;
       background-color: white;
       text-align:center;
-      
       color:white;
     }
     
@@ -267,12 +256,10 @@ button:not(:disabled),
       margin-top: 30px;
     }
 
-
     .register_form{
       max-width:450px!important;
       margin:10px auto;
       color:black;
-
       text-align: left;
     }
 
@@ -282,13 +269,15 @@ button:not(:disabled),
     box-sizing: border-box;
     font: 400 13.3333px Arial;
     font-size: 30px;
-    background-color: floralwhite ;
+    background-color: floralwhite;
     width: 99.8%;
     margin: 20px 0px -32px 0%;
     padding: 5px 15px 30px 18px;
     border-radius: 10px;
     height: 150px;
     overflow-y: auto;
+   -webkit-tap-highlight-color: transparent ;
+cursor: pointer;
    /* pointer-events: none;*/
     
 }
@@ -298,9 +287,9 @@ button:not(:disabled),
     font-size: 25px;
     height: 32px;
     width: 90%;
-    background-color: floralwhite;
+    background-color: floralwhite ;
     color: rgb(14, 66, 20);
-    opacity:99.99%
+    opacity:.8
 }
 
 .inp:hover,.result:hover{
@@ -313,10 +302,7 @@ button:not(:disabled),
     font-size: 30px;
     color: black
 }
-
-
 .nrml{
-  
   display: none;
     grid-template-columns: repeat(4,1fr) ;
     margin-top: 15px;
@@ -325,8 +311,6 @@ button:not(:disabled),
     margin-bottom: 55px; 
   
 }
-
-
  .hist{
     float: right;
     margin: -4px 13px 3px;
@@ -347,7 +331,6 @@ button:not(:disabled),
     overflow-y: hidden;
     transition: .2s;
     transform:scaleY(0);
-    
  }
 ::-webkit-scrollbar{ width: 9px; height: 5px;}
 ::-webkit-scrollbar-track{ background-color: #f6f6f6}
@@ -356,7 +339,6 @@ button:not(:disabled),
     border-radius: 7px
 }
  .dHtrnf{transform:scaleY(1)}
- 
 
  @media (max-width: 500px) {
     .divHist{
@@ -364,8 +346,6 @@ button:not(:disabled),
     margin: 1% 2% ;
     }
  }    
- 
-
  .inpHist{
     background-color: transparent;
     font-size: 30px;
@@ -405,6 +385,7 @@ button:not(:disabled),
     float: right;
     display: block;
     cursor: pointer;
+  -webkit-tap-highlight-color: transparent ;
     margin: 2% 15px 0px;
 }   
 #contHist{ /* continer historie */
@@ -650,7 +631,6 @@ document.addEventListener('click', ()=>{gebi('psSp').style.display ='none'});
   gebi('clVu').style.display = 'none'; 
 }
 
-
 /* ////// short function \\\\\\\\\\ */
 function gebi(pr) { return document.getElementById(pr);}
 function clearing() { /* //f7  */ fichour.innerText = '0'; result.innerText='';}
@@ -669,7 +649,7 @@ function frNm(vl){
 vl+='';
 let fl ='',i=ind(vl,'.') ;   
 if(i>-1){fl=vl.slice(i,vl.length);vl=vl.slice(0,i)}
- vl = new Intl.NumberFormat('en-us').format(vl);
+ vl = new Intl.NumberFormat('en').format(vl);
 return  vl+ fl;
 }
 function slcFchr(inp){
@@ -1056,7 +1036,7 @@ function calcule() { //f12
   if(inp.charAt(0)==='+' || inp.charAt(0)==='-' ){inp='0'+inp}
 
   /* ////replasment\\\\ */
-  arSy = [[',',''],['×','*'],['%','*1/100'],['^','**'],['²','**(2)'],['π','(3.141592653589793)'],['÷','/'],[' ',''],[' ','']];
+  arSy = [[' ',''],[' ',''],[',',''],['×','*'],['%','*1/100'],['^','**'],['²','**(2)'],['π','(3.141592653589793)'],['÷','/']];
   arSy.forEach((e)=>{inp = rep(inp,e[0], e[1]);})
 
   if (ind(inp,'(')>-1 ||ind(inp,'e**')>-1) {
