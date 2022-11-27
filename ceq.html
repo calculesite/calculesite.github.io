@@ -1072,7 +1072,7 @@
           }
 
         let a2 = (a ** 2).fix(13),    a3 = (a ** 3).fix(13),         b2 = (b ** 2).fix(13),   b3 = (b ** 3).fix(13),
-            p = (c / a - b2 / (3 * a2)).fix(),                     p3 = (p ** 3).fix() ,cMeth, 
+            p = (c / a - b2 / (3 * a2)).fix(),                     p3 = (p ** 3).fix() ,cMeth='', 
             q = (2 * b3 /(27 * a3) - b*c/(3 * a2) +d / a).fix(),   q2 = (q ** 2).fix(), fx1 ,fx2 ,fx3,
             dilta2 = (p3 / 27 + q2 / 4).fix()  ,t1, x,dilta = Math.pow(Math.abs(dilta2), 1 / 2);
         if (b !=0) {
