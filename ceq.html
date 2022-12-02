@@ -23,24 +23,12 @@
         --bs-body-bg: #fff;
       }
 
-      *,
-      *::before,
-      *::after {
+      *,*::before, *::after {
         box-sizing: border-box;
       } 
 
-      h6,
-      .h6,
-      h5,
-      .h5,
-      h4,
-      .h4,
-      h3,
-      .h3,
-      h2,
-      .h2,
-      h1 ,
-      .h1 {
+      
+      h4,.h4,h3,.h3,h2,.h2,h1 ,.h1 {
         margin-top: 0;
         margin-bottom: 0.5rem;
         font-weight: 500;
@@ -828,21 +816,21 @@
                 <!-- Form -->
             
                 a = <input id="a" onclick="selectText('a','b','d')" required  aria-atomic="false" 
-                type="text" value="0" class="form-control" placeholder="a">
+                type="text" class="form-control" placeholder="0">
                 <span id="vala" class="worning"></span>
                 </br>
                 b = <input id="b" onclick="selectText('b','c','a')" required aria-atomic="false" 
-                type="text" value="0"  class="form-control" placeholder="b">
+                type="text"  class="form-control" placeholder="0">
                 <span id="valb" class="worning"></span>
                 </br>
 
                 c = <input id="c" onclick="selectText('c','d','b')" required aria-atomic="false" 
-                type="text" value="0"  class="form-control" placeholder="c">
+                type="text"  class="form-control" placeholder="0">
                 <span id="valc" class="worning"></span>
                 </br>
 
                 d = <input id="d" onclick="selectText('d','Cal','c')" required aria-atomic="false" 
-                type="text" value="0"  class="form-control" placeholder="d">
+                type="text"  class="form-control" placeholder="0">
                 <span id="vald" class="worning"></span>
                 </br><p id="log"></p>
                 <div class="boton"><button id="Cal" type='button' onclick="fin()" 
@@ -923,7 +911,9 @@
       /////// validation of number \\\\\\\
       function valNum(alfa, alfb, alfc, evKC) {
         'use strict';
-        let val = 'val' + alfa,   pvaled = gebi(val),num = gebi(alfa).value,
+        let num = gebi(alfa).value;
+        if (num =='') {num='0'}
+        let val = 'val' + alfa,   pvaled = gebi(val),
              err=['f','j','k','u','v','w','x','y','z'],crz=num.charAt(0);
         err.forEach((e)=>{num=num.replace(e,'error');});
         if (/[^0-9]/gi.test(num)) {
@@ -972,7 +962,21 @@
         setTimeout(() => { gebi('divMeth').className += ' dMtrnf'; }, 50);
       }
 
-
+       function carctr(x){
+        let y = '@'+x.fix(10);
+        if(ind(y,'.')<0){return x}
+        y = '@'+(x**2).fix(10);
+        if (ind(y,'.')<0) {return '√'+(x**2).fix(10)}
+        y = '@'+(x**3).fix(10);
+        if(ind(y,'.')<0){return '³√'+(x**3).fix(10)}
+        y = '@'+(x*3.141592653589793).fix(10);
+        if(ind(y,'.')<0){return (x*3.141592653589793).fix(10)+'π'}
+        for (let i = 2; i < 100; i++) {
+          y = '@'+(x*i).toFixed(10);
+          if(ind(y,'.')<0){ x= (x*i).toFixed(10)+'/'+i; break}
+        }
+        return x
+      } 
       /////// function total \\\\\\\\\\\\
       function fin() {
         'use strict';
@@ -988,7 +992,7 @@
       function prFun(a,b,n=1) {
         if (a!=0 ) {
           let x = -b / a ;
-          result.innerHTML += sub(n)+' = ' + x;
+          result.innerHTML += sub(n)+' = ' + carctr(x);
           tMeth.innerHTML+='ax + b = 0 → '+sub(n)+' = -b/a </br> '+sub(n)+' = '+
            -b +'/'+a +' </br> '+sub(n)+' = '+x;
         }else if (b!=0){
@@ -1018,19 +1022,20 @@
           x1 = (-b  + dilta) / (2 * a);   x1 = x1.fix(13);
           x2 = -(b  + dilta) / (2 * a);   x2 = x2.fix(13); 
 
-         let cx1=' = '+x1, cx2=' = '+x2;
+         let cx1=' = '+carctr(x1), cx2=' = '+carctr(x2);
          if(ind(re,cx2)>-1){ [cx1,cx2]=[cx2,cx1]} 
          if(ind(re,cx1)>-1){re=sub(1)+',';}
 
-         re += sub(i) + ' = ' + x1 + '</br>'+ sub(i2)+ ' = ' + x2;
+         re += sub(i) + cx1 + '</br>'+ sub(i2)+ cx2;
          cRet=[x1,x2];
         } else if (dilta2 == 0) {
-          x1 = -b / (2 * a); x1 = x1.fix(13);   x2=x1;
+          x1 = -b / (2 * a); x1 = x1.fix(13); x1=carctr(x1); x2=x1;
           re += sub(i)+ ', '+sub(i2)+' = ' + x1;cRet=['a']
         } else {
           let tx = -b / (2 * a),   ty = Math.abs(dilta / (2 * a)).fix(13),pl=' +i';
           tx = tx.fix(13); 
-          if(tx==0){tx = '';pl=' i';}
+          if(tx==0){tx = '';pl=' i'};
+          tx=carctr(tx);ty=carctr(ty);
           re += sub(i)+ ' = ' + tx + pl + ty +
             '</br>'+ sub(i2)+ ' = ' + tx + ' -i' + ty;
           x1 = tx + pl + ty;    x2 = tx + ' -i' + ty;
@@ -1062,7 +1067,7 @@
           if (a+b+c+d==0) {tMeth.innerHTML +='as a +b +c +d = '+a+' '+plus(b)+' '+plus(c)+' '+plus(d)+
           ' = 0 </br> → '+sub(i)+' = 1';easy(1);  return 'stop'; }
           if (a+c==b+d) {tMeth.innerHTML+='as a+c = b+d → '+sub(i)+' = -1';
-          easy(-1);return 'stop';}
+          easy(-1);return 'stop'}
           function easy(pr) {
             result.innerHTML = ' '+sub(i)+' = '+pr+'</br>';   bs=(b+pr*a).fix(); cs= (-d/pr).fix();
             tMeth.innerHTML +='</br> f(x) = (x -'+sub(i)+')(ax² +bx +c)'+
@@ -1072,7 +1077,7 @@
           }
 
         let a2 = (a ** 2).fix(13),    a3 = (a ** 3).fix(13),         b2 = (b ** 2).fix(13),   b3 = (b ** 3).fix(13),
-            p = (c / a - b2 / (3 * a2)).fix(),                     p3 = (p ** 3).fix() ,cMeth='', 
+            p = (c / a - b2 / (3 * a2)).fix(),                     p3 = (p ** 3).fix() ,cMeth, 
             q = (2 * b3 /(27 * a3) - b*c/(3 * a2) +d / a).fix(),   q2 = (q ** 2).fix(), fx1 ,fx2 ,fx3,
             dilta2 = (p3 / 27 + q2 / 4).fix()  ,t1, x,dilta = Math.pow(Math.abs(dilta2), 1 / 2);
         if (b !=0) {
@@ -1112,8 +1117,8 @@
         x = (t1  -b/(3*a)) ; /*cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';*/
         fx1=aplFn(x);fx2=aplFn(x+5e-11)*1e13;fx3=aplFn(x-5e-11)*1e13;
         if (fx2*fx3>0) { let xf = ext(); if(aplFn(xf) < fx1){x=xf} console.log("dkhal felconfermation"); }
-        x = x.fix(10);
-        result.innerHTML = ' '+sub(i)+' = ' + x + '</br>';
+        x = x.fix(10); 
+        result.innerHTML = ' '+sub(i)+' = ' + carctr(x) + '</br>';
         cMeth +='</br>'+sub(i)+' = T1 -b/3a = '+t1+ngtv(b)+'/(3×'+ngtvB(a)+')</br>'+sub(i)+' = '+x;
         tMeth.innerHTML +=cMeth;easy(x);
 
