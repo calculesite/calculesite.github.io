@@ -493,32 +493,13 @@ nFix();
       /*////  variables    5310.0000000001 */
 let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =gebi('fichour'),SCN='normal',
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],dvfch=gebi('dvfch'),
-    div1= gebi('fdiv'),div2 = gebi('divNum'),inp, onlongtouch,timer, touchduration = 500; 
+    div1= gebi('fdiv'),div2 = gebi('divNum'),inp;   
 
-function touchstart(e) {
-  // e.style.backgroundColor = 'red' ;
-    if (!timer) {
-        timer = setTimeout(onlongtouch, touchduration);
-    }
+    gebi('dvfch').aoncontextmenu = (ev)=>{
+ev.preventDefault();
+gebi('psSp').style.display='inline';
 }
-
-function touchend() {
-    //stops short touches from firing the event
-    if (timer) {
-        clearTimeout(timer);
-        timer = null;
-    }
-}
-
-onlongtouch= ()=> { 
-   timer = null;
- gebi('psSp').style.display='inline';
-}
-
-document.addEventListener("DOMContentLoaded", ()=> { 
-    gebi('dvfch').addEventListener("touchstart", touchstart, false);
-    gebi('dvfch').addEventListener("touchend", touchend, false);
-});
+    
 
    gebi('psSp').onclick = ()=>{
 navigator.clipboard.readText().then((txt)=>{ toFchr(txt)}) 
