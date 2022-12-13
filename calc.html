@@ -495,7 +495,7 @@ let ongl = '0.017453292519943' ,reOngl='57.29577951308329', mim='' ,fichour =geb
     result = gebi('result'),rLHF=[],rLHR=[],psClk=0,num = ['0','1','2','3','4','5','6','7','8','9'],dvfch=gebi('dvfch'),
     div1= gebi('fdiv'),div2 = gebi('divNum'),inp;   
 
-    gebi('dvfch').aoncontextmenu = (ev)=>{
+    gebi('dvfch').oncontextmenu = (ev)=>{
 ev.preventDefault();
 gebi('psSp').style.display='inline';
 }
