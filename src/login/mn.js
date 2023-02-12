@@ -26,7 +26,7 @@ frm.onsubmit = (e)=>{
 
     let email = frm.email.value,password= frm.password.value;
     const auth = getAuth(app);
-    connectAuthEmulator(auth , "https://calculesite.github.io");
+   // connectAuthEmulator(auth , "https://calculesite.github.io");
 signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
