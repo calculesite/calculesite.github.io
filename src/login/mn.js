@@ -1,54 +1,47 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
-//import { getAuth , onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
-import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
-
-import {getAuth ,createUserWithEmailAndPassword}from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
-
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// Initialize Firebase
-const app = initializeApp({ 
-  apiKey: "AIzaSyAg_3ncEmrp0O29_3jM6LkzL1yOu5paIPI",
-  authDomain: "cnfrmpage.firebaseapp.com",
-  databaseURL: "https://cnfrmpage-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "cnfrmpage",
-  storageBucket: "cnfrmpage.appspot.com",
-  messagingSenderId: "672008583246",
-  appId: "1:672008583246:web:04e62617ab39a150632b1f",
-  measurementId: "G-9BQZPWC9SG"
-});
-const analytics = getAnalytics(app);
-const database = getDatabase(app);
-const auth = getAuth(app);
-createUserWithEmailAndPassword(auth, 'cnfrmt3gthb@gmail.com', 'mdbt3GTHB')
+import { app, gebi} from "../main.js"
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+/* 
+  ,createUserWithEmailAndPassword
+import { createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+createUserWithEmailAndPassword(auth, 'confirmationpages896@gmail.com', 'confirmPAGE48.')
 .then((userCredential) => {
     // Signed in 
     console.log('cryaha');
 })
 .catch((error) => {
   console.log(error.code);
-  console.log('makhdmch');
-})
-/* 
-//set 
-let dataPro = [];
-localStorage.setItem('product' , JSON.stringify(dataPro));
+});
+ */
 
-//get
-if (localStorage.product != null) {
-  dataPro = JSON.parse( localStorage.product)
+let auth = getAuth(app),frm = document.forms[0],datCoki= new Date();
+ datCoki.setDate(365);
+
+frm.onsubmit = (e)=>{
+    e.preventDefault();
+    let email = frm.email.value,password= frm.password.value;
+    toPage(email, password);
 }
-*/
 
-
-
-let gebi = p => document.getElementById(p)
-
-
-export {app,database, getDatabase, ref, child, get, gebi,auth}
+ function toPage(email, password) {
+  
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+      // Signed in 
+      document.cookie='UsrEmail=enter;expires='+datCoki+';path=/';
+      window.open('add','_self','','false')
+  })
+  .catch((error) => {
+    console.log(error.code)
+    if(error.code == 'auth/user-not-found'){
+      gebi('errEmail').style.display = 'block';
+      setTimeout(() => {
+        gebi('errEmail').style.display = 'none';
+      }, 2000);
+    }else if(error.code == 'auth/wrong-password'){
+      gebi('errPaswrd').style.display = 'block';
+      setTimeout(() => {
+        gebi('errPaswrd').style.display = 'none';
+      }, 2000);
+    }
+  }); 
+}
