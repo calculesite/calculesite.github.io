@@ -1,52 +1,54 @@
-import { app} from "../main.js"
-import { getAuth, signInWithEmailAndPassword ,connectAuthEmulator} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+//import { getAuth , onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+import {getAuth ,createUserWithEmailAndPassword}from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
 
-/* createUserWithEmailAndPassword(auth, 'confirme@gmail.com', 'CnfrM48@.')
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Initialize Firebase
+const app = initializeApp({ 
+  apiKey: "AIzaSyAg_3ncEmrp0O29_3jM6LkzL1yOu5paIPI",
+  authDomain: "cnfrmpage.firebaseapp.com",
+  databaseURL: "https://cnfrmpage-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "cnfrmpage",
+  storageBucket: "cnfrmpage.appspot.com",
+  messagingSenderId: "672008583246",
+  appId: "1:672008583246:web:04e62617ab39a150632b1f",
+  measurementId: "G-9BQZPWC9SG"
+});
+const analytics = getAnalytics(app);
+const database = getDatabase(app);
+const auth = getAuth(app);
+createUserWithEmailAndPassword(auth, 'cnfrmt3gthb@gmail.com', 'mdbt3GTHB')
 .then((userCredential) => {
     // Signed in 
-    const user = userCredential.user;
-    
-    if (user != nul) {
-        console.log('true');
-    }
-    console.log(user);
-    // ...
-  })
-  .catch((error) => {
-     console.log(error.code);
-     console.log(error.message);
-  }); */
+    console.log('cryaha');
+})
+.catch((error) => {
+  console.log(error.code);
+  console.log('makhdmch');
+})
+/* 
+//set 
+let dataPro = [];
+localStorage.setItem('product' , JSON.stringify(dataPro));
 
-let frm = document.forms[0],datCoki= new Date();
- datCoki.setDate(365);
-
-frm.onsubmit = (e)=>{
-    e.preventDefault();
-
-    let email = frm.email.value,password= frm.password.value;
-    const auth = getAuth(app);
-   // connectAuthEmulator(auth , "https://calculesite.github.io");
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    if (user != nul) {
-        console.log('true');
-        
-        /*     document.cookie='UsrEmail='+emfr+';expires='+datCoki+';path=/';
-            document.cookie='UsrPassword='+psfr+';expires='+datCoki+';path=/';
-            window.open("add/index.html",'_self')
-         */
-    }
-    console.log(user);
-    // ...
-    return 0
-  })
-  .catch((error) => {
-     console.log(error.code);
-     console.log(error.message);
-     console.log(error);
-  });
-     
+//get
+if (localStorage.product != null) {
+  dataPro = JSON.parse( localStorage.product)
 }
+*/
+
+
+
+let gebi = p => document.getElementById(p)
+
+
+export {app,database, getDatabase, ref, child, get, gebi,auth}
