@@ -1,0 +1,18 @@
+{ 
+    "short_name": "calculator", 
+    "name": "calculator scientifique", 
+    "icons": [{  
+        "src": "/calc192×192.png", 
+        "type": "image/png", 
+        "sizes": "192x192"
+    },
+    {
+        "src": "/images/calc512×512.png",
+        "type": "image/png", 
+        "sizes": "512x512" 
+    } ],
+    "start_url": "/calc.html", 
+    "background_color": "#3367D6", 
+    "display": "standalone", 
+    "theme_color": "#3367D6" 
+}
