@@ -1,1156 +1,1170 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title>Solving cubic equation </title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon"    href="https://calculesite.github.io/cueq.png">
-    <style>
-      :focus:root {
-        --bs-success: #198754;
-        --bs-body-color-rgb: 33, 37, 41;
-        --bs-body-bg-rgb: 255, 255, 255;
-        --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-          "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-        --bs-body-font-family: var(--bs-font-sans-serif);
-        --bs-body-font-size: 1rem;
-        --bs-body-font-weight: 400;
-        --bs-body-line-height: 1.5;
-        --bs-body-color: #212529;
-        --bs-body-bg: #fff;
-      }
+<head>
+  <title>Solving cubic equation </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://calculesite.github.io/cueq.png">
+  <style>
+    :focus:root {
+      --bs-success: #198754;
+      --bs-body-color-rgb: 33, 37, 41;
+      --bs-body-bg-rgb: 255, 255, 255;
+      --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+        "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+      --bs-body-font-family: var(--bs-font-sans-serif);
+      --bs-body-font-size: 1rem;
+      --bs-body-font-weight: 400;
+      --bs-body-line-height: 1.5;
+      --bs-body-color: #212529;
+      --bs-body-bg: #fff;
+    }
 
-      *,*::before, *::after {
-        box-sizing: border-box;
-      } 
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-      
-      h4,.h4,h3,.h3,h2,.h2,h1 ,.h1 {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        line-height: 1.2;
-      }
+
+    h4,
+    .h4,
+    h3,
+    .h3,
+    h2,
+    .h2,
+    h1,
+    .h1 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h1,
+    .h1 {
+      font-size: calc(1.375rem + 1.5vw);
+    }
+
+    @media (min-width: 1200px) {
 
       h1,
       .h1 {
-        font-size: calc(1.375rem + 1.5vw);
+        font-size: 2.5rem;
       }
+    }
 
-      @media (min-width: 1200px) {
+    p {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
 
-        h1,
-        .h1 {
-          font-size: 2.5rem;
-        }
-      }
+    abbr[title],
+    abbr[data-bs-original-title] {
+      -webkit-text-decoration: underline dotted;
+      text-decoration: underline dotted;
+      cursor: help;
+      -webkit-text-decoration-skip-ink: none;
+      text-decoration-skip-ink: none;
+    }
 
-      p {
-        margin-top: 0;
-        margin-bottom: 1rem;
-      }
+    sub,
+    sup {
+      position: relative;
+      font-size: 0.75em;
+      line-height: 0;
+      vertical-align: baseline;
+    }
 
-      abbr[title],
-      abbr[data-bs-original-title] {
-        -webkit-text-decoration: underline dotted;
-        text-decoration: underline dotted;
-        cursor: help;
-        -webkit-text-decoration-skip-ink: none;
-        text-decoration-skip-ink: none;
-      }
+    sub {
+      bottom: -0.25em;
+    }
 
-      sub,
-      sup {
-        position: relative;
-        font-size: 0.75em;
-        line-height: 0;
-        vertical-align: baseline;
-      }
+    sup {
+      top: -0.5em;
+    }
 
-      sub {
-        bottom: -0.25em;
-      }
+    .fs-5 {
+      font-size: 1.25rem !important;
+      margin-left: -5px;
+    }
 
-      sup {
-        top: -0.5em;
-      }
+    .fs-1 {
+      font-size: calc(1.375rem + 1.5vw) !important;
+    }
 
-      .fs-5 {
-        font-size: 1.25rem !important;
-        margin-left: -5px;
-      }
-
+    @media (min-width: 1200px) {
       .fs-1 {
-        font-size: calc(1.375rem + 1.5vw) !important;
+        font-size: 2.5rem !important;
       }
+    }
 
-      @media (min-width: 1200px) {
-        .fs-1 {
-          font-size: 2.5rem !important;
-        }
+    a {
+      color: #0d6efd;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #0a58ca;
+    }
+
+    a:not([href]):not([class]),
+    a:not([href]):not([class]):hover {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    pre,
+    code,
+    kbd,
+    samp {
+      font-family: var(--bs-font-monospace);
+      font-size: 1em;
+      direction: ltr;
+      unicode-bidi: bidi-override;
+    }
+
+    button {
+      border-radius: 0;
+    }
+
+    button:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    input,
+    button,
+    select,
+    optgroup,
+    textarea {
+      margin: 0;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    button,
+    select {
+      text-transform: none;
+    }
+
+    [role=button] {
+      cursor: pointer;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      :root {
+        scroll-behavior: smooth;
       }
+    }
 
-      a {
-        color: #0d6efd;
-        text-decoration: underline;
-      }
+    body {
+      margin: 0;
+      font-family: var(--bs-body-font-family);
+      font-size: var(--bs-body-font-size);
+      font-weight: var(--bs-body-font-weight);
+      line-height: var(--bs-body-line-height);
+      color: var(--bs-body-color);
+      text-align: var(--bs-body-text-align);
+      background-color: var(--bs-body-bg);
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
 
-      a:hover {
-        color: #0a58ca;
-      }
+    button:not(:disabled),
+    [type=button]:not(:disabled),
+    [type=reset]:not(:disabled),
+    [type=submit]:not(:disabled) {
+      cursor: pointer;
+    }
 
-      a:not([href]):not([class]),
-      a:not([href]):not([class]):hover {
-        color: inherit;
-        text-decoration: none;
-      }
+    .btn {
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      border-radius: 0.25rem;
+      transition: color 0.15s ease-in-out,
+        background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
 
-      pre,
-      code,
-      kbd,
-      samp {
-        font-family: var(--bs-font-monospace);
-        font-size: 1em;
-        direction: ltr;
-        unicode-bidi: bidi-override;
-      }
-
-      button {
-        border-radius: 0;
-      }
-
-      button:focus:not(:focus-visible) {
-        outline: 0;
-      }
-
-      input,
-      button,
-      select,
-      optgroup,
-      textarea {
-        margin: 0;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-      }
-
-      button,
-      select {
-        text-transform: none;
-      }
-
-      [role=button] {
-        cursor: pointer;
-      }
-
-      @media (prefers-reduced-motion: no-preference) {
-        :root {
-          scroll-behavior: smooth;
-        }
-      }
-
-      body {
-        margin: 0;
-        font-family: var(--bs-body-font-family);
-        font-size: var(--bs-body-font-size);
-        font-weight: var(--bs-body-font-weight);
-        line-height: var(--bs-body-line-height);
-        color: var(--bs-body-color);
-        text-align: var(--bs-body-text-align);
-        background-color: var(--bs-body-bg);
-        -webkit-text-size-adjust: 100%;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      }
-
-      button,
-      [type=button],
-      [type=reset],
-      [type=submit] {
-        -webkit-appearance: button;
-      }
-
-      button:not(:disabled),
-      [type=button]:not(:disabled),
-      [type=reset]:not(:disabled),
-      [type=submit]:not(:disabled) {
-        cursor: pointer;
-      }
-
+    @media (prefers-reduced-motion: reduce) {
       .btn {
-        display: inline-block;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        text-align: center;
-        text-decoration: none;
-        vertical-align: middle;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        background-color: transparent;
-        border: 1px solid transparent;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        border-radius: 0.25rem;
-        transition: color 0.15s ease-in-out,
-          background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: none;
       }
+    }
 
-      @media (prefers-reduced-motion: reduce) {
-        .btn {
-          transition: none;
-        }
-      }
+    .btn:hover {
+      color: #212529;
+    }
 
-      .btn:hover {
-        color: #212529;
-      }
+    .btn-check:focus+.btn,
+    .btn:focus {
+      outline: 0;
+      /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); */
+    }
 
-      .btn-check:focus+.btn,
-      .btn:focus {
-        outline: 0;
-        /* box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); */
-      }
-
-      /*  .btn:disabled, .btn.disabled, fieldset:disabled .btn {
+    /*  .btn:disabled, .btn.disabled, fieldset:disabled .btn {
   pointer-events: none;
   opacity: 0.65;
 }  */
 
-      .btn-success {
-        color: #fff;
-        background-color: #198754;
-        border-color: #198754;
-      }
+    .btn-success {
+      color: #fff;
+      background-color: #198754;
+      border-color: #198754;
+    }
 
-      .btn-success:hover {
-        color: #fff;
-        background-color: #157347;
-        border-color: #146c43;
-      }
+    .btn-success:hover {
+      color: #fff;
+      background-color: #157347;
+      border-color: #146c43;
+    }
 
-      /* .btn-check:focus + .btn-success, .btn-success:focus {
+    /* .btn-check:focus + .btn-success, .btn-success:focus {
   color: #fff;
   background-color: #157347;
   border-color: #146c43;
   box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
 } */
-      .btn-check:checked+.btn-success,
-      .btn-check:active+.btn-success,
-      .btn-success:active,
-      .btn-success.active,
-      .show>.btn-success.dropdown-toggle {
-        color: #fff;
-        background-color: #146c43;
-        border-color: #13653f;
-      }
+    .btn-check:checked+.btn-success,
+    .btn-check:active+.btn-success,
+    .btn-success:active,
+    .btn-success.active,
+    .show>.btn-success.dropdown-toggle {
+      color: #fff;
+      background-color: #146c43;
+      border-color: #13653f;
+    }
 
-      .btn-check:checked+.btn-success:focus,
-      .btn-check:active+.btn-success:focus,
-      .btn-success:active:focus,
-      .btn-success.active:focus,
-      .show>.btn-success.dropdown-toggle:focus {
-        box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
-      }
+    .btn-check:checked+.btn-success:focus,
+    .btn-check:active+.btn-success:focus,
+    .btn-success:active:focus,
+    .btn-success.active:focus,
+    .show>.btn-success.dropdown-toggle:focus {
+      box-shadow: 0 0 0 0.25rem rgba(60, 153, 110, 0.5);
+    }
 
-      .btn-success:disabled,
-      .btn-success.disabled {
-        color: #fff;
-        background-color: #198754;
-        border-color: #198754;
-      }
+    .btn-success:disabled,
+    .btn-success.disabled {
+      color: #fff;
+      background-color: #198754;
+      border-color: #198754;
+    }
 
-      .card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #fff;
-        background-clip: border-box;
-        border: 0px solid #fff;
-        border-radius: 3px;
-      }
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 0px solid #fff;
+      border-radius: 3px;
+    }
 
-      .card>hr {
-        margin-right: 0;
-        margin-left: 0;
-      }
+    .card>hr {
+      margin-right: 0;
+      margin-left: 0;
+    }
 
-      .card>.list-group {
-        border-top: inherit;
-        border-bottom: inherit;
-      }
+    .card>.list-group {
+      border-top: inherit;
+      border-bottom: inherit;
+    }
 
-      .card>.list-group:first-child {
-        border-top-width: 0;
-        border-top-left-radius: calc(0.25rem - 1px);
-        border-top-right-radius: calc(0.25rem - 1px);
-      }
+    .card>.list-group:first-child {
+      border-top-width: 0;
+      border-top-left-radius: calc(0.25rem - 1px);
+      border-top-right-radius: calc(0.25rem - 1px);
+    }
 
-      .card>.list-group:last-child {
-        border-bottom-width: 0;
-        border-bottom-right-radius: calc(0.25rem - 1px);
-        border-bottom-left-radius: calc(0.25rem - 1px);
-      }
+    .card>.list-group:last-child {
+      border-bottom-width: 0;
+      border-bottom-right-radius: calc(0.25rem - 1px);
+      border-bottom-left-radius: calc(0.25rem - 1px);
+    }
 
-      .card>.card-header+.list-group,
-      .card>.list-group+.card-footer {
-        border-top: 0;
-      }
+    .card>.card-header+.list-group,
+    .card>.list-group+.card-footer {
+      border-top: 0;
+    }
 
-      .card-body {
-        flex: 1 1 auto;
-        padding: 1rem 1rem;
-      }
+    .card-body {
+      flex: 1 1 auto;
+      padding: 1rem 1rem;
+    }
 
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0.25rem;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
       .form-control {
-        display: block;
-        width: 100%;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        border-radius: 0.25rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: none;
       }
+    }
 
-      @media (prefers-reduced-motion: reduce) {
-        .form-control {
-          transition: none;
-        }
-      }
+    .form-control[type=file] {
+      overflow: hidden;
+    }
 
-      .form-control[type=file] {
-        overflow: hidden;
-      }
+    .form-control[type=file]:not(:disabled):not([readonly]) {
+      cursor: pointer;
+    }
 
-      .form-control[type=file]:not(:disabled):not([readonly]) {
-        cursor: pointer;
-      }
+    .form-control:focus {
+      color: #212529;
+      background-color: #fff;
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
 
-      .form-control:focus {
-        color: #212529;
-        background-color: #fff;
-        border-color: #86b7fe;
-        outline: 0;
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-      }
+    .form-control::-webkit-date-and-time-value {
+      height: 1.5em;
+    }
 
-      .form-control::-webkit-date-and-time-value {
-        height: 1.5em;
-      }
+    .form-control::-moz-placeholder {
+      color: #6c757d;
+      opacity: 1;
+    }
 
-      .form-control::-moz-placeholder {
-        color: #6c757d;
-        opacity: 1;
-      }
+    .form-control::placeholder {
+      color: #6c757d;
+      opacity: 1;
+    }
 
-      .form-control::placeholder {
-        color: #6c757d;
-        opacity: 1;
-      }
+    .form-control:disabled,
+    .form-control[readonly] {
+      background-color: #e9ecef;
+      opacity: 1;
+    }
 
-      .form-control:disabled,
-      .form-control[readonly] {
-        background-color: #e9ecef;
-        opacity: 1;
-      }
+    .form-control::-webkit-file-upload-button {
+      padding: 0.375rem 0.75rem;
+      margin: -0.375rem -0.75rem;
+      -webkit-margin-end: 0.75rem;
+      margin-inline-end: 0.75rem;
+      color: #212529;
+      background-color: #e9ecef;
+      pointer-events: none;
+      border-color: inherit;
+      border-style: solid;
+      border-width: 0;
+      border-inline-end-width: 1px;
+      border-radius: 0;
+      -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
 
+    .form-control::file-selector-button {
+      padding: 0.375rem 0.75rem;
+      margin: -0.375rem -0.75rem;
+      -webkit-margin-end: 0.75rem;
+      margin-inline-end: 0.75rem;
+      color: #212529;
+      background-color: #e9ecef;
+      pointer-events: none;
+      border-color: inherit;
+      border-style: solid;
+      border-width: 0;
+      border-inline-end-width: 1px;
+      border-radius: 0;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
       .form-control::-webkit-file-upload-button {
-        padding: 0.375rem 0.75rem;
-        margin: -0.375rem -0.75rem;
-        -webkit-margin-end: 0.75rem;
-        margin-inline-end: 0.75rem;
-        color: #212529;
-        background-color: #e9ecef;
-        pointer-events: none;
-        border-color: inherit;
-        border-style: solid;
-        border-width: 0;
-        border-inline-end-width: 1px;
-        border-radius: 0;
-        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        -webkit-transition: none;
+        transition: none;
       }
 
       .form-control::file-selector-button {
-        padding: 0.375rem 0.75rem;
-        margin: -0.375rem -0.75rem;
-        -webkit-margin-end: 0.75rem;
-        margin-inline-end: 0.75rem;
-        color: #212529;
-        background-color: #e9ecef;
-        pointer-events: none;
-        border-color: inherit;
-        border-style: solid;
-        border-width: 0;
-        border-inline-end-width: 1px;
-        border-radius: 0;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-          box-shadow 0.15s ease-in-out;
+        transition: none;
       }
+    }
 
-      @media (prefers-reduced-motion: reduce) {
-        .form-control::-webkit-file-upload-button {
-          -webkit-transition: none;
-          transition: none;
-        }
+    .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+      background-color: #dde0e3;
+    }
 
-        .form-control::file-selector-button {
-          transition: none;
-        }
-      }
+    .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+      background-color: #dde0e3;
+    }
 
-      .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
-        background-color: #dde0e3;
-      }
+    .form-control::-webkit-file-upload-button {
+      padding: 0.375rem 0.75rem;
+      margin: -0.375rem -0.75rem;
+      -webkit-margin-end: 0.75rem;
+      margin-inline-end: 0.75rem;
+      color: #212529;
+      background-color: #e9ecef;
+      pointer-events: none;
+      border-color: inherit;
+      border-style: solid;
+      border-width: 0;
+      border-inline-end-width: 1px;
+      border-radius: 0;
+      -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
 
-      .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
-        background-color: #dde0e3;
-      }
-
+    @media (prefers-reduced-motion: reduce) {
       .form-control::-webkit-file-upload-button {
-        padding: 0.375rem 0.75rem;
-        margin: -0.375rem -0.75rem;
-        -webkit-margin-end: 0.75rem;
-        margin-inline-end: 0.75rem;
-        color: #212529;
-        background-color: #e9ecef;
-        pointer-events: none;
-        border-color: inherit;
-        border-style: solid;
-        border-width: 0;
-        border-inline-end-width: 1px;
-        border-radius: 0;
-        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        -webkit-transition: none;
+        transition: none;
+      }
+    }
+
+    .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+      background-color: #dde0e3;
+    }
+  </style>
+
+  <style>
+    *,
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+
+      background-color: rgb(182, 179, 179);
+    }
+
+    /* bare noire*/
+
+    .title {
+      font-size: 90px;
+      font-size-adjust: inherit;
+      color: #ddd;
+      text-align: center;
+      padding: 50px;
+
+      background-color: rgb(65, 64, 64)
+    }
+
+
+    .register_form {
+      max-width: 500px !important;
+      margin: 10px auto;
+      margin-top: 10px;
+      margin-right: auto;
+      margin-bottom: 10px;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .lieu {
+      text-align: center;
+    }
+
+    @media screen and (max-width: 800px) {
+      .title {
+        font-size: 30px;
+        padding: 15px;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        .form-control::-webkit-file-upload-button {
-          -webkit-transition: none;
-          transition: none;
-        }
+      .mybutton {
+        font-size: 25px;
       }
 
-      .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
-        background-color: #dde0e3;
-      }
-    </style>
-
-    <style>
-      *,
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-
+      .topnav a {
+        font-size: 15px;
+        padding: 7px 8px;
       }
 
-      html {
-        height: 100%;
+      .cycle-pager span {
+        width: 8px;
+        height: 8px;
+        margin: 0 2px;
       }
+    }
 
-      body {
 
-        background-color: rgb(182, 179, 179);
-      }
 
-      /* bare noire*/
+
+
+
+    #background {
+      min-height: 100vh;
+      text-align: center;
+
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+
+    .navbar-brand i {
+      padding-top: 0.3125rem;
+      padding-bottom: 0.3125rem;
+      margin-right: 1rem;
+      font-size: 1.25rem;
+      text-decoration: none;
+      white-space: nowrap;
+      font-size: 24pt;
+      color: #eb2f06;
+    }
+
+    @media (max-width: 600px) {
 
       .title {
-        font-size: 90px;
-        font-size-adjust: inherit;
-        color: #ddd;
-        text-align: center;
-        padding: 50px;
-
-        background-color: rgb(65, 64, 64)
-      }
-
-
-      .register_form {
-        max-width: 500px !important;
-        margin: 10px auto;
-        margin-top: 10px;
-        margin-right: auto;
-        margin-bottom: 10px;
-        margin-left: auto;
-        text-align: right;
-      }
-
-      .lieu {
-        text-align: center;
-      }
-
-      @media screen and (max-width: 800px) {
-        .title {
-          font-size: 30px;
-          padding: 15px;
-        }
-
-        .mybutton {
-          font-size: 25px;
-        }
-
-        .topnav a {
-          font-size: 15px;
-          padding: 7px 8px;
-        }
-
-        .cycle-pager span {
-          width: 8px;
-          height: 8px;
-          margin: 0 2px;
-        }
-      }
-
-
-
-
-
-
-      #background {
-        min-height: 100vh;
-        text-align: center;
-
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-      }
-
-
-      .navbar-brand i {
-        padding-top: 0.3125rem;
-        padding-bottom: 0.3125rem;
-        margin-right: 1rem;
-        font-size: 1.25rem;
-        text-decoration: none;
-        white-space: nowrap;
-        font-size: 24pt;
-        color: #eb2f06;
-      }
-
-      @media (max-width: 600px) {
-
-        .title {
-          font-size: 30px;
-          padding: 15px;
-        }
-
-
-      }
-
-      .navbar-light .navbar-brand {
-        color: rgba(0, 0, 0, 0.9);
-      }
-
-      .navbar-light .navbar-brand:hover,
-      .navbar-light .navbar-brand:focus {
-        color: rgba(0, 0, 0, 0.9);
-      }
-
-      .navbar-brand small {
-
-        color: red;
-        font-family: 'Aref Ruqaa';
-      }
-
-      .navbar-brand .fa-heartbeat {
-        position: absolute;
-        padding: 5px;
-        padding-top: 0px;
-      }
-
-      #inner-wrapper {
-        width: 100%;
-        min-height: 100vh;
-        background: rgb(182, 179, 179);
-        text-align: center;
-
-        color: white;
-      }
-
-      .page {
-        width: 100%;
-        height: 100%;
-      }
-
-
-      .register_form {
-        max-width: 450px !important;
-        /*margin:10px auto;*/
-        color: black;
-        margin-top: -8px;
-        text-align: left;
-      }
-
-      .register_form .form-control {
-
-        width: 150px;
-        margin-top: 10px;
-        display: initial;
-        margin-bottom: 10px;
-
-        text-align: left;
-      }
-
-      .btn-success:active {
-        margin: 0px;
-
-      }
-
-
-      #inner-wrapper h1 {
-        font-size: 100pt;
-      }
-
-      li.nav-item {
-        margin: 1px 10px !important;
-      }
-
-      #result {
-        margin-top: 15px;
-      }
-
-      .worning {
-        color: red;
-        margin: 5px;
-
-      }
-
-      .btn-success .btn {
-        color: white;
-
-      }
-
-      .boton {
-        text-align: center;
-      }
-
-      /* imag.css */
-      .cofition {
-        font-size: 50px;
-
-        color: #ffc107;
-
-      }
-
-      .divImg {
-        background: rgb(65 64 64 / 88%);
-        padding: 10px 3px;
-        text-align: center;
-      }
-
-      .xform {
-        color: white;
-        font-size: 50px;
-        margin: 3px;
-      }
-
-      .puissance {
-        color: white;
         font-size: 30px;
-
+        padding: 15px;
       }
 
-      .mith {
-        float: right;
-        margin: -4px 13px 3px;
-        border: hidden;
-        color: green;
-        background-color: transparent;
-        font-size: 20px;
-        padding: 0;
+
+    }
+
+    .navbar-light .navbar-brand {
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    .navbar-light .navbar-brand:hover,
+    .navbar-light .navbar-brand:focus {
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    .navbar-brand small {
+
+      color: red;
+      font-family: 'Aref Ruqaa';
+    }
+
+    .navbar-brand .fa-heartbeat {
+      position: absolute;
+      padding: 5px;
+      padding-top: 0px;
+    }
+
+    #inner-wrapper {
+      width: 100%;
+      min-height: 100vh;
+      background: rgb(182, 179, 179);
+      text-align: center;
+
+      color: white;
+    }
+
+    .page {
+      width: 100%;
+      height: 100%;
+    }
+
+
+    .register_form {
+      max-width: 450px !important;
+      /*margin:10px auto;*/
+      color: black;
+      margin-top: -8px;
+      text-align: left;
+    }
+
+    .register_form .form-control {
+
+      width: 150px;
+      margin-top: 10px;
+      display: initial;
+      margin-bottom: 10px;
+
+      text-align: left;
+    }
+
+    .btn-success:active {
+      margin: 0px;
+
+    }
+
+
+    #inner-wrapper h1 {
+      font-size: 100pt;
+    }
+
+    li.nav-item {
+      margin: 1px 10px !important;
+    }
+
+    #result {
+      margin-top: 15px;
+    }
+
+    .worning {
+      color: red;
+      margin: 5px;
+
+    }
+
+    .btn-success .btn {
+      color: white;
+
+    }
+
+    .boton {
+      text-align: center;
+    }
+
+    /* imag.css */
+    .cofition {
+      font-size: 50px;
+
+      color: #ffc107;
+
+    }
+
+    .divImg {
+      background: rgb(65 64 64 / 88%);
+      padding: 10px 3px;
+      text-align: center;
+    }
+
+    .xform {
+      color: white;
+      font-size: 50px;
+      margin: 3px;
+    }
+
+    .puissance {
+      color: white;
+      font-size: 30px;
+
+    }
+
+    .mith {
+      float: right;
+      margin: -4px 13px 3px;
+      border: hidden;
+      color: green;
+      background-color: transparent;
+      font-size: 20px;
+      padding: 0;
+    }
+
+    .divMeth {
+      margin: 3% 30% auto 30%;
+      width: 40%;
+      height: 90%;
+      position: fixed;
+      z-index: 2;
+      background-color: white;
+      border-radius: 7px;
+      overflow-y: hidden;
+      transition: .2s;
+      transform: scaleY(0);
+
+    }
+
+    .dMtrnf {
+      transform: scaleY(1);
+    }
+
+    @media (max-width: 500px) {
+      .divMeth {
+        width: 94%;
+        margin: 3% 3% 3% 3%;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .inpMeth {
+        width: 98%;
+        margin: 1% 2%;
+        font-size: 25px;
+        margin-top: 25px;
+        height: 125px;
       }
 
       .divMeth {
-        margin: 3% 30% auto 30%;
-        width: 40%;
-        height: 90%;
-        position: fixed;
-        z-index: 2;
-        background-color: white;
-        border-radius: 7px;
-        overflow-y: hidden;
-        transition: .2s;
-        transform: scaleY(0);
-
+        width: 88%;
+        height: 94%;
+        margin: 3% 6%;
       }
-
-      .dMtrnf {
-        transform: scaleY(1);
-      }
-
-      @media (max-width: 500px) {
-        .divMeth {
-          width: 94%;
-          margin: 3% 3% 3% 3%;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .inpMeth {
-          width: 98%;
-          margin: 1% 2%;
-          font-size: 25px;
-          margin-top: 25px;
-          height: 125px;
-        }
-
-        .divMeth {
-          width: 88%;
-          height: 94%;
-          margin: 3% 6%;
-        }
-      }
+    }
 
 
-      .inpMeth {
-        background-color: white;
-        font-size: 30px;
-        width: 100%;
-        padding: 15px;
-        padding-bottom: 45px;
-        margin: 13px 0% 5px 0%;
-        height: 100px;
-        overflow: auto;
-      }
+    .inpMeth {
+      background-color: white;
+      font-size: 30px;
+      width: 100%;
+      padding: 15px;
+      padding-bottom: 45px;
+      margin: 13px 0% 5px 0%;
+      height: 100px;
+      overflow: auto;
+    }
 
-      #hidMethod {
-        /* hident Methorik */
-        font-size: 5vh;
-        color: #302e2ed9;
-        float: right;
-        display: block;
-        cursor: pointer;
-        margin: 2% 15px 0px;
-      }
+    #hidMethod {
+      /* hident Methorik */
+      font-size: 5vh;
+      color: #302e2ed9;
+      float: right;
+      display: block;
+      cursor: pointer;
+      margin: 2% 15px 0px;
+    }
 
-      #contMeth {
-        /* continer Methorie */
-        background-color: #7473739e;
-        width: 100%;
-        height: 100%;
-        display: none;
-        position: fixed;
-        z-index: 1;
-      }
+    #contMeth {
+      /* continer Methorie */
+      background-color: #7473739e;
+      width: 100%;
+      height: 100%;
+      display: none;
+      position: fixed;
+      z-index: 1;
+    }
 
-      hr {
-        border-style: hidden;
-        background-color: black;
-        height: 1px;
-      }
-      h4{
-        font-size: large;
-        margin-bottom: -11px;
-        line-height: 1;
-      }
-    </style>
+    hr {
+      border-style: hidden;
+      background-color: black;
+      height: 1px;
+    }
 
-  </head>
+    h4 {
+      font-size: large;
+      margin-bottom: -11px;
+      line-height: 1;
+    }
+  </style>
 
-  <body style="background-color:rgb(182, 179, 179);">
+</head>
 
-    <div id="contMeth" onclick="hidMethod();">
+<body style="background-color:rgb(182, 179, 179);">
 
-      <div id="divMeth" class="divMeth">
-        <span id="hidMethod">×</span>
-        <hr style="margin-top:8.2vh;">
-        <div id="lMeth" style="overflow: auto; height: 90%;"
-          onclick=" setTimeout( ()=> { clearTimeout(hidDiv);clearTimeout(hidCon); } ,10); ">
-          <h3 id="tMet" style="margin: 10px 20px -9px;color: #0e700e;" >Solution</h3>
-          <p style="margin: 13px 20px;" id="result"></p>
-          <hr>
-          <h3 id="tMet" style="margin: 10px 20px;color: #0e700e;" >Method</h3>
-          <p id="method" style="margin: 0 15px 1rem 15px;" ></p>
-        </div>
+  <div id="contMeth" onclick="hidMethod();">
+
+    <div id="divMeth" class="divMeth">
+      <span id="hidMethod">×</span>
+      <hr style="margin-top:8.2vh;">
+      <div id="lMeth" style="overflow: auto; height: 90%;"
+        onclick=" setTimeout( ()=> { clearTimeout(hidDiv);clearTimeout(hidCon); } ,10); ">
+        <h3 id="tMet" style="margin: 10px 20px -9px;color: #0e700e;">Solution</h3>
+        <p style="margin: 13px 20px;" id="result"></p>
+        <hr>
+        <h3 id="tMet" style="margin: 10px 20px;color: #0e700e;">Method</h3>
+        <p id="method" style="margin: 0 15px 1rem 15px;"></p>
       </div>
     </div>
+  </div>
 
 
-    <main role="main" id="background">
-      <div id="inner-wrapper">
-        <div class="page" data-page-nbr="1">
-          <h2 class="title "> Solving cubic equation </h2>
+  <main role="main" id="background">
+    <div id="inner-wrapper">
+      <div class="page" data-page-nbr="1">
+        <h2 class="title "> Solving cubic equation </h2>
 
-          <div class="card register_form">
-
-
+        <div class="card register_form">
 
 
-            <!-- <img src="copCubic.jpg" alt="img" class="img" >  -->
-            <div class="divImg">
-              <span class="cofition fs-1">a</span><span class="xform fs-1 ">x</span>
-             <sup class="puissance fs-5">3</sup><span class="xform fs-1">+</span>
-              <span class="cofition fs-1">b</span><span class="xform fs-1">x</span>
-              <sup class="puissance fs-5">2</sup><span class="xform fs-1">+</span>
-              <span class="cofition fs-1">c</span><span class="xform fs-1">x</span>
-              <span class="xform fs-1">+</span><span class="cofition fs-1">d</span>
-              <span class="xform fs-1">=</span><span class="xform fs-1">0</span>
-
-            </div>
-
-            <div class="card-body ">
 
 
-              <div id="cart">
+          <!-- <img src="copCubic.jpg" alt="img" class="img" >  -->
+          <div class="divImg">
+            <span class="cofition fs-1">a</span><span class="xform fs-1 ">x</span>
+            <sup class="puissance fs-5">3</sup><span class="xform fs-1">+</span>
+            <span class="cofition fs-1">b</span><span class="xform fs-1">x</span>
+            <sup class="puissance fs-5">2</sup><span class="xform fs-1">+</span>
+            <span class="cofition fs-1">c</span><span class="xform fs-1">x</span>
+            <span class="xform fs-1">+</span><span class="cofition fs-1">d</span>
+            <span class="xform fs-1">=</span><span class="xform fs-1">0</span>
 
-                <!-- Form -->
-            
-                a = <input id="a" onclick="selectText('a','b','d')" required  aria-atomic="false" 
-                type="text" class="form-control" placeholder="0">
-                <span id="vala" class="worning"></span>
-                </br>
-                b = <input id="b" onclick="selectText('b','c','a')" required aria-atomic="false" 
-                type="text"  class="form-control" placeholder="0">
-                <span id="valb" class="worning"></span>
-                </br>
+          </div>
 
-                c = <input id="c" onclick="selectText('c','d','b')" required aria-atomic="false" 
-                type="text"  class="form-control" placeholder="0">
-                <span id="valc" class="worning"></span>
-                </br>
+          <div class="card-body ">
 
-                d = <input id="d" onclick="selectText('d','Cal','c')" required aria-atomic="false" 
-                type="text"  class="form-control" placeholder="0">
-                <span id="vald" class="worning"></span>
-                </br><p id="log"></p>
-                <div class="boton"><button id="Cal" type='button' onclick="fin()" 
-                  class="btn disabled btn-success"  role="button">Calculate</button>
 
-                </div>
+            <div id="cart">
+
+              <!-- Form -->
+
+              a = <input id="a" onclick="selectText('a','b','d')" required aria-atomic="false" type="text"
+                class="form-control" placeholder="0">
+              <span id="vala" class="worning"></span>
+              </br>
+              b = <input id="b" onclick="selectText('b','c','a')" required aria-atomic="false" type="text"
+                class="form-control" placeholder="0">
+              <span id="valb" class="worning"></span>
+              </br>
+
+              c = <input id="c" onclick="selectText('c','d','b')" required aria-atomic="false" type="text"
+                class="form-control" placeholder="0">
+              <span id="valc" class="worning"></span>
+              </br>
+
+              d = <input id="d" onclick="selectText('d','Cal','c')" required aria-atomic="false" type="text"
+                class="form-control" placeholder="0">
+              <span id="vald" class="worning"></span>
+              </br>
+              <p id="log"></p>
+              <div class="boton"><button id="Cal" type='button' onclick="fin()" class="btn disabled btn-success"
+                  role="button">Calculate</button>
+
               </div>
-
             </div>
+
           </div>
         </div>
       </div>
-    </main>
-    <div id="clVu"></div>
-    <script type="text/javascript">
+    </div>
+  </main>
+  <div id="clVu"></div>
+  <script type="text/javascript">
     nFix();
-      
-      addEventListener('keyup',()=>{
-        if (gebi('divMeth').className != 'divMeth') {setTimeout(()=>{hidMethod();},100); }
-      });
-      
 
-      let result = gebi('result'), add ='',tMeth=gebi('method'),hidDiv, hidCon;
+    addEventListener('keyup', () => {
+      if (gebi('divMeth').className != 'divMeth') { setTimeout(() => { hidMethod(); }, 100); }
+    });
 
-      gebi('a').click(); 
-      gebi('clVu').innerHTML+='<iframe src="https://maktaeliliktroniya.blogspot.com/2022/08/solving-cubic-equation.html" '+
-                             'frameborder="0"></iframe>'; 
-      gebi('clVu').style.display = 'none';
-       
-      /* 1(-2.9348413682162997)^3 -6(-2.9348413682162997)^2+11(-2.9348413682162997)+2 +d
-      -3,2,5,-4 */
-     /* ////// short function \\\\\\\\\\ */
-      function ind(inp,pr,pr2=0) { inp=inp.indexOf(pr,pr2);return inp}
-      function plus(pr) {if(pr>=0){pr='+'+pr} return pr}
-      function ngtv(pr) {if(pr>=0){pr=' -'+pr}else{pr=' +'+-pr} return pr }
-      function gebi(pr) { return document.getElementById(pr)}
-      function ngtvB(b){if(b<0){b='('+b+')'}return b }
-      function sub(i){return 'X<sub>'+i+'</sub>'}
 
-      /*////// fix les valeur \\\\\\ */
-      function nFix(){
-        Number.prototype.fix =function(fx=13){
-          let th = this;sth=''+th;
-          if (ind(sth,'e')>-1){th=fixing(th,fx); if(Math.abs(th)<1e-12){th=0}
-          }else{th=th*1e103;th=fixing(th,fx,103);}
-          return th ;
-        }
-        function fixing(inp,fx,ng=0) { // ng nember gonfel
-          let sInp = ''+inp,inUpInp = ind(sInp,'e'),inFx,
-              dwInp= sInp.slice(inUpInp+1,sInp.length)*1;
-          inp   = sInp.slice(0,inUpInp)*1; dwInp -=ng;
-          inp   = inp.toFixed(fx)*1; inFx=inp.toFixed(5)*1;
-          if(Math.abs(inp -inFx) <1e-10){inp =inp.toFixed(5)*1;} 
-          sInp  = inp+'e'+dwInp; inp=sInp*1;
-          return inp ;
-        }
+    let result = gebi('result'), add = '', tMeth = gebi('method'), hidDiv, hidCon;
+
+    gebi('a').click();
+    gebi('clVu').innerHTML += '<iframe src="https://maktaeliliktroniya.blogspot.com/2022/08/solving-cubic-equation.html" ' +
+      'frameborder="0"></iframe>';
+    gebi('clVu').style.display = 'none';
+
+    /* 1(-2.9348413682162997)^3 -6(-2.9348413682162997)^2+11(-2.9348413682162997)+2 +d
+    -3,2,5,-4 */
+    /* ////// short function \\\\\\\\\\ */
+    function ind(inp, pr, pr2 = 0) { inp = inp.indexOf(pr, pr2); return inp }
+    function plus(pr) { if (pr >= 0) { pr = '+' + pr } return pr }
+    function ngtv(pr) { if (pr >= 0) { pr = ' -' + pr } else { pr = ' +' + -pr } return pr }
+    function gebi(pr) { return document.getElementById(pr) }
+    function ngtvB(b) { if (b < 0) { b = '(' + b + ')' } return b }
+    function sub(i) { return 'X<sub>' + i + '</sub>' }
+
+    /*////// fix les valeur \\\\\\ */
+    function nFix() {
+      Number.prototype.fix = function (fx = 13) {
+        let th = this; sth = '' + th;
+         if (ind(sth,'.')<0) {return sth } 
+        if (ind(sth, 'e') > -1) {
+          th = fixing(th, fx); if (Math.abs(th) < 1e-12) { th = 0 }
+        } else { th = th * 1e103; th = fixing(th, fx, 103); }
+        return th;
       }
-     
+      function fixing(inp, fx, ng = 0) { // ng nember gonfel
+        let sInp = '' + inp, inUpInp = ind(sInp, 'e'), inFx,
+          dwInp = sInp.slice(inUpInp + 1, sInp.length) * 1;
+        inp = sInp.slice(0, inUpInp) * 1; dwInp -= ng;
+        inp = inp.toFixed(fx) * 1; inFx = inp.toFixed(5) * 1;
+        if (Math.abs(inp - inFx) < 1e-10) { inp = inp.toFixed(5) * 1; }
+        sInp = inp + 'e' + dwInp; inp = sInp * 1;
+        return inp;
+      }
+    }
 
-      //////// Selection \\\\\\\\\
-      function selectText(alfa, alfb, alfc) {
+
+    //////// Selection \\\\\\\\\
+    function selectText(alfa, alfb, alfc) {
       'use strict';
       gebi(alfa).focus();
-      if (gebi(alfa).value=='0'){setTimeout(()=>{gebi(alfa).select();},10);} 
-      if (ind(add,alfa) < 0) { enter(alfa, alfb, alfc); add += alfa; }  
-        result.innerHTML ='';
-      }
+      if (gebi(alfa).value == '0') { setTimeout(() => { gebi(alfa).select(); }, 10); }
+      if (ind(add, alfa) < 0) { enter(alfa, alfb, alfc); add += alfa; }
+      result.innerHTML = '';
+    }
 
-      /////// enter buton \\\\\\\\
-      function enter(alfa, alfb, alfc) {
-        'use strict';
-        gebi(alfa).addEventListener('keyup', function (ev) {
-          let evKC = ev.keyCode;ev.preventDefault();
-          //40=dwn 38=up 13=enter
-          if(ind('@13@40@38','@'+evKC)>-1){ valNum(alfa,alfb,alfc,evKC);}
-        })
-      }
-      /////// validation of number \\\\\\\
-      function valNum(alfa, alfb, alfc, evKC) {
-        'use strict';
-        let num = gebi(alfa).value;
-        if (num =='') {num='0'}
-        let val = 'val' + alfa,   pvaled = gebi(val),
-             err=['f','j','k','u','v','w','x','y','z'],crz=num.charAt(0);
-        err.forEach((e)=>{num=num.replace(e,'error');});
-        if (/[^0-9]/gi.test(num)) {
-          let arRe,ongl = '0.017453292519943' ,reOngl='57.29577951308329';
-          num = num.toLowerCase();
-          arRe=[ 
-              ['cosh','acos','cos(','asin','sinh','sin(','atan','tanh','tan(','log','abs','k','j','f','^',
-              'e**', 'ln','√','w','u','v','z','x','y',',','،','×','(-','(+','÷'],
-              ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.log10','Math.abs', 'Math.cos('+ongl+'*',
-              reOngl+'*Math.acos','Math.cosh','**','Math.abs(2.718281828459045)**', 'Math.log', 'Math.sqrt',                  
-              'Math.sin('+ongl+'*',reOngl+'*Math.asin', 'Math.sinh', 'Math.tan('+ongl+'*',
-              reOngl+'*Math.atan','Math.tanh',',','.','*','(0-','(0+','/'] 
-            ];
+    /////// enter buton \\\\\\\\
+    function enter(alfa, alfb, alfc) {
+      'use strict';
+      gebi(alfa).addEventListener('keyup', function (ev) {
+        let evKC = ev.keyCode; ev.preventDefault();
+        //40=dwn 38=up 13=enter
+        if (ind('@13@40@38', '@' + evKC) > -1) { valNum(alfa, alfb, alfc, evKC); }
+      })
+    }
+    /////// validation of number \\\\\\\
+    function valNum(alfa, alfb, alfc, evKC) {
+      'use strict';
+      let num = gebi(alfa).value;
+      if (num == '') { num = '0' }
+      let val = 'val' + alfa, pvaled = gebi(val),
+        err = ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z'], crz = num.charAt(0);
+      err.forEach((e) => { num = num.replace(e, 'error'); });
+      if (/[^0-9]/gi.test(num)) {
+        let arRe, ongl = '0.017453292519943', reOngl = '57.29577951308329';
+        num = num.toLowerCase();
+        arRe = [
+          ['cosh', 'acos', 'cos(', 'asin', 'sinh', 'sin(', 'atan', 'tanh', 'tan(', 'log', 'abs', 'k', 'j', 'f', '^',
+            'e**', 'ln', '√', 'w', 'u', 'v', 'z', 'x', 'y', ',', '،', '×', '(-', '(+', '÷'],
+          ['f', 'j', 'k', 'u', 'v', 'w', 'x', 'y', 'z', 'Math.log10', 'Math.abs', 'Math.cos(' + ongl + '*',
+            reOngl + '*Math.acos', 'Math.cosh', '**', 'Math.abs(2.718281828459045)**', 'Math.log', 'Math.sqrt',
+            'Math.sin(' + ongl + '*', reOngl + '*Math.asin', 'Math.sinh', 'Math.tan(' + ongl + '*',
+            reOngl + '*Math.atan', 'Math.tanh', ',', '.', '*', '(0-', '(0+', '/']
+        ];
 
-          for (let i = 0; i < arRe[0].length; i++) { 
-            if (ind(num,arRe[0][i])>-1) {num = num.replaceAll(arRe[0][i], arRe[1][i]); }
-          }
+        for (let i = 0; i < arRe[0].length; i++) {
+          if (ind(num, arRe[0][i]) > -1) { num = num.replaceAll(arRe[0][i], arRe[1][i]); }
         }
-          
-        if(crz==='+' || crz==='-' ){num='0'+num} ;
-        try {
-          num = eval(num).toString().replace('NaN','error');
-          num =eval(num); num = num.fix(13);
-          
-          pvaled.innerText = '';
-          if(alfb=='calcule'){return num }
-          if (evKC == 13 || evKC == 40) {
-            if (evKC === 40 && alfa == 'd') { alfb = 'a'; }
-            gebi(alfb).click();
-          }
-          if (evKC == 38) { gebi(alfc).click(); }
-          
-        } catch (e) {pvaled.innerText = 'is not number ' ;gebi(alfa).click(); }
-
-      }
-    
-      /* ////// hid div Mithod */
-      function hidMethod() {
-        hidCon = setTimeout(() => { gebi('divMeth').className = 'divMeth'; }, 20);
-        hidDiv = setTimeout(() => {gebi('contMeth').style.display = 'none';gebi('d').select();}, 210);
       }
 
-      /* ////// Methori and hiding Methori   \\\\\\\\\\\\\ */
-      function upRslt() {
-        gebi('Cal').focus(); gebi('contMeth').style.display = 'block';
-        setTimeout(() => { gebi('divMeth').className += ' dMtrnf'; }, 50);
-      }
+      if (crz === '+' || crz === '-') { num = '0' + num };
+      try {
+        num = eval(num).toString().replace('NaN', 'error');
+        num = eval(num); num = num.fix(13);
 
-       function carctr(x){
-        let y = '@'+x.fix(10);
-        if(ind(y,'.')<0){return x}
-        y = '@'+(x**2).fix(10);
-        if (ind(y,'.')<0) {return '√'+(x**2).fix(10)}
-        y = '@'+(x**3).fix(10);
-        if(ind(y,'.')<0){return '³√'+(x**3).fix(10)}
-        y = '@'+(x*3.141592653589793).fix(10);
-        if(ind(y,'.')<0){return (x*3.141592653589793).fix(10)+'π'}
-        for (let i = 2; i < 100; i++) {
-          y = '@'+(x*i).toFixed(10);
-          if(ind(y,'.')<0){ x= (x*i).toFixed(10)+'/'+i; break}
+        pvaled.innerText = '';
+        if (alfb == 'calcule') { return num }
+        if (evKC == 13 || evKC == 40) {
+          if (evKC === 40 && alfa == 'd') { alfb = 'a'; }
+          gebi(alfb).click();
         }
-        return x
-      } 
-      /////// function total \\\\\\\\\\\\
-      function fin() {
-        'use strict';
-        let a = valNum('a', 'calcule'), b = valNum('b', 'calcule'),
-            c = valNum('c', 'calcule'), d = valNum('d', 'calcule');
-        result.innerHTML = ''; tMeth.innerHTML = '';
-        if (a!=0) {cubiqFin(a, b, c, d);}else if(b!=0){squarFun(b, c, d, 0)} else{prFun(c,d,'') } 
-        if(result.innerHTML.indexOf('NaN',0)<0 && result.innerHTML !=''){upRslt();} 
+        if (evKC == 38) { gebi(alfc).click(); }
+
+      } catch (e) { pvaled.innerText = 'is not number '; gebi(alfa).click(); }
+
+    }
+
+    /* ////// hid div Mithod */
+    function hidMethod() {
+      hidCon = setTimeout(() => { gebi('divMeth').className = 'divMeth'; }, 20);
+      hidDiv = setTimeout(() => { gebi('contMeth').style.display = 'none'; gebi('d').select(); }, 210);
+    }
+
+    /* ////// Methori and hiding Methori   \\\\\\\\\\\\\ */
+    function upRslt() {
+      gebi('Cal').focus(); gebi('contMeth').style.display = 'block';
+      setTimeout(() => { gebi('divMeth').className += ' dMtrnf'; }, 50);
+    }
+
+    function carctr(x) {
+      x=x*1;
+      let y = '@' + x.fix(10);
+      if (ind(y, '.') < 0) { return x }
+      y = '@' + (x ** 2).fix(10);
+      if (ind(y, '.') < 0) { return '√' + (x ** 2).fix(10) }
+      y = '@' + (x ** 3).fix(10);
+      if (ind(y, '.') < 0) { return '³√' + (x ** 3).fix(10) }
+      y = '@' + (x * 3.141592653589793).fix(10);
+      if (ind(y, '.') < 0) { return (x * 3.141592653589793).fix(10) + 'π' }
+      for (let i = 2; i < 100; i++) {
+        y = '@' + (x * i).toFixed(10);
+        if (ind(y, '.') < 0) { x = (x * i).toFixed(10) + '/' + i; break }
+      }
+      return x
+    }
+    /////// function total \\\\\\\\\\\\
+    function fin() {
+      'use strict';
+      let a = valNum('a', 'calcule'), b = valNum('b', 'calcule'),
+        c = valNum('c', 'calcule'), d = valNum('d', 'calcule');
+      result.innerHTML = ''; tMeth.innerHTML = '';
+      if (a != 0) { cubiqFin(a, b, c, d); } else if (b != 0) { squarFun(b, c, d, 0) } else { prFun(c, d, '') }
+      if (result.innerHTML.indexOf('NaN', 0) < 0 && result.innerHTML != '') { upRslt(); }
+    }
+
+
+    /////// functin promier grad
+    function prFun(a, b, n = 1) {
+      if (a != 0) {
+        let x = -b / a;
+        result.innerHTML += sub(n) + ' = ' + carctr(x);
+        tMeth.innerHTML += 'ax + b = 0 → ' + sub(n) + ' = -b/a </br> ' + sub(n) + ' = ' +
+          -b + '/' + a + ' </br> ' + sub(n) + ' = ' + x;
+      } else if (b != 0) {
+        result.innerHTML = 'no exist solution'; tMeth.innerHTML = ' ∀ x ∈{-∞ ; +∞}</br> f(x) = ' + b + ' ≠ 0';
+      } else if (b == 0) {
+        result.innerHTML = 's={-∞ ; +∞}'; tMeth.innerHTML = ' ∀ x ∈{-∞ ; +∞}</br> f(x) = 0';
+      }
+    }
+
+    ///////finctin 2em grad \\\\\\\
+    function squarFun(a, b, c, n = 0) {
+
+      let dilta2 = (b ** 2 - 4 * a * c).fix(), x1, x2, re = result.innerHTML, cRet,
+        i = n + 1, i2 = i + 1, dilta = Math.pow(Math.abs(dilta2), 1 / 2);
+
+      if (c == 0) {
+        result.innerHTML += '' + sub(i) + ' = 0 </br>';
+        tMeth.innerHTML += 'f(x) = ' + a + 'x² ' + plus(b) + 'x ' +
+          '+0 </br> f(x) = ' + a + 'x² ' + plus(b) + 'x </br> f(x) = x( ' + a + 'x '
+          + ngtv(b) + ' ) </br>f(x) = 0 → ' + sub(i) + ' = 0  or ' + a + 'x  ' + plus(b) +
+          '  = 0</br></br><h4> for ' + a + 'x  ' + plus(b) + '  = 0</h4></br>'; prFun(a, b, i2); return 'stop';
+      }
+      dilta = dilta.fix();
+      tMeth.innerHTML += '</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = ' +
+        ngtvB(b) + '² -4×' + ngtvB(a) + '×' + ngtvB(c) + ' </br> Δ = ' + dilta2;
+      if (dilta2 > 0) {
+        x1 = (-b + dilta) / (2 * a); x1 = x1.fix(13);
+        x2 = -(b + dilta) / (2 * a); x2 = x2.fix(13);
+
+        let cx1 = ' = ' + carctr(x1), cx2 = ' = ' + carctr(x2);
+        if (ind(re, cx2) > -1) { [cx1, cx2] = [cx2, cx1] }
+        if (ind(re, cx1) > -1) { re = sub(1) + ','; }
+
+        re += sub(i) + cx1 + '</br>' + sub(i2) + cx2;
+        cRet = [x1, x2];
+      } else if (dilta2 == 0) {
+        x1 = -b / (2 * a); x1 = x1.fix(13); x1 = carctr(x1); x2 = x1;
+        re += sub(i) + ', ' + sub(i2) + ' = ' + x1; cRet = ['a']
+      } else {
+        let tx = -b / (2 * a), ty = Math.abs(dilta / (2 * a)).fix(13), pl = ' +i';
+        tx = tx.fix(13);
+        tx = carctr(tx); ty = carctr(ty);
+        if (tx == 0) { tx = ''; pl = ' i' };
+        if(ty==1){ty=''}
+        re += sub(i) + ' = ' + tx + pl + ty +
+          '</br>' + sub(i2) + ' = ' + tx + ' -i' + ty;
+        x1 = tx + pl + ty; x2 = tx + ' -i' + ty;
+        dilta = 'i' + dilta; cRet = ['b'];
+      }
+      if (n == 30) { return cRet; }
+      result.innerHTML = re;
+      tMeth.innerHTML += '</br> √(Δ) = √(' + dilta2 + ') </br> √(Δ) = ' + dilta
+        + '</br></br><h4>Calcul ' + sub(i) + ' and ' + sub(i2) +
+        '</h4></br> ' + sub(i) + ' = (-b + √(Δ) ) / 2a </br> ' + sub(i) + ' = (' + -b + ' +' + dilta + ') / (2×' +
+        ngtvB(a) + ')</br> ' + sub(i) + ' = ' + x1 + '</br></br> ' + sub(i2) + ' = (-b - √(Δ) ) / 2a</br>' +
+        sub(i2) + ' = (' + -b + ' -' + dilta + ') / (2×' + ngtvB(a) + ')</br> ' + sub(i2) + ' = ' + x2;
+
+    }
+
+    ////////Solving cubic equation\\\\\\\\\\
+    function cubiqFin(a, b, c, d, n = 0) {
+      let bs, cs, i = n + 1;
+      if (d == 0) {
+        result.innerHTML = ' ' + sub(i) + ' = 0 </br>';
+        tMeth.innerHTML = 'f(x) = ' + a + 'x³  ' + plus(b) + 'x² ' + plus(c) +
+          'x +0 </br> f(x) = ' + a + 'x³  ' + plus(b) + 'x² ' + plus(c) +
+          'x  </br> f(x) = x( ' + a + 'x²  ' + plus(b) + 'x ' + plus(c) +
+          ' ) </br>f(x) = 0 => ' + sub(i) + ' = 0  or ' + a + 'x²  ' + plus(b) + 'x ' + plus(c) +
+          '  = 0</br></br><h4> for ' + a + 'x² ' + plus(b) + 'x ' + plus(c) + ' = 0 </h4></br>';
+        squarFun(a, b, c, i); return 'stop';
+      }
+      //b and c for squar functin
+      if (a + b + c + d == 0) {
+        tMeth.innerHTML += 'as a +b +c +d = ' + a + ' ' + plus(b) + ' ' + plus(c) + ' ' + plus(d) +
+          ' = 0 </br> → ' + sub(i) + ' = 1'; easy(1); return 'stop';
+      }
+      if (a + c == b + d) {
+        tMeth.innerHTML += 'as a+c = b+d → ' + sub(i) + ' = -1';
+        easy(-1); return 'stop'
+      }
+      function easy(pr) {
+        result.innerHTML = ' ' + sub(i) + ' = ' + pr + '</br>'; bs = (b*1 + pr * a).fix(); cs = (-d / pr).fix();
+        tMeth.innerHTML += '</br> f(x) = (x -' + sub(i) + ')(ax² +bx +c)' +
+          '</br> f(x) = (x ' + ngtv(pr) + ')(' + a + 'x² ' + plus(bs) + 'x ' + plus(cs) + ')' +
+          '</br></br><h4> for ' + a + 'x² ' + plus(bs) + 'x ' + plus(cs) + ' = 0</h4>';
+        squarFun(a, bs, cs, i);
       }
 
-
-      /////// functin promier grad
-      function prFun(a,b,n=1) {
-        if (a!=0 ) {
-          let x = -b / a ;
-          result.innerHTML += sub(n)+' = ' + carctr(x);
-          tMeth.innerHTML+='ax + b = 0 → '+sub(n)+' = -b/a </br> '+sub(n)+' = '+
-           -b +'/'+a +' </br> '+sub(n)+' = '+x;
-        }else if (b!=0){
-          result.innerHTML='no exist solution';tMeth.innerHTML=' ∀ x ∈{-∞ ; +∞}</br> f(x) = '+b+' ≠ 0';
-        }else if (b==0){
-          result.innerHTML= 's={-∞ ; +∞}';tMeth.innerHTML = ' ∀ x ∈{-∞ ; +∞}</br> f(x) = 0';
-          }
-      }
-      
-      ///////finctin 2em grad \\\\\\\
-      function squarFun(a, b, c, n=0) {
-
-        let dilta2 = (b ** 2 - 4 * a * c ).fix(), x1,x2,re= result.innerHTML,cRet,
-            i = n + 1, i2 = i + 1, dilta = Math.pow(Math.abs(dilta2), 1 / 2);
-
-          if(c==0){ 
-            result.innerHTML+= ''+sub(i)+' = 0 </br>';
-            tMeth.innerHTML += 'f(x) = '+ a+'x² '+plus(b)+'x '+
-              '+0 </br> f(x) = '+a+'x² '+plus(b)+'x </br> f(x) = x( '+a+'x '
-              +ngtv(b)+' ) </br>f(x) = 0 → '+sub(i)+' = 0  or '+a+'x  '+plus(b)+
-              '  = 0</br></br><h4> for '+a+'x  '+plus(b)+'  = 0</h4></br>';prFun(a,b,i2);return 'stop';
-          }
-          dilta = dilta.fix();
-          tMeth.innerHTML +='</br><h4>Calcul Δ </h4></br> Δ = b² -4ac </br> Δ = '+
-          ngtvB(b)+'² -4×'+ngtvB(a)+'×'+ngtvB(c)+' </br> Δ = '+dilta2;
-        if (dilta2 > 0) {
-          x1 = (-b  + dilta) / (2 * a);   x1 = x1.fix(13);
-          x2 = -(b  + dilta) / (2 * a);   x2 = x2.fix(13); 
-
-         let cx1=' = '+carctr(x1), cx2=' = '+carctr(x2);
-         if(ind(re,cx2)>-1){ [cx1,cx2]=[cx2,cx1]} 
-         if(ind(re,cx1)>-1){re=sub(1)+',';}
-
-         re += sub(i) + cx1 + '</br>'+ sub(i2)+ cx2;
-         cRet=[x1,x2];
-        } else if (dilta2 == 0) {
-          x1 = -b / (2 * a); x1 = x1.fix(13); x1=carctr(x1); x2=x1;
-          re += sub(i)+ ', '+sub(i2)+' = ' + x1;cRet=['a']
-        } else {
-          let tx = -b / (2 * a),   ty = Math.abs(dilta / (2 * a)).fix(13),pl=' +i';
-          tx = tx.fix(13); 
-          if(tx==0){tx = '';pl=' i'};
-          tx=carctr(tx);ty=carctr(ty);
-          re += sub(i)+ ' = ' + tx + pl + ty +
-            '</br>'+ sub(i2)+ ' = ' + tx + ' -i' + ty;
-          x1 = tx + pl + ty;    x2 = tx + ' -i' + ty;
-          dilta = 'i'+dilta;cRet=['b'];
-        }
-        if(n==30) {return cRet; }
-        result.innerHTML = re;
-        tMeth.innerHTML +='</br> √(Δ) = √('+dilta2+') </br> √(Δ) = '+dilta
-          +'</br></br><h4>Calcul '+sub(i)+' and '+sub(i2)+
-          '</h4></br> '+sub(i)+' = (-b + √(Δ) ) / 2a </br> '+sub(i)+' = ('+ -b +' +'+dilta+') / (2×'+
-          ngtvB(a) +')</br> '+sub(i)+' = '+ x1 +'</br></br> '+sub(i2)+' = (-b - √(Δ) ) / 2a</br>'+
-          sub(i2)+' = ('+ -b +' -'+dilta+ ') / (2×'+ngtvB(a)+')</br> '+sub(i2)+' = '+ x2  ;
-        
-      }
-    
-      ////////Solving cubic equation\\\\\\\\\\
-      function cubiqFin(a, b, c, d,n=0) {
-        let bs,cs,i=n+1;
-        if (d == 0) {
-          result.innerHTML = ' '+sub(i)+' = 0 </br>';
-          tMeth.innerHTML ='f(x) = '+ a+'x³  '+plus(b)+'x² '+plus(c)+
-              'x +0 </br> f(x) = '+a+'x³  '+plus(b)+'x² '+plus(c)+
-              'x  </br> f(x) = x( '+a+'x²  '+plus(b)+'x '+plus(c)+
-              ' ) </br>f(x) = 0 => '+sub(i)+' = 0  or '+a+'x²  '+plus(b)+'x '+plus(c)+
-              '  = 0</br></br><h4> for '+a+'x² '+plus(b)+'x '+plus(c)+' = 0 </h4></br>';
-          squarFun(a, b, c, i);return 'stop';
-        }
-        //b and c for squar functin
-          if (a+b+c+d==0) {tMeth.innerHTML +='as a +b +c +d = '+a+' '+plus(b)+' '+plus(c)+' '+plus(d)+
-          ' = 0 </br> → '+sub(i)+' = 1';easy(1);  return 'stop'; }
-          if (a+c==b+d) {tMeth.innerHTML+='as a+c = b+d → '+sub(i)+' = -1';
-          easy(-1);return 'stop'}
-          function easy(pr) {
-            result.innerHTML = ' '+sub(i)+' = '+pr+'</br>';   bs=(b+pr*a).fix(); cs= (-d/pr).fix();
-            tMeth.innerHTML +='</br> f(x) = (x -'+sub(i)+')(ax² +bx +c)'+
-                   '</br> f(x) = (x '+ngtv(pr)+')('+a+'x² '+plus(bs)+'x '+plus(cs)+')'+
-                   '</br></br><h4> for '+a+'x² '+plus(bs)+'x '+plus(cs)+' = 0</h4>'; 
-            squarFun(a, bs, cs,i);
-          }
-
-        let a2 = (a ** 2).fix(13),    a3 = (a ** 3).fix(13),         b2 = (b ** 2).fix(13),   b3 = (b ** 3).fix(13),
-            p = (c / a - b2 / (3 * a2)).fix(),                     p3 = (p ** 3).fix() ,cMeth, 
-            q = (2 * b3 /(27 * a3) - b*c/(3 * a2) +d / a).fix(),   q2 = (q ** 2).fix(), fx1 ,fx2 ,fx3,
-            dilta2 = (p3 / 27 + q2 / 4).fix()  ,t1, x,dilta = Math.pow(Math.abs(dilta2), 1 / 2);
-        if (b !=0) {
-          cMeth+='<h4> we transform the equation into the form :<h4></br> f(x)/a = x³ +px +q</br> x = t +b/3a</br>'+
-          ' f(x) = f(t+b/3a) = (t+b/3a)³ +b(t+b/3a)² +c(t+b/3a) + d</br> f(x) = t³ +(c/a -b²/3a²)t'+
-          ' +2b³/27a -bc/3a² +d/a </br> f(x)/a = f(t+b/3a)/a = t³ +pt +q </br></br>'+
-          '<h4>with</h4></br> p = c/a -b²/3a²'+
-          '</br> p = '+ p+'</br> and </br> q = 2b³/27a -bc/3a² +d/a </br> q = '+q+
+      let a2 = (a ** 2).fix(13), a3 = (a ** 3).fix(13), b2 = (b ** 2).fix(13), b3 = (b ** 3).fix(13),
+        p = (c / a - b2 / (3 * a2)).fix(), p3 = (p ** 3).fix(), cMeth,
+        q = (2 * b3 / (27 * a3) - b * c / (3 * a2) + d / a).fix(), q2 = (q ** 2).fix(), fx1, fx2, fx3,
+        dilta2 = (p3 / 27 + q2 / 4).fix(), t1, x, dilta = Math.pow(Math.abs(dilta2), 1 / 2);
+      if (b != 0) {
+        cMeth += '<h4> we transform the equation into the form :<h4></br> f(x)/a = x³ +px +q</br> x = t +b/3a</br>' +
+          ' f(x) = f(t+b/3a) = (t+b/3a)³ +b(t+b/3a)² +c(t+b/3a) + d</br> f(x) = t³ +(c/a -b²/3a²)t' +
+          ' +2b³/27a -bc/3a² +d/a </br> f(x)/a = f(t+b/3a)/a = t³ +pt +q </br></br>' +
+          '<h4>with</h4></br> p = c/a -b²/3a²' +
+          '</br> p = ' + p + '</br> and </br> q = 2b³/27a -bc/3a² +d/a </br> q = ' + q +
           '</br></br><h4> for f(x) = 0 → t³ + pt + q = 0 and x = t -b/3a </h4> </br>';
-        }
-        cMeth+='<h4> for  t³ + pt + q = 0</h4></br><h4> Calcul Q </h4></br> Q = p³/27 +q²/4 </br>Q = '+dilta2+
-        '</br> ';
-        if (dilta2 >= 0) {
-
-          let alfa,bita, alfa3 = dilta - q / 2,  bita3 = alfa3 - 2 * dilta;
-          alfa3 = alfa3.fix();   bita3 =bita3.fix();
-          alfa = Math.pow(Math.abs(alfa3), 1 / 3);bita = Math.pow(Math.abs(bita3), 1 / 3);
-          if (alfa3 < 0) { alfa = -alfa; }if (bita3 < 0) { bita = -bita;}
-
-          t1 = alfa  + bita ; 
-          cMeth+='</br><h4> Calcul α and β </h4></br> α = ³√(q/2 +√(Q)) =' +
-                  +alfa+'</br> β = ³√(q/2 -√(Q)) = '+bita +'</br> T1 = α +β = '+t1;
-        } else {
-          ////// dilta<0  \\\\\\\\
-          dilta2 = -dilta2;
-         let s6 = (q2 / 4 + dilta2).fix() , s3 = Math.pow(s6, 1 / 2).fix(),
-             s = Math.pow(s3, 1 / 3).fix(), onTita = (q / (2 * s3)).fix(), tita3 = (Math.acos(onTita)).fix(),
-             tita = ( tita3/3 ).fix(), cotita = Math.cos(tita).fix();
-          t1 = -2 * s * cotita ;;
-          cMeth+='Q < 0</br></br><h4> Calcul α and β </h4></br> α = ³√(q/2 +√(Q)) = ³√(q/2 +i√(-Q)) </br> α =' +
-                  '³√(√((q/2)² -Q) ×e(iθ) )'+
-                  '</br> θ = acos(q/2√((q/2)² -Q)</br> θ = '+ tita3+'°</br> α = ³√(√((q/2)² -Q) )×e(iθ/3)</br> '+
-                  'β = ³√(q/2 -√(Q) = ³√(√((q/2)² -Q) ×e(-iθ) ))</br> T1 = α +β = ³√(√((q/2)² -Q) ×e(iθ) ) +'+
-                  '³√(√((q/2)² -Q) ×e(-iθ) ) </br> T1 = ³√(√((q/2)² -Q) ×cos(θ) </br> T1 = '+t1;
-        }
-        t1 = t1.fix();
-        x = (t1  -b/(3*a)) ; /*cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';*/
-        fx1=aplFn(x);fx2=aplFn(x+5e-11)*1e13;fx3=aplFn(x-5e-11)*1e13;
-        if (fx2*fx3>0) { let xf = ext(); if(aplFn(xf) < fx1){x=xf} console.log("dkhal felconfermation"); }
-        x = x.fix(10); 
-        result.innerHTML = ' '+sub(i)+' = ' + carctr(x) + '</br>';
-        cMeth +='</br>'+sub(i)+' = T1 -b/3a = '+t1+ngtv(b)+'/(3×'+ngtvB(a)+')</br>'+sub(i)+' = '+x;
-        tMeth.innerHTML +=cMeth;easy(x);
-
-        function ext(){
-          let mins=x-0.01,pls=x+0.01,fnx,cont=0,sq=squarFun(3*a,2*b, c, 30);
-          if (sq.length==2 && aplFn(mins)*aplFn(pls)>0 ) { 
-            let apfx = aplFn(x),mnSq=min(sq[0],sq[1]),mxSq=max(sq[0],sq[1]),drv=3*a*x**2+2*b*x+c;
-            if(a*drv<0){
-              mins=sq[0];pls=sq[1]
-            }else if(apfx*drv>0 ){
-              if(x <mnSq){mins = x-1 }else{mins= mxSq } pls=x
-            }else{
-              if(x <mnSq){pls = mnSq }else{pls= x+1 } mins=x
-            }
-            if (aplFn(sq[0]) == 0 ) { return sq[0]}
-            if (aplFn(sq[1]) == 0 ) { return sq[1]}
-          }
-          if (aplFn(pls)==0) {return pls }
-          if (aplFn(mins)==0) {return mins }
-          if (aplFn(mins)*aplFn(pls)>0){ return x }
-          if (aplFn(pls)<0) {[pls,mins]=[mins,pls]}
-
-          do { cont++; x= (pls+mins)/2;fnx=aplFn(x); if(aplFn(x)>0){pls=x}else{mins=x}
-          } while ( cont<50 && Math.abs(pls-mins)> 5e-11 && fnx== 0 )
-          return x
-        }
-       
-        function aplFn(pr) {pr = a*pr**3+b*pr**2+c*pr+d;return pr;}
-        function max(pr1,pr2){if(pr1<pr2){pr1=pr2;} return pr1 }
-        function min(pr1,pr2){if(pr1>pr2){pr1=pr2;} return pr1 }
-        
       }
-    </script>
-  </body>
+      cMeth += '<h4> for  t³ + pt + q = 0</h4></br><h4> Calcul Q </h4></br> Q = p³/27 +q²/4 </br>Q = ' + dilta2 +
+        '</br> ';
+      if (dilta2 >= 0) {
+
+        let alfa, bita, alfa3 = dilta - q / 2, bita3 = alfa3 - 2 * dilta;
+        alfa3 = alfa3.fix(); bita3 = bita3.fix();
+        alfa = Math.pow(Math.abs(alfa3), 1 / 3); bita = Math.pow(Math.abs(bita3), 1 / 3);
+        if (alfa3 < 0) { alfa = -alfa; } if (bita3 < 0) { bita = -bita; }
+
+        t1 = alfa + bita;
+        cMeth += '</br><h4> Calcul α and β </h4></br> α = ³√(q/2 +√(Q)) =' +
+          +alfa + '</br> β = ³√(q/2 -√(Q)) = ' + bita + '</br> T1 = α +β = ' + t1;
+      } else {
+        ////// dilta<0  \\\\\\\\
+        dilta2 = -dilta2;
+        let s6 = (q2 / 4 + dilta2).fix(), s3 = Math.pow(s6, 1 / 2).fix(),
+          s = Math.pow(s3, 1 / 3).fix(), onTita = (q / (2 * s3)).fix(), tita3 = (Math.acos(onTita)).fix(),
+          tita = (tita3 / 3).fix(), cotita = Math.cos(tita).fix();
+        t1 = -2 * s * cotita;;
+        cMeth += 'Q < 0</br></br><h4> Calcul α and β </h4></br> α = ³√(q/2 +√(Q)) = ³√(q/2 +i√(-Q)) </br> α =' +
+          '³√(√((q/2)² -Q) ×e(iθ) )' +
+          '</br> θ = acos(q/2√((q/2)² -Q)</br> θ = ' + tita3 + '°</br> α = ³√(√((q/2)² -Q) )×e(iθ/3)</br> ' +
+          'β = ³√(q/2 -√(Q) = ³√(√((q/2)² -Q) ×e(-iθ) ))</br> T1 = α +β = ³√(√((q/2)² -Q) ×e(iθ) ) +' +
+          '³√(√((q/2)² -Q) ×e(-iθ) ) </br> T1 = ³√(√((q/2)² -Q) ×cos(θ) </br> T1 = ' + t1;
+      }
+      t1 = t1.fix();
+      x = (t1 - b / (3 * a)); /*cMeth+='</br> x = ' +x+'</br> fX1 = '+aplFn(x)+'</br>';*/
+      fx1 = aplFn(x); fx2 = aplFn(x + 5e-11) * 1e13; fx3 = aplFn(x - 5e-11) * 1e13;
+      if (fx2 * fx3 > 0) { let xf = ext(); if (aplFn(xf) < fx1) { x = xf } }
+      x = x.fix(10);
+      result.innerHTML = ' ' + sub(i) + ' = ' + carctr(x) + '</br>';
+      cMeth += '</br>' + sub(i) + ' = T1 -b/3a = ' + t1 + ngtv(b) + '/(3×' + ngtvB(a) + ')</br>' + sub(i) + ' = ' + x;
+      tMeth.innerHTML += cMeth; easy(x);
+
+      function ext() {
+        let mins = x - 0.01, pls = x + 0.01, fnx, cont = 0, sq = squarFun(3 * a, 2 * b, c, 30);
+        if (sq.length == 2 && aplFn(mins) * aplFn(pls) > 0) {
+          let apfx = aplFn(x), mnSq = min(sq[0], sq[1]), mxSq = max(sq[0], sq[1]), drv = 3 * a * x ** 2 + 2 * b * x + c;
+          if (a * drv < 0) {
+            mins = sq[0]; pls = sq[1]
+          } else if (apfx * drv > 0) {
+            if (x < mnSq) { mins = x - 1 } else { mins = mxSq } pls = x
+          } else {
+            if (x < mnSq) { pls = mnSq } else { pls = x + 1 } mins = x
+          }
+          if (aplFn(sq[0]) == 0) { return sq[0] }
+          if (aplFn(sq[1]) == 0) { return sq[1] }
+        }
+        if (aplFn(pls) == 0) { return pls }
+        if (aplFn(mins) == 0) { return mins }
+        if (aplFn(mins) * aplFn(pls) > 0) { return x }
+        if (aplFn(pls) < 0) { [pls, mins] = [mins, pls] }
+
+        do {
+          cont++; x = (pls + mins) / 2; fnx = aplFn(x); if (aplFn(x) > 0) { pls = x } else { mins = x }
+        } while (cont < 50 && Math.abs(pls - mins) > 5e-11 && fnx == 0)
+        return x
+      }
+
+      function aplFn(pr) { pr = a * pr ** 3 + b * pr ** 2 + c * pr + d; return pr; }
+      function max(pr1, pr2) { if (pr1 < pr2) { pr1 = pr2; } return pr1 }
+      function min(pr1, pr2) { if (pr1 > pr2) { pr1 = pr2; } return pr1 }
+
+    }
+  </script>
+</body>
+
 </html>
